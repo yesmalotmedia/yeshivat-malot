@@ -38,22 +38,24 @@ const HeroHomePage = () => {
       right: responsive(100, 70, 40),
       top: responsive(190, 200, 170),
       color: colors.white,
-      fontSize: responsive("4rem", "5rem", "3rem"),
+      fontSize: responsive(70, 70, 70),
       fontWeight: 700,
       opacity: isVisible ? 1 : 0, // Animation for fade in
       transform: isVisible ? "translateY(0)" : "translateY(20px)", // Slide-up effect
       transition: "opacity 1.5s ease-out, transform 1.5s ease-out", // Smooth transition for text
+      lineHeight: 0.4,
     },
-    orangeText: {
-      color: colors.orange,
+    smallText: {
+      fontSize: responsive(55, 55, 55),
+      fontWeight: 600,
     },
   };
 
   // functions
   const deskTopTitle = (
     <div style={styles.text}>
-      <span style={styles.orangeText}>צדקו יחדיו</span> <br /> בית מדרש לאיחוד
-      <br /> התלמודים
+      <span style={styles.smallText}>ישיבת</span> <br />
+      <br /> מעלות
     </div>
   );
 
@@ -67,7 +69,7 @@ const HeroHomePage = () => {
   return (
     <div style={styles.container}>
       <img style={styles.img} src="hero1.png" alt="Hero Image" />
-      {isMobile ? mobileTitle : deskTopTitle}
+      {deskTopTitle}
     </div>
   );
 };

@@ -1,104 +1,78 @@
 import React, { useRef, useState, useContext } from "react";
 import emailjs from "@emailjs/browser";
 import { AppContext } from "../../App";
-import LoaderAnimation from "./LoaderAnimation";
-import TanksMessage from "./TanksMessage";
 
 const Subscribe = () => {
   const form = useRef();
-  const { colors, responsive } = useContext(AppContext);
+  const { bgColors, colors, responsive } = useContext(AppContext);
   const [isHovered, setIsHovered] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const styles = {
-    form: {
+    subscribe: {
       position: "relative",
-      display: "inline-block",
-    },
-    input: {
-      outline: "none",
-      border: "none",
-      height: responsive("3vmax", "4.7vmax", "4vmax"),
-      width: responsive("30vmax", "80vmin", "80vmin"),
-      padding: responsive(
-        "15px 15px 15px 120px",
-        "15px 15px 15px 120px",
-        "20px 15px 20px 105px"
-      ),
-      fontSize: responsive(20, "3.6vmin", "3.6vmin"),
-      fontWeight: 500,
+      textAlign: "center",
+      overflow: "hidden",
+      maxWidth: responsive(450, 300, 300),
       borderRadius: 30,
-      boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-    },
-    btn: {
-      position: "absolute",
-      left: 0,
-      top: 0,
-      outline: "none",
-      border: "none",
-      height: "100%",
-      padding: "0 20px",
-      borderTopLeftRadius: "30px",
-      borderBottomLeftRadius: "30px",
-      background: isHovered ? colors.azure : colors.orange,
-      color: colors.white,
-      fontSize: "20px",
-      fontWeight: "bold",
+      margin: "0 auto",
       cursor: "pointer",
     },
-    arrow: {
-      height: responsive("1vw", "13px", "13px"),
-      marginRight: "10px",
-      position: "relative",
-      top: responsive(1, 0, -1),
+    bgImg: {
+      display: "block",
+      width: "100%",
+      height: responsive(180, 120, 120),
+      borderRadius: 30,
+      animation: "pulse 6s infinite cubic-bezier(0.25, 1, 0.5, 1)", // Smooth zoom effect
+      transition:
+        "transform 1.5s cubic-bezier(0.15, 1, 0.5, 1), filter 2s ease-in-out",
+      filter: isHovered ? "blur(6px)" : "blur(1px)",
+      transform: isHovered ? "scale(1.2)" : "scale(1)", // Deeper zoom on hover
     },
-  };
-
-  const sendEmail = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    emailjs
-      .sendForm(
-        "service_oktpopo",
-        "template_6tsbbvb",
-        form.current,
-        "6nT-r6G4qY9-xawTb"
-      )
-      .then(
-        (result) => {
-          setIsSuccess(true);
-          setIsLoading(false);
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
+    mainImgText: {
+      color: colors.white,
+      position: "absolute",
+      width: "90%",
+      top: "40%",
+      left: "50%",
+      transform: isHovered
+        ? "translate(-50%, -50%) scale(1.1)"
+        : "translate(-50%, -50%) scale(1)", // Scale effect
+      fontSize: responsive(25, 22, 20),
+      fontWeight: "300",
+      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+      opacity: 1,
+      transition: "transform 1.5s ease-in-out", // Smooth scale effect
+    },
+    imgText: {
+      color: colors.white,
+      position: "absolute",
+      width: "90%",
+      top: "60%",
+      left: "50%",
+      transform: isHovered
+        ? "translate(-50%, -50%) scale(1.1)"
+        : "translate(-50%, -50%) scale(1)", // Scale effect
+      fontSize: responsive(25, 22, 20),
+      fontWeight: "bold",
+      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+      opacity: 1,
+      transition: "transform 1.5s ease-in-out", // Smooth scale effect
+    },
+    "@keyframes pulse": {
+      "0%": { transform: "scale(1)" },
+      "50%": { transform: "scale(1.1)" }, // Deeper zoom during animation
+      "100%": { transform: "scale(1)" },
+    },
   };
 
   return (
-    <div style={styles.subscribe}>
-      {isSuccess ? (
-        <TanksMessage msg={"תודה שנרשמת"} color={colors.orange} />
-      ) : isLoading ? (
-        <LoaderAnimation isLoading={isLoading} color={colors.orange} />
-      ) : (
-        <form style={styles.form} ref={form} onSubmit={sendEmail}>
-          <input
-            style={styles.input}
-            type="email"
-            name="user_email"
-            placeholder="נא למלא את כתובת המייל"
-            required
-          ></input>
-          <button style={styles.btn} type="submit">
-            <img
-              style={styles.arrow}
-              src="/arrow-to-left.png"
-              alt="arrow"
-            ></img>
-          </button>
-        </form>
-      )}
+    <div
+      style={styles.subscribe}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img style={styles.bgImg} src="/whatsappBg.png" alt="arrow" />
+      <div style={styles.mainImgText}> ישיבת מעלות בוואטסאפ</div>
+      <div style={styles.imgText}>הצטרפו לקבוצה השקטה</div>
     </div>
   );
 };

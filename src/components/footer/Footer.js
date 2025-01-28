@@ -18,7 +18,7 @@ const Footer = () => {
         'url("/mobileFooterImg.png")'
       ),
       backgroundSize: "100% 100%",
-      color: colors.white,
+      color: colors.yellow,
       zIndex: 20,
       position: "relative",
     },
@@ -27,7 +27,7 @@ const Footer = () => {
       maxWidth: "80%",
       display: "flex",
       justifyContent: "center",
-      gap: "6%",
+      gap: "0",
       alignContent: "stretch",
       alignItems: responsive("", "center", ""),
       marginInline: "auto",
@@ -59,11 +59,13 @@ const Footer = () => {
     copyRight: {
       textAlign: "center",
       marginTop: "30px",
-      padding: "30px",
+      padding: "40px",
       position: "relative",
+      backgroundColor: colors.white,
+      color: colors.darkBlue,
     },
     subscribe: {
-      color: colors.orange,
+      color: colors.yellow,
       fontSize: "1.5vw",
       textAlign: "center",
       position: "relative",
@@ -79,7 +81,7 @@ const Footer = () => {
     },
     text: {
       paddingBottom: 10,
-      fontSize: responsive("2.4rem", "3rem", "2rem"),
+      fontSize: responsive("2rem", "1.8rem", "2rem"),
     },
   };
   const show = responsive(true, false, false);
@@ -95,24 +97,27 @@ const Footer = () => {
         <div style={styles.footerMenu}>
           <FooterMenu data={FooterMenuData} />
         </div>
-        {!show && (
-          <div style={styles.icon}>
-            <LogoAndSocialIcon />
-          </div>
-        )}
+
         <div style={styles.subscribe}>
-          <h2 style={styles.text}>רוצים לקבל התראה במייל על תוכן חדש? </h2>
+          <h2 style={styles.text}>
+            {" "}
+            מעוניינים לקבל עדכונים על שיעורים ואירועים בישיבה?{" "}
+          </h2>
           <Subscribe />
         </div>
       </div>
-      <div style={styles.dedicate}>
-        האתר הוקם לזכרו של יואל בר-און ז"ל
-        <br />
-        <span style={{ fontWeight: 700 }}>גדל בהושעיה, למד בישיבת מעלות</span>
-      </div>
+      {/* <div style={styles.dedicate}>
+        הקדשה? <br />
+        <span style={{ fontWeight: 700 }}>הקדשה? </span>
+      </div> */}
+      {!show && (
+        <div style={styles.icon}>
+          <LogoAndSocialIcon />
+        </div>
+      )}
       <div style={styles.copyRight}>
-        © כל הזכויות שמורות לצדקו יחדיו - בית מדרש לאיחוד התלמודים | האתר נבנה
-        ב-❤ ע"י bms סטודיו לפיתוח תוכנה ובניית אתרים | עיצוב - closeApp
+        © כל הזכויות שמורות לישיבת מעלות | האתר נבנה ב-❤ ע"י bms סטודיו לפיתוח
+        תוכנה ובניית אתרים | עיצוב - closeApp
       </div>
     </div>
   );

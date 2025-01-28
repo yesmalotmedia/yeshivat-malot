@@ -3,6 +3,7 @@ const bgColors = {
   white: "#FFFFFF",
   darkBlue: "#1F1F75",
   yellow: "#FFB600",
+  whatsappGreen: "#32a501",
   azureWhiteGradient:
     "linear-gradient(90deg, rgba(0, 127, 255, 1) 0%, rgba(255, 255, 255, 1) 100%)",
   orangeGradient:

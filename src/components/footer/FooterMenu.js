@@ -65,9 +65,7 @@ export default function FooterMenu({ data }) {
 
   return (
     <div style={styles.menuContainer}>
-      <div style={styles.titleContainer}>
-        <h2 style={styles.MenuTitle}>קישורים מהירים</h2>
-      </div>
+      <div style={styles.titleContainer}></div>
       <div style={styles.menuColumnContainer}>
         {chunkedData.map((chunk, chunkIndex) => (
           <div key={chunkIndex} style={styles.menuColumn}>

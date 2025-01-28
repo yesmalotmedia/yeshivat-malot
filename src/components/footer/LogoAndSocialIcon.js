@@ -9,13 +9,14 @@ export default function LogoAndSocialIcon() {
 
   const styles = {
     logoWhite: {
-      maxHeight: 90,
-      marginBottom: "30px",
+      maxHeight: 120,
+      marginTop: "-30px",
+      //transform: "translateX(30px)",
     },
     footerColumn: {
       display: "flex",
       flexDirection: "column",
-      alignItems: "flex-start",
+      alignItems: "center",
     },
     socialLogoWrapper: {
       display: "flex",
@@ -27,19 +28,13 @@ export default function LogoAndSocialIcon() {
       height: responsive("35px", "5vmax", "5vmax"),
       width: responsive("35px", "5vmax", "5vmax"),
       cursor: "pointer",
-      margin: responsive("", "30px 10px", "30px 10px"),
+      margin: responsive("", "10px 10px", "10px 10px"),
     },
   };
   const showLogo = responsive(true, false, false);
   return (
     <div style={styles.footerColumn}>
-      {showLogo && (
-        <img
-          style={styles.logoWhite}
-          src="/footerImages/logo-white.png"
-          alt="Logo"
-        />
-      )}
+      <img style={styles.logoWhite} src="/logo-white.png" alt="Logo" />
 
       <div style={styles.socialLogoWrapper}>
         {SocialIconData.map((item, index) => (
