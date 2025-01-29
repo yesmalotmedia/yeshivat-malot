@@ -1,10 +1,14 @@
 export default function extractYoutubeCoverByVideoId(url) {
-  // Extract the YouTube video ID from the embed code
-  const match = url?.match(/embed\/([a-zA-Z0-9_-]{11})/);
-  const videoId = match ? match[1] : null;
+  if (!url) return "/harav-ishay-lesson.png"; // ברירת מחדל אם אין URL
 
-  // Construct the thumbnail URL using the video ID
-  return videoId 
-    ? `https://img.youtube.com/vi/${videoId}/0.jpg` 
-    : 'https://img.youtube.com/vi/default.jpg'; // Provide a fallback image if needed
+  const match =
+    url.match(/[?&]v=([^&#]+)/) ||
+    url.match(/youtu\.be\/([^/?]+)/) ||
+    url.match(/embed\/([^/?]+)/);
+  const videoId = match ? match[1] : null;
+  console.log(videoId);
+
+  if (!videoId) return "/harav-ishay-lesson.png"; // אם אין מזהה וידאו - החזר תמונת ברירת מחדל
+
+  return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 }

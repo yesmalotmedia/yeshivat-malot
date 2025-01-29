@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../App";
 
 const Button = ({
   color,
@@ -15,8 +16,10 @@ const Button = ({
   onClick,
   padding,
   margin,
+  arrowColor,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { colors, isMobile, responsive } = useContext(AppContext);
 
   const styles = {
     button: {
@@ -24,7 +27,7 @@ const Button = ({
       height: height || 50,
       padding: padding || 10,
       margin,
-      backgroundColor: isHovered ? hoveredBgColor : bgColor, // Adjusted to use backgroundColor for simplicity
+      backgroundColor: bgColor, // Adjusted to use backgroundColor for simplicity
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -36,17 +39,17 @@ const Button = ({
         : "rgba(0, 0, 0, 0.05) 0px 4px 8px", // Default shadow
     },
     text: {
-      color: isHovered ? hoveredColor : color,
+      color: color,
       width: "90%",
       textAlign: "center",
-      fontSize: fontSize || 35,
+      fontSize: isHovered ? 20 : fontSize || 35,
       fontWeight,
+      transition: "all 0.5s ease", // Smooth transition for hover effects
     },
     img: {
-      width: "8%",
+      width: responsive("6%", "3%", "5%"),
     },
   };
-  console.log(hoveredColor);
 
   return (
     <div
@@ -56,7 +59,17 @@ const Button = ({
       onClick={onClick}
     >
       <div style={styles.text}>{title}</div>
-      {arrow && <img style={styles.img} src="/arrow-to-left.png" alt="arrow" />}
+      {arrow && (
+        <img
+          style={styles.img}
+          src={
+            arrowColor === "white"
+              ? "/arrow-to-left.png"
+              : "/arrowLeft-blue.png"
+          }
+          alt="arrow"
+        />
+      )}
     </div>
   );
 };

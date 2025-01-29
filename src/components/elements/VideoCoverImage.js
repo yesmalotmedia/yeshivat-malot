@@ -3,9 +3,7 @@ import { AppContext } from "../../App";
 import bgColors from "../../styles/bg-colors";
 import { Link } from "react-router-dom";
 
-function VideoCoverImage({ url, videoId, title, rabbiName }) {
-  console.log(title);
-
+function VideoCoverImage({ url, videoId, title, rabbiName, thumbnail }) {
   // State
   const [isHovered, setIsHovered] = useState(false);
   // Context
@@ -26,20 +24,20 @@ function VideoCoverImage({ url, videoId, title, rabbiName }) {
 
   const youTubeVideoId = getYouTubeVideoId(url);
 
-  let thumbnailUrl;
+  let thumbnailUrl = thumbnail;
 
-  switch (rabbiName) {
-    case "הרב ישי ויצמן":
-      thumbnailUrl = "/harav-ishay-lesson.png";
-      break;
-    case "הרב יהושע ויצמן":
-      thumbnailUrl = "/harav-yehoshua-vaitsman-lesson.png";
-      break;
+  // switch (rabbiName) {
+  //   case "הרב ישי ויצמן":
+  //     thumbnailUrl = "/harav-ishay-lesson.png";
+  //     break;
+  //   case "הרב יהושע ויצמן":
+  //     thumbnailUrl = "/harav-yehoshua-vaitsman-lesson.png";
+  //     break;
 
-    default:
-      thumbnailUrl = "/main-youtube-cover.png";
-      break;
-  }
+  //   default:
+  //     thumbnailUrl = "/main-youtube-cover.png";
+  //     break;
+  // }
 
   const styles = {
     container: {

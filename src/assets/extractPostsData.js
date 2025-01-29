@@ -3,6 +3,7 @@ import useFetch from "./useFetch";
 import extractYoutubeUrl from "./extractYoutubeUrl";
 import getRabbieNameById from "./getRabbieNameById";
 import extractSpotifyUrl from "./extractSpotifyUrl";
+import extractYoutubeCoverByVideoId from "./extractYoutubeCoverByVideoId";
 
 // Function to decode HTML entities
 const decodeHtmlEntities = (str) => {
@@ -18,6 +19,7 @@ const ExtractPostsData = (data) => {
     heDate: item?.meta?.heDate,
     title: decodeHtmlEntities(item?.title?.rendered), // Decode HTML entities in the title
     rabbiName: getRabbieNameById(item.rabbies[0]),
+    thumbnail: extractYoutubeCoverByVideoId(extractYoutubeUrl(item?.acf?.url)),
     contentType: item.acf.contentType,
     url: extractYoutubeUrl(item?.acf?.url),
     article: item.acf.articleContent,

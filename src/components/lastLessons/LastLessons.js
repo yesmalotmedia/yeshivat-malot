@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useCategoryNameById } from "../../assets/useCategories";
 import LoaderAnimation from "../elements/LoaderAnimation";
 import bgColors from "../../styles/bg-colors";
-
+import shadow from "../../styles/shadows";
 const LastLessons = () => {
   const navigate = useNavigate();
 
@@ -36,8 +36,9 @@ const LastLessons = () => {
       width: responsive("80%", "80%", "90%"),
       maxWidth: responsive(1400, 900, 600),
       margin: "auto",
-      backgroundColor: "#f0f8ff", // Example bg-color
+      backgroundColor: colors.white, // Example bg-color
       borderRadius: 50,
+      boxShadow: "",
       transform: responsive(
         "translateY(-265px)",
         "translateY(-400px)",
@@ -75,25 +76,29 @@ const LastLessons = () => {
         <LoaderAnimation isLoading={loadingLastLessons} color={colors.orange} />
       ) : (
         <VideoCoverImage
+          // url={video?.url}
           url={video?.url}
           videoId={video?.id}
           title={video?.title}
           rabbiName={video?.rabbiName}
+          //thumbnail={video?.thumbnail}
+          thumbnail={
+            "https://i.ytimg.com/vi_webp/RQGTGBU0sYg/maxresdefault.webp"
+          }
         />
       )}
       <Button
-        color={colors.white}
-        bgColor={
-          index === 2 ? bgColors.darkBlueGradient : bgColors.orangeGradient
-        } // Example gradients
+        color={index === 2 ? colors.darkBlue : colors.white}
+        bgColor={index === 2 ? bgColors.yellow : bgColors.darkBlue} // Example gradients
         title={`לכל שיעורי ${
           categoryNames[index === 0 ? 19 : index === 1 ? 18 : 5]
         }`}
         fontSize={responsive("1.2rem", "1.4rem", "1rem")}
-        fontWeight={500}
+        fontWeight={600}
         borderRadius={50}
         width={"100%"}
         arrow={true}
+        arrowColor={index === 2 ? "blue" : "white"}
         margin={"10px 0 0 0"}
         onClick={() => handleClick(index === 0 ? 19 : index === 1 ? 18 : 5)}
       />
