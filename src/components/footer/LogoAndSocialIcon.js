@@ -17,6 +17,7 @@ export default function LogoAndSocialIcon() {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+      marginLeft: "1.7vw",
     },
     socialLogoWrapper: {
       display: "flex",

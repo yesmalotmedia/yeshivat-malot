@@ -43,7 +43,7 @@ const Footer = () => {
       display: "flex",
       flexWrap: "wrap",
       gap: "10px",
-      width: responsive(600, "100%", "10%"),
+      width: responsive(500, "100%", "10%"),
     },
     footerMenuItem: {
       flex: "1 1 calc(25% - 10px)",

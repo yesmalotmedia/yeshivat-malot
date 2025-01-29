@@ -18,19 +18,19 @@ const HeroHomePage = () => {
     container: {
       position: "relative",
       width: "100%", // Ensure container fills the viewport width
-      height: "calc( 100vh + 100px)", // Ensure container fills the viewport height
+      height: "calc( 100vh + 130px)", // Ensure container fills the viewport height
       overflow: "hidden", // Hide any overflow from the image (important for radius)
     },
     img: {
       width: "100%", // Ensure the image fills the container width
       height: "80%", // Ensure the image fills the container height
       objectFit: "cover", // Maintain aspect ratio and cover the entire container
-      objectPosition: "30%", // Center the image within the container
+      objectPosition: "58%", // Center the image within the container
       zIndex: -100,
       borderBottomLeftRadius: "30px", // Radius for the bottom-left corner
       borderBottomRightRadius: "30px", // Radius for the bottom-right corner
       transition: "transform 2.5s ease-out", // Smooth transition for zoom-in effect
-      transform: isVisible ? "scale(1.1)" : "scale(1)", // Zoom-in effect
+      transform: isVisible ? "scale(1.05)" : "scale(1)", // Zoom-in effect
     },
     text: {
       position: "absolute",
@@ -38,7 +38,7 @@ const HeroHomePage = () => {
       right: responsive(100, 70, 40),
       top: responsive(190, 200, 170),
       color: colors.white,
-      fontSize: responsive(70, 70, 70),
+      fontSize: responsive(100, 100, 90),
       fontWeight: 700,
       opacity: isVisible ? 1 : 0, // Animation for fade in
       transform: isVisible ? "translateY(0)" : "translateY(20px)", // Slide-up effect
@@ -46,7 +46,7 @@ const HeroHomePage = () => {
       lineHeight: 0.4,
     },
     smallText: {
-      fontSize: responsive(55, 55, 55),
+      fontSize: responsive(75, 75, 70),
       fontWeight: 600,
     },
   };
