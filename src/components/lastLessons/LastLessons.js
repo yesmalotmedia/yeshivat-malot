@@ -33,12 +33,12 @@ const LastLessons = () => {
 
   const styles = {
     container: {
-      width: responsive("80%", "80%", "90%"),
+      width: responsive("80%", "70%", "90%"),
       maxWidth: responsive(1400, 900, 600),
       margin: "auto",
       backgroundColor: colors.white, // Example bg-color
       borderRadius: 50,
-      boxShadow: "",
+      boxShadow: shadow.boxShadow1,
       transform: responsive(
         "translateY(-265px)",
         "translateY(-400px)",
@@ -46,7 +46,7 @@ const LastLessons = () => {
       ),
       display: "flex",
       flexDirection: responsive("row", "column", "column"),
-      padding: 41,
+      padding: 20,
       justifyContent: "space-between",
       zIndex: 100,
     },
@@ -61,6 +61,9 @@ const LastLessons = () => {
     },
     img: {
       margin: responsive(20, 10, 2),
+      boxShadow: shadow.boxShadow1,
+      padding: 14,
+      borderRadius: 25,
     },
   };
 
