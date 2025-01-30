@@ -15,9 +15,8 @@ const Home = () => {
       <LastLessons />
       <AboutSection />
       <GallerySection />
-      <Spacer height={"12vw"} />
       <DailyText />
-      <DedicationSection />
+      {/* <DedicationSection /> */}
     </div>
   );
 };

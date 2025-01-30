@@ -13,7 +13,7 @@ const Footer = () => {
     container: {
       minWidth: "100%",
       backgroundImage: responsive(
-        'url("/footerImages/Union.png")',
+        'url("/footerImg.png")',
         'url("/mobileFooterImg.png")',
         'url("/mobileFooterImg.png")'
       ),
