@@ -42,7 +42,7 @@ const Button = ({
       color: color,
       width: "90%",
       textAlign: "center",
-      fontSize: isHovered ? 17 : 18,
+      fontSize: isHovered ? 17 : 16,
       fontWeight,
       transition: "all 0.5s ease", // Smooth transition for hover effects
     },

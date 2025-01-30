@@ -39,18 +39,18 @@ const HeroHomePage = () => {
     text: {
       position: "absolute",
       bottom: responsive("30%", "40%", "60%"),
-      right: responsive(100, 70, 40),
-      top: responsive(190, 200, 170),
+      right: responsive(110, 70, 40),
+      top: responsive(250, 200, 170),
       color: colors.white,
-      fontSize: responsive(100, 100, 90),
+      fontSize: responsive(120, 100, 90),
       fontWeight: 700,
       opacity: isVisible ? 1 : 0, // Animation for fade in
       transform: isVisible ? "translateY(0)" : "translateY(20px)", // Slide-up effect
       transition: "opacity 1.5s ease-out, transform 1.5s ease-out", // Smooth transition for text
-      lineHeight: 0.4,
+      lineHeight: 0.5,
     },
     smallText: {
-      fontSize: responsive(75, 75, 70),
+      fontSize: responsive(90, 75, 70),
       fontWeight: 600,
     },
   };

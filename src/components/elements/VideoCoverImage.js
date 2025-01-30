@@ -38,6 +38,7 @@ function VideoCoverImage({ url, videoId, title, rabbiName, thumbnail }) {
       position: "relative",
       flexWrap: "wrap",
       boxShadow: shadow.boxShadow1,
+      margin: "30px 0",
     },
     img: {
       width: "100%",

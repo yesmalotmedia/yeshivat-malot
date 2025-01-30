@@ -8,7 +8,7 @@ const AboutSection = () => {
     useContext(AppContext);
 
   const bgImg = responsive(
-    "bg-img-homepage-1.png",
+    "aboutSectionImg.png",
     "mobile-bg-img-homepage-1.png",
     "mobile-bg-img-homepage-1.png"
   );
@@ -63,20 +63,21 @@ const AboutSection = () => {
       padding: "5vw",
       color: colors.darkBlue,
       fontWeight: 600,
-      fontSize: responsive("1.2rem", "1.3rem", "1rem"),
+      fontSize: responsive("1.3vw", "1.3rem", "1rem"),
       lineHeight: 1.5,
-      maxWidth: 1000,
+      maxWidth: 650,
       zIndex: 3,
       textAlign: "justify",
       marginTop: responsive(0, 0, -350),
+      marginLeft: responsive("10vw", 0, 0),
+      transform: "translate(-300px ,-200px)",
     },
     bgImg: {
       position: "absolute",
       top: responsive(0, 130, 0),
-      left: 0,
       zIndex: 0,
       transform: responsive(
-        "translateY(-30vw)",
+        "translateY(-20vw)",
         "translateY(-100vw)",
         "translateY(-90vw)"
       ),
@@ -85,11 +86,7 @@ const AboutSection = () => {
     },
   };
 
-  const title = (
-    <div style={styles.title}>
-      אין תורה <br /> כתורת ארץ ישראל
-    </div>
-  );
+  // const title = <div style={styles.title}>אודות הישיבה</div>;
 
   const bookImg = (
     <img src={"book-img.png"} style={styles.bookIcon} alt="book-img" />
@@ -97,11 +94,11 @@ const AboutSection = () => {
 
   return (
     <div style={styles.container}>
-      <div style={styles.titleSection}>
+      {/* <div style={styles.titleSection}>
         {bookImg}
         <br />
         {title}
-      </div>
+      </div> */}
 
       <div style={styles.description}>{aboutUsSectionData}</div>
 
