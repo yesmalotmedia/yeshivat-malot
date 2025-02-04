@@ -14,7 +14,6 @@ export default function LessonPreviewBox({ video }) {
     container: {
       boxSizing: "border-box",
       margin: "10px",
-      border: `1px solid ${colors.azure}`,
       borderRadius: 30,
       boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
       padding: 15,

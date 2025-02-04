@@ -55,7 +55,7 @@ const BeitHamidrash = () => {
       ? {
           overflowY: "auto",
           margin: "-50px 0 20px 0",
-          paddingTop: 100,
+          paddingTop: 80,
           scrollbarWidth: "none",
           paddingRight: 70,
         }
@@ -67,7 +67,7 @@ const BeitHamidrash = () => {
     <>
       <HeroSection
         title={"בית המדרש"}
-        backgroundImage={"/hero2.png"}
+        backgroundImage={"/beitHamidrashHero.png"}
         subTitle={"בחרו את הנושא שמעניין אתכם"}
         titleColor={colors.white}
         height={responsive("60vmin", "50vmin", "75vmin")}

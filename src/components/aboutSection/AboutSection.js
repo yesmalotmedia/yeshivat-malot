@@ -56,7 +56,6 @@ const AboutSection = () => {
       top: responsive("380px", "-150px", "250px"),
     },
     description: {
-      width: responsive("50%", "80%", "90%"),
       backgroundColor: bgColors.white,
       boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
       borderRadius: responsive(50, 30, 20),
@@ -69,8 +68,12 @@ const AboutSection = () => {
       zIndex: 3,
       textAlign: "justify",
       marginTop: responsive(0, 0, -350),
-      marginLeft: responsive("10vw", 0, 0),
+      marginLeft: responsive("15vw", 0, 0),
+      marginRight: window.innerWidth > 1500 ? 300 : 0,
       transform: "translate(-300px ,-10px)",
+      minWidth: responsive("50%", "80%", "90%"),
+      maxWidth: responsive("50%", "80%", "90%"),
+      // width: "50%",
     },
     bgImg: {
       position: "absolute",

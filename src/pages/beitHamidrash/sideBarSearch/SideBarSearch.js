@@ -20,6 +20,7 @@ const SideBarSearch = ({
     responsive,
     colors,
     bgColors,
+    shadow,
     isMobile,
     rabbiesData,
     categories,
@@ -48,7 +49,7 @@ const SideBarSearch = ({
   // styles
   const styles = {
     container: {
-      backgroundColor: bgColors.lightAzure,
+      backgroundColor: bgColors.white,
       borderRadius: responsive(50, 0, 0),
       paddingBottom: 100,
       paddingTop: 30,
@@ -60,6 +61,7 @@ const SideBarSearch = ({
       alignItems: "center",
       flexDirection: "column",
       marginLeft: 20,
+      boxShadow: shadow.boxShadow1,
     },
     searchContainer: {
       position: "relative",
@@ -87,7 +89,7 @@ const SideBarSearch = ({
     },
     lable: {
       textAlign: "right",
-      color: colors.azure,
+      color: colors.darkBlue,
       fontSize: 15,
       fontWeight: 500,
       width: responsive("90%", "50%", "50%"),
@@ -228,8 +230,8 @@ const SideBarSearch = ({
       <br />
       <div style={styles.btnContainer}>
         <Button
-          color={colors.white}
-          bgColor={bgColors.orangeGradient}
+          color={colors.darkBlue}
+          bgColor={bgColors.yellow}
           hoveredBgColor={bgColors.darkBlueGradient}
           title={"בצע חיפוש"}
           fontSize={20}

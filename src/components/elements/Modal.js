@@ -9,7 +9,7 @@ export default function Modal() {
 
   const styles = {
     form: {
-      background: colors.darkBlue,
+      background: isShrink ? colors.yellow : colors.darkBlue,
       width: isShrink ? (isMobile ? 80 : 150) : isMobile ? "40vmax" : 500,
       height: isShrink ? (isMobile ? 80 : 150) : isMobile ? "340px" : "",
       display: "flex",
@@ -88,7 +88,7 @@ export default function Modal() {
             </div>
           )}
           <label onClick={() => setIsShrink(false)} style={styles.label}>
-            רוצים להקדיש שיעור? להנציח?
+            בואו להיות שותפים!
           </label>
           {!isShrink && (
             <div style={styles.inputContainer}>
@@ -98,13 +98,14 @@ export default function Modal() {
           )}
           {!isShrink && (
             <Button
-              bgColor={bgColors.orangeGradient}
-              color={colors.white}
+              bgColor={bgColors.yellow}
+              color={colors.darkBlue}
               borderRadius={30}
               fontWeight={600}
               fontSize={20}
               title=" חזרו אלי "
               hoveredBgColor={bgColors.azureGradient}
+              width={"100%"}
             />
           )}
         </form>

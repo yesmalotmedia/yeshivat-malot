@@ -55,7 +55,7 @@ export default function FooterMenu({ data }) {
       fontSize: responsive("2rem", "2.2rem", "1.4rem"),
     },
     links: (isHovered) => ({
-      fontSize: responsive("1.2rem", "1.7rem", "1.1rem"),
+      fontSize: responsive("1.6vw", "1.7rem", "1.1rem"),
       textDecoration: "none",
       color: isHovered ? colors.orange : colors.white,
     }),

@@ -23,7 +23,8 @@ const Footer = () => {
       position: "relative",
     },
     footerItemWrapper: {
-      paddingTop: responsive("50vh", "20vh", "30vh"),
+      paddingTop: responsive("18vw", "20vh", "30vh"),
+      marginBottom: "7vw",
       maxWidth: "80%",
       display: "flex",
       justifyContent: "center",
@@ -59,7 +60,7 @@ const Footer = () => {
     copyRight: {
       textAlign: "center",
       marginTop: "30px",
-      padding: "40px",
+      padding: "30px",
       position: "relative",
       backgroundColor: colors.white,
       color: colors.darkBlue,

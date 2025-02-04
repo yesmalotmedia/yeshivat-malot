@@ -8,6 +8,7 @@ import {
 import colors from "./styles/colors";
 import bgColors from "./styles/bg-colors";
 import animations from "./styles/animations";
+import shadow from "./styles/shadows";
 import pagesList from "./pages/pagesList";
 import description from "./data/description";
 import dailyTextsData from "./data/dailyTextsData";
@@ -202,6 +203,7 @@ function App() {
         responsive,
         bgColors,
         animations,
+        shadow,
         pagesList,
         isMobile,
         description,
