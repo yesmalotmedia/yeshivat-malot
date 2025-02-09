@@ -31,8 +31,8 @@ export default function Publishing() {
     <>
       <HeroSection
         title={"הוצאה לאור "}
-        backgroundImage={"/PublishingHeroImg.png"}
-        subTitle={"כאן תמצאו את התכנים והספרים לקריאה "}
+        backgroundImage={"/publishingHero.png"}
+        subTitle={"מאמרים חוברות וספרים שיצאו "}
         titleColor={colors.white}
         height={responsive("60vmin", "60vmin", "85vmin")}
         marginTop={responsive("50px", "90px", "90px")}

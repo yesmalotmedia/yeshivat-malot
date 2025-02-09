@@ -55,7 +55,7 @@ const HeroSection = ({
       fontWeight: 600,
       fontSize: responsive("2rem", "1.8rem", "1.2rem"),
       textAlign: "center",
-      color: colors.orange,
+      color: colors.yellow,
       transform: isVisible ? "translateY(0)" : "translateY(20px)", // Apply the slide-up effect
       transition: "opacity 1.5s ease-out, transform 1.5s ease-out", // Animation transition settings
     },

@@ -54,6 +54,7 @@ export default function About() {
         titleColor={colors.darkBlue}
         height={responsive("60vmin", "60vmin", "60vmin")}
         marginTop={responsive("30px", "50px", "120px")}
+        backgroundImage={"/publishingHero.png"}
       />
       <div style={styles.container}>
         <div style={styles.sideBtnContainer}>

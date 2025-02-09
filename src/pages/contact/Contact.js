@@ -3,6 +3,7 @@ import { AppContext } from "../../App";
 import HeroSection from "../../components/elements/HeroSection";
 import Socials from "./Socials";
 import Form from "./Form";
+import ContactDetails from "./ContactDetails";
 
 export default function Contact() {
   const { colors, responsive } = useContext(AppContext);
@@ -13,15 +14,11 @@ export default function Contact() {
       flexDirection: responsive("row", "column-reverse", "column-reverse"),
       alignItems: "center",
       justifyContent: "center",
-      width: "100%",
-    },
-    socialContainer: {
-      width: responsive("70vmin", "70vmin", "90vmin"),
-      margin: responsive("50px 30px 0 0", "50px -100px 0 0", "50px 10px 0 0"),
-    },
-    formContainer: {
-      marginTop: "-10vmin",
-      width: "100%",
+      maxWidth: "80%",
+      gap: 1,
+      margin: "auto",
+      height: 450,
+      transform: "translateY(-50px)",
     },
   };
 
@@ -36,12 +33,8 @@ export default function Contact() {
         marginTop={responsive("50px", "90px", "90px")}
       />
       <div style={styles.container}>
-        <div style={styles.socialContainer}>
-          <Socials />
-        </div>
-        <div style={styles.formContainer}>
-          <Form />
-        </div>
+        <ContactDetails />
+        <Form />
       </div>
     </>
   );

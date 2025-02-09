@@ -129,14 +129,14 @@ export default function BookPreviewBox({
         )}
       </div>
       <div style={styles.btnContainer}>
-        {/* <Button
-          background={bgColors.azureGradient}
+        <Button
+          background={bgColors.darkBlue}
           btnImg={"/addToCart.png"}
-          btnText={"הוספה לסל"}
-        /> */}
+          btnText={"לרכישה"}
+        />
         <Button
           onClick={handleClick}
-          background={bgColors.orangeGradient}
+          background={bgColors.yellow}
           btnImg={"/download.png"}
           btnText={"להורדה"}
         />

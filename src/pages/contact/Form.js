@@ -51,11 +51,11 @@ export default function Form({ title, lesson_name }) {
 
   const styles = {
     form: {
-      width: responsive("100vmin", "80vmin", "90vmin"),
+      width: responsive("60%", "80vmin", "90vmin"),
       boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
       background: colors.white,
       borderRadius: 20,
-      height: "auto",
+      height: "100%",
       marginInline: "auto",
     },
     title: {

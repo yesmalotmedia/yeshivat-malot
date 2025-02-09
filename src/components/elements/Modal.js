@@ -29,7 +29,7 @@ export default function Modal() {
     label: {
       fontSize: isShrink ? (isMobile ? 12 : 20) : 30,
       fontWeight: 600,
-      color: colors.white,
+      color: colors.darkBlue,
       cursor: isShrink ? "pointer" : "auto",
       textAlign: "center",
       margin: isShrink ? (isMobile ? "-20px -10px 0 0" : "") : "",

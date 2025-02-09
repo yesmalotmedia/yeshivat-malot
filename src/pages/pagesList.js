@@ -9,7 +9,7 @@ const pagesList = [
   },
   {
     name: "על הישיבה",
-    path: "/TalmudHaMemuzag",
+    path: "/About",
   },
   {
     name: ' שבושי"ם',
@@ -21,11 +21,11 @@ const pagesList = [
   },
   {
     name: "הוצאה לאור",
-    path: "/About",
+    path: "/Publishing",
   },
   {
     name: "צור קשר",
-    path: "/Publishing",
+    path: "/Contact",
   },
 ];
 
