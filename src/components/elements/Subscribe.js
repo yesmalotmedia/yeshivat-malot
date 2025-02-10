@@ -19,7 +19,8 @@ const Subscribe = () => {
     bgImg: {
       display: "block",
       width: "100%",
-      height: responsive(180, 120, 120),
+      height: responsive("auto", 120, 120),
+      maxHeight: 170,
       borderRadius: 30,
       animation: "pulse 6s infinite cubic-bezier(0.25, 1, 0.5, 1)", // Smooth zoom effect
       transition:
@@ -36,7 +37,7 @@ const Subscribe = () => {
       transform: isHovered
         ? "translate(-50%, -50%) scale(1.1)"
         : "translate(-50%, -50%) scale(1)", // Scale effect
-      fontSize: responsive(25, 22, 20),
+      fontSize: responsive("2vw", 22, 20),
       fontWeight: "300",
       textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
       opacity: 1,
@@ -51,7 +52,7 @@ const Subscribe = () => {
       transform: isHovered
         ? "translate(-50%, -50%) scale(1.1)"
         : "translate(-50%, -50%) scale(1)", // Scale effect
-      fontSize: responsive(25, 22, 20),
+      fontSize: responsive("1.5vw", 22, 20),
       fontWeight: "bold",
       textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
       opacity: 1,

@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../App";
+import Subscribe from "../../components/elements/Subscribe";
 
 export default function ContactDetails({ title, lesson_name }) {
   const { colors, isMobile, responsive } = useContext(AppContext);
 
   const styles = {
     container: {
-      width: responsive("30%", "80vmin", "90vmin"),
+      width: responsive("35%", "80vmin", "90vmin"),
       boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
       background: colors.white,
       borderRadius: 20,
@@ -51,6 +52,11 @@ export default function ContactDetails({ title, lesson_name }) {
           {detail.text}
         </div>
       ))}
+      <br></br>
+      <br></br>
+      <div style={{ width: "85%", height: 100, margin: "auto" }}>
+        <Subscribe />
+      </div>
     </div>
   );
 }

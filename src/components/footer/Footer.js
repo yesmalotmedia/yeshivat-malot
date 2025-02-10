@@ -117,8 +117,18 @@ const Footer = () => {
         </div>
       )}
       <div style={styles.copyRight}>
-        © כל הזכויות שמורות לישיבת מעלות | האתר נבנה ב-❤ ע"י bms סטודיו לפיתוח
-        תוכנה ובניית אתרים | עיצוב - closeApp
+        © כל הזכויות שמורות לישיבת מעלות | האתר נבנה ב-❤ ע"י{" "}
+        <a
+          href="mailto:media@yesmalot.co.il"
+          style={{
+            color: "inherit",
+            textDecoration: "none",
+            fontWeight: "bold",
+          }}
+        >
+          bms סטודיו לפיתוח תוכנה ובניית אתרים{" "}
+        </a>
+        | עיצוב - closeApp
       </div>
     </div>
   );

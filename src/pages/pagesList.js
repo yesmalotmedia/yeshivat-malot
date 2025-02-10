@@ -17,7 +17,7 @@ const pagesList = [
   },
   {
     name: " בוגרים",
-    path: "/WhatsNew",
+    path: "/Bogrim",
   },
   {
     name: "הוצאה לאור",

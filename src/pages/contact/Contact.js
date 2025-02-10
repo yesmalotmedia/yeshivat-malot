@@ -14,7 +14,7 @@ export default function Contact() {
       flexDirection: responsive("row", "column-reverse", "column-reverse"),
       alignItems: "center",
       justifyContent: "center",
-      maxWidth: "80%",
+      maxWidth: "90%",
       gap: 1,
       margin: "auto",
       height: 450,

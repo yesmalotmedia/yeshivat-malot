@@ -16,6 +16,7 @@ import PostDetails from "./pages/whatsnew/PostDetails";
 import Terumot from "./pages/terumot/Terumot";
 import TextEditor from "./pages/admin/TextEditor";
 import LessonSection from "./pages/beitHamidrash/lessons/LessonSection";
+import Bogrim from "./pages/bogrim/Bogrim";
 
 const routers = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const routers = createBrowserRouter([
       {
         path: "Terumot",
         element: <Terumot />,
+      },
+      {
+        path: "Bogrim",
+        element: <Bogrim />,
       },
       {
         path: "Publishing",

@@ -87,6 +87,11 @@ function App() {
     "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/posts?per_page=100"
   );
   const {
+    data: noticesData,
+    loading: loadingNotices,
+    error: errorNotices,
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/message?per_page=100");
+  const {
     data: categoriesData,
     loading: loadingCategories,
     error: errorCategories,
@@ -137,6 +142,7 @@ function App() {
   let parsedPublishData = [];
   let parsedMemuzagData = [];
   let parsedLastVideos = [];
+  let parsedNoticesData = [];
 
   if (postsData) {
     parsedVideosData = ExtractPostsData(postsData);
@@ -163,6 +169,9 @@ function App() {
 
   if (newsData) {
     parsedNewsData = ExtractNewsData(newsData);
+  }
+  if (noticesData) {
+    parsedNoticesData = ExtractNewsData(noticesData);
   }
 
   if (categoriesData) {
@@ -211,6 +220,8 @@ function App() {
         postsData,
         parsedLastVideos,
         loadingPosts,
+        parsedNoticesData,
+        loadingNotices,
         lastEiun,
         loadingLastEiun,
         lastDafYomi,
