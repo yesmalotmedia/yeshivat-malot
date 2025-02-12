@@ -17,6 +17,7 @@ import Terumot from "./pages/terumot/Terumot";
 import TextEditor from "./pages/admin/TextEditor";
 import LessonSection from "./pages/beitHamidrash/lessons/LessonSection";
 import Bogrim from "./pages/bogrim/Bogrim";
+import Shvushim from "./pages/shvushim/Shvushim";
 
 const routers = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const routers = createBrowserRouter([
       {
         path: "Terumot",
         element: <Terumot />,
+      },
+      {
+        path: "Shvushim",
+        element: <Shvushim />,
       },
       {
         path: "Bogrim",

@@ -13,7 +13,7 @@ const pagesList = [
   },
   {
     name: ' שבושי"ם',
-    path: "/Contact",
+    path: "/Shvushim",
   },
   {
     name: " בוגרים",
