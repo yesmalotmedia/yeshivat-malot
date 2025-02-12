@@ -6,7 +6,6 @@ export default function extractYoutubeCoverByVideoId(url) {
     url.match(/youtu\.be\/([^/?]+)/) ||
     url.match(/embed\/([^/?]+)/);
   const videoId = match ? match[1] : null;
-  console.log(videoId);
 
   if (!videoId) return "/harav-ishay-lesson.png"; // אם אין מזהה וידאו - החזר תמונת ברירת מחדל
 

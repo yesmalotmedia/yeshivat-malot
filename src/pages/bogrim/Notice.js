@@ -10,8 +10,9 @@ export default function Notice({ content, noticeType }) {
   const styles = {
     container: {
       backgroundColor:
-        noticeType === "congratulations" ? colors.darkBlue : colors.yellow,
-      color: noticeType === "congratulations" ? colors.white : colors.darkBlue,
+        noticeType === "congratulations" ? colors.yellow : colors.white,
+      color:
+        noticeType === "congratulations" ? colors.darkBlue : colors.darkBlue,
       padding: 12,
       width: "25%", // שלוש בשורה
       height: "40%",

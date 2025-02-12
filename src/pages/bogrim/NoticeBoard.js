@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../../App";
 import Notice from "./Notice";
 
-export default function NoticeBoard() {
+export default function NoticeBoard({ title, titleStyle }) {
   const { colors } = useContext(AppContext);
 
   const styles = {
@@ -14,13 +14,12 @@ export default function NoticeBoard() {
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
       width: "100%",
-      height: "40vw",
+      height: "60vw",
       justifyContent: "center",
       alignItems: "center",
-      padding: 20,
       gap: 5,
-      marginTop: 50,
     },
+    title: titleStyle,
   };
 
   const notices = [
@@ -87,14 +86,18 @@ export default function NoticeBoard() {
   ];
 
   return (
-    <div style={styles.container}>
-      {notices.slice(-6).map((notice) => (
-        <Notice
-          key={notice.id}
-          content={notice.content}
-          noticeType={notice.noticeType}
-        />
-      ))}
-    </div>
+    <>
+      <h2 style={styles.title}>{title}</h2>
+
+      <div style={styles.container}>
+        {notices.slice(-6).map((notice) => (
+          <Notice
+            key={notice.id}
+            content={notice.content}
+            noticeType={notice.noticeType}
+          />
+        ))}
+      </div>
+    </>
   );
 }
