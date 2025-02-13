@@ -16,7 +16,7 @@ export default function Shvushim() {
     container: {
       display: "flex",
       marginInline: "auto",
-      width: responsive("", "90%", "100%"),
+      width: responsive("85%", "90%", "100%"),
       flexDirection: responsive("", "column", "column"),
       alignItems: responsive("flex-start", "center", "center"),
       justifyContent: responsive("", "center", "center"),
@@ -27,6 +27,10 @@ export default function Shvushim() {
       marginTop: 10,
       color: colors.darkBlue,
       fontSize: "3.5vw",
+    },
+    contentWrapper: {
+      flex: "2", // שני שלישים מהרוחב
+      minWidth: "500px",
     },
   };
 
@@ -83,18 +87,19 @@ export default function Shvushim() {
           setActiveSection={setActiveSection}
         />
 
-        {/* אנימציית מעבר חלקה */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeSection} // גורם לריענון האנימציה עם שינוי המקטע
-            initial={{ opacity: 0, y: 2 }} // אנימציה בהתחלה
-            animate={{ opacity: 1, y: 0 }} // אנימציה בכניסה
-            exit={{ opacity: 0, y: -2 }} // אנימציה ביציאה
-            transition={{ duration: 0.3 }} // משך המעבר
-          >
-            {activeComponent}
-          </motion.div>
-        </AnimatePresence>
+        <div style={styles.contentWrapper}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSection} // מרענן את האנימציה בעת החלפת מקטע
+              initial={{ opacity: 0, y: 2 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -2 }}
+              transition={{ duration: 0.3 }}
+            >
+              {activeComponent}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </>
   );

@@ -21,6 +21,7 @@ export default function SideMenu({
       alignItems: responsive("flex-start", "center", "center"),
       justifyContent: responsive("", "center", "center"),
       gap: 80,
+      flex: 1,
     },
     sideBtnContainer: {
       background: bgColors.lightAzure,

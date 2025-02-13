@@ -1,68 +1,106 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../App";
-import { col } from "framer-motion/m";
+import description from "../../data/description";
+import { object } from "framer-motion/m";
 
 export default function Team({ title, titleStyle }) {
-  const { colors } = useContext(AppContext);
+  const { colors, shadow } = useContext(AppContext);
 
   const styles = {
     container: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center",
       width: "85%",
-      padding: 40,
       gap: 20,
       margin: "auto",
       marginTop: 50,
       color: colors.darkBlue,
     },
     title: titleStyle,
+    teamContainer: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: 30,
+      width: "100%",
+    },
+    item: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "24%",
+      textAlign: "center",
+      backgroundColor: colors.white,
+      boxShadow: shadow.boxShadow1,
+      padding: 0,
+      borderRadius: 10,
+    },
+    img: {
+      width: "100%",
+      height: "100%",
+      maxHeight: 250,
+      borderRadius: "10px 10px 0 0 ",
+      objectFit: "cover",
+      objectPosition: "25% 30%",
+    },
+    name: {
+      fontSize: "1.3vw",
+      fontWeight: "bold",
+    },
+    description: {
+      fontSize: "1.4vw",
+    },
+    detailsWraper: {
+      padding: 9,
+    },
   };
 
   const contentData = [
     {
-      title: "אז איך שומרים על קשר?",
-      description:
-        "אנחנו משתדלים לשמור על קשר עם השיעור, ולא רק עם יחידים. לכל מחזור יש קבוצת וואטסאפ, שדרכה אנו שולחים לבוגרים עדכונים, מיזמים לבוגרים ועוד. לקבלת קישור לקבוצת השיעורים ניתן לפנות לרב מנחם.",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/gallery3.png",
     },
     {
-      title: "קו פתוח לבוגרי הישיבה",
-      description:
-        "זקוק לליווי או להתייעצות? נמצא בצומת בחיים ורוצה לשתף? ניתן לפנות לראש הישיבה ולרבני הישיבה ישירות או דרך הרב מנחם, ואשתך מוזמנת לפנות לרבנית אסתר ויצמן בטל' 050-5420742.",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
     },
     {
-      title: "אתר הישיבה",
-      description:
-        "האתר הוא דרך מצוינת לשמור על קשר עם הישיבה: לדעת על הנעשה בישיבה, להתעדכן מה קורה אצל החברים באזור ההודעות האישיות, וכמובן לשמוע שיעורים ולצפות בהם – חדשים או כאלה שכבר מוכרים לכם. הנכם מוזמנים גם לעקוב אחרי דף הפייסבוק וערוץ היוטיוב של הישיבה.",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
     },
     {
-      title: "מפגשי מחזור",
-      description:
-        "הישיבה מסייעת לארגון מפגשים מחזוריים, בזמן ובמיקום נוח לחברי המחזור, ובהשתתפות רבני הישיבה, על פי הרצון והצורך. לארגון מפגש מחזור פנו לרב מנחם.",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
     },
     {
-      title: "שבתות בוגרים",
-      description:
-        "הישיבה מארגנת שבתות בוגרים כמעט אחת לחודש במלון שיר למעלות שליד הישיבה. בכל שבת מגיעים בוגרי מחזור אחד להיפגש עם החברים ועם צוות הישיבה. השבתות כוללות פאנלים, שיחות עם ראש הישיבה והרבנים, ופעילויות לילדי הבוגרים. השבת אינה כרוכה בתשלום.",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
     },
     {
-      title: "בית מדרש לבוגרים",
-      description:
-        "פרטים על מועד בית המדרש נשלחים בקבוצות הוואטסאפ ובמייל, ומפורסמים באתר ובפייסבוק. אם אינך מקבל מיילים מהישיבה, ניתן להירשם בטופס ליצירת קשר שבתחתית עמוד זה.",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
     },
     {
-      title: "דירת בוגרים",
-      description:
-        "הישיבה מציעה דירה מיוחדת לבוגרים הרוצים לבוא וללמוד בישיבה. הדירה בפנימיות הישיבה משופצת ומאובזרת במיוחד, וזמינה עבור הבוגרים ומשפחתם בזמני הלימוד (לא בבין הזמנים). האירוח ללא תשלום. לפרטים נוספים ניתן לפנות לעוזר ראש הישיבה במייל: malot@yesmalot.co.il.",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
     },
     {
-      title: "רשמים משבתות בוגרים",
-      description:
-        'היתה שבת מדהימה. החדרים היו מסודרים, האוכל נהדר, והלו"ז נתן אפשרות גם להפגש וגם לשמוע את הרבנים. עצם הרעיון ממש במקום כיון שהוא שומר את הקשר לישיבה, למקום בו למדנו וצמחנו. יישר כח!\n\n' +
-        'היה מקסים, מרגש, מחמם את הלב ומדהים. האווירה מצוינת, ניכר שחשבו על כל פרט. האוכל היה ברמה גבוהה, הלו"ז מאוזן, והחדרים נקיים ומסודרים. התכנים היו מעניינים, והשיח היה עמוק ומשמעותי.\n\n' +
-        "האירוח היה חם ולבבי, התוכן היה מכוון וממלא, ונתן דלק להמשך הדרך. היוזמה מבורכת ונקווה לעוד שבתות כאלה!",
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
+    },
+    {
+      name: "הרב יהושע ויצמן",
+      description: "ראש הישיבה",
+      img: "/profileHaravWaitsman.png",
     },
   ];
 
@@ -70,12 +108,17 @@ export default function Team({ title, titleStyle }) {
     <div style={styles.container}>
       <h2 style={styles.title}>{title}</h2>
 
-      {contentData.map((e, index) => (
-        <div key={index}>
-          <h3>{e.title}</h3>
-          <p>{e.description}</p>
-        </div>
-      ))}
+      <div style={styles.teamContainer}>
+        {contentData.map((e, index) => (
+          <div key={index} style={styles.item}>
+            <img src={e.img} alt={e.name} style={styles.img} />
+            <div style={styles.detailsWraper}>
+              <div style={styles.name}>{e.name}</div>
+              <div style={styles.description}>{e.description}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
