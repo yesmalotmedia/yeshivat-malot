@@ -18,7 +18,6 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
   } = useContext(AppContext);
   const [displayedLessons, setDisplayedLessons] = useState([]);
   const [visiblePostCount, setVisiblePostCount] = useState(10);
-
   const loadMorePosts = (increment) => {
     setVisiblePostCount((prevCount) => prevCount + increment);
   };

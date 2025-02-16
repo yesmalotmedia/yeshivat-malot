@@ -84,20 +84,23 @@ function App() {
     loading: loadingPosts,
     error: errorPosts,
   } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/posts?per_page=100"
+    "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=100&page=1"
   );
+
   const {
     data: noticesData,
     loading: loadingNotices,
     error: errorNotices,
-  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/message?per_page=100");
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/message?per_page=1");
   const {
     data: categoriesData,
     loading: loadingCategories,
     error: errorCategories,
   } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/categories?_fields=id,name,parent&per_page=100&page=1"
+    "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent&per_page=100&page=1"
   );
+  console.log(categoriesData);
+
   const {
     data: rabbiesData,
     loading: loadingRabbies,
@@ -154,6 +157,7 @@ function App() {
         e.contentType.includes("text")
     );
   }
+  console.log(parsedVideosData);
 
   if (
     lastEiun?.length > 0 &&

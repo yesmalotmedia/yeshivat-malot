@@ -13,19 +13,20 @@ export default function LessonPreviewBox({ video }) {
   const styles = {
     container: {
       boxSizing: "border-box",
-      margin: "10px",
+      // margin: "10px",
       borderRadius: 30,
       boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
-      padding: 15,
-      display: "flex",
+      // display: "flex",
+      height: responsive(320, 450, "70vw"),
+      minHeight: 360,
       flexDirection: "column",
       justifyContent: "space-around",
       backgroundColor: colors.white,
-      width: responsive(260, 350, 300),
-      height: "auto",
+      width: responsive(260, 400, "70vw"),
       transform: isHovered ? "translateY(-10px)" : "translateY(0)", // Move up on hover
       transition: "transform 0.3s ease-out", // Smooth transition
       cursor: "pointer",
+      position: "relative",
     },
     thumbnail: {
       height: "50%",
@@ -40,6 +41,7 @@ export default function LessonPreviewBox({ video }) {
       flexDirection: "column",
       justifyContent: "space-between",
       color: colors.darkBlue,
+      padding: 10,
     },
     title: {
       fontSize: responsive("1rem", "1.6rem", "1.3rem"),
@@ -62,9 +64,11 @@ export default function LessonPreviewBox({ video }) {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      paddingTop: 40,
-      height: "35%",
+
       gap: 10,
+      position: "absolute",
+      bottom: 15,
+      left: "50%",
     },
     btn: {
       display: "flex",
@@ -114,6 +118,7 @@ export default function LessonPreviewBox({ video }) {
             videoId={video.id}
             title={video.title}
             rabbiName={video.rabbiName}
+            thumbnail={video.thumbnail}
           />
         }
         <div style={styles.description}>

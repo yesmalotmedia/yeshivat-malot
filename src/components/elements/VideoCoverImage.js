@@ -38,12 +38,11 @@ function VideoCoverImage({ url, videoId, title, rabbiName, thumbnail }) {
       position: "relative",
       flexWrap: "wrap",
       boxShadow: shadow.boxShadow1,
-      margin: "30px 0",
     },
     img: {
       width: "100%",
       height: "100%",
-      borderRadius: "20px",
+      borderRadius: "20px 20px 0 0 ",
       boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
     },
   };
