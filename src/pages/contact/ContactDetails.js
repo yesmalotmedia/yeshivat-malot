@@ -55,7 +55,10 @@ export default function ContactDetails({ title, lesson_name }) {
       <br></br>
       <br></br>
       <div style={{ width: "85%", height: 100, margin: "auto" }}>
-        <Subscribe />
+        <Subscribe
+          targetUrl={"https://chat.whatsapp.com/JpRgbvP5uBlGvJYaaFohnO"}
+          title={"עדכונים - ישיבת מעלות"}
+        />
       </div>
     </div>
   );

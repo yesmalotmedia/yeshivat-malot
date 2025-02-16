@@ -35,7 +35,6 @@ const SideBarSearch = ({
   const [categoriesOptions, setCategoriesOptions] = useState(
     getCategoriesByParent(categories, 3)
   );
-  console.log(JSON.stringify(getMainCategories(categories, 3), null, 2));
   const [masectotOptions, setMasectotOptions] = useState();
   const [rabbiesOptions, setRabbiesOptions] = useState();
 
@@ -197,7 +196,7 @@ const SideBarSearch = ({
       <br></br>
       <div style={styles.lable}>הנושאים</div>
       <SelectInput
-        options={getMainCategories(categories, 3) || categoriesOptions}
+        options={getMainCategories(categories, 211) || categoriesOptions}
         value={selectedTopic}
         onChange={(e) => handleSelectChange(e)}
       />

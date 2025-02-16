@@ -36,7 +36,7 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
       alignItems: "center",
       justifyContent: "center",
       flexWrap: "wrap",
-      gap: "10px",
+      gap: "20px",
       margin: "0 auto",
     },
     titleSection: {

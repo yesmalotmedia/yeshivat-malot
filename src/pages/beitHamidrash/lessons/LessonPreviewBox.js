@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import VideoCoverImage from "../../../components/elements/VideoCoverImage";
 
 export default function LessonPreviewBox({ video }) {
-  console.log(video);
-
   const { colors, responsive } = useContext(AppContext);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -17,7 +15,7 @@ export default function LessonPreviewBox({ video }) {
       borderRadius: 30,
       boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
       // display: "flex",
-      height: responsive(320, 450, "70vw"),
+      height: responsive(320, 400, "70vw"),
       minHeight: 360,
       flexDirection: "column",
       justifyContent: "space-around",
@@ -44,14 +42,15 @@ export default function LessonPreviewBox({ video }) {
       padding: 10,
     },
     title: {
-      fontSize: responsive("1rem", "1.6rem", "1.3rem"),
+      fontSize: `max(${responsive("1.2vw", "1.6rem", "1.3rem")}, 1.2rem)`,
       paddingTop: 5,
     },
     subTitle: {
-      fontSize: responsive("1vw", "1.5rem", "1.3rem"),
+      fontSize: `max(${responsive("1.3vw", "1.5rem", "1.3rem")}, 1.1rem)`,
       paddingBottom: 10,
       fontWeight: 400,
     },
+
     date: {
       fontSize: responsive("0.8rem", "1.2rem", "1rem"),
       fontWeight: 400,
@@ -122,7 +121,7 @@ export default function LessonPreviewBox({ video }) {
           />
         }
         <div style={styles.description}>
-          <div style={{ width: "60%" }}>
+          <div style={{ width: "90%" }}>
             <h2 style={styles.title}> {video.title}</h2>
             <h2 style={styles.subTitle}> {video.rabbiName}</h2>
           </div>

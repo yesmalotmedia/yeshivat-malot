@@ -2,9 +2,10 @@ import React, { useRef, useState, useContext } from "react";
 import emailjs from "@emailjs/browser";
 import { AppContext } from "../../App";
 
-const Subscribe = () => {
+const Subscribe = ({ targetUrl, title, subTitle }) => {
   const form = useRef();
   const { bgColors, colors, responsive } = useContext(AppContext);
+  console.log();
   const [isHovered, setIsHovered] = useState(false);
   const styles = {
     subscribe: {
@@ -28,7 +29,7 @@ const Subscribe = () => {
       filter: isHovered ? "blur(6px)" : "blur(1px)",
       transform: isHovered ? "scale(1.2)" : "scale(1)", // Deeper zoom on hover
     },
-    mainImgText: {
+    title: {
       color: colors.white,
       position: "absolute",
       width: "90%",
@@ -43,7 +44,7 @@ const Subscribe = () => {
       opacity: 1,
       transition: "transform 1.5s ease-in-out", // Smooth scale effect
     },
-    imgText: {
+    subTitle: {
       color: colors.white,
       position: "absolute",
       width: "90%",
@@ -64,16 +65,32 @@ const Subscribe = () => {
       "100%": { transform: "scale(1)" },
     },
   };
+  const openCenteredPopup = (url, width = 800, height = 550) => {
+    // קבלת רוחב וגובה המסך
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
 
+    // חישוב המיקום המרכזי
+    const left = (screenWidth - width) / 2;
+    const top = (screenHeight - height) / 2;
+
+    // פתיחת חלון עם הפרמטרים המתאימים
+    window.open(
+      url,
+      "_blank",
+      `width=${width},height=${height},top=${top},left=${left}`
+    );
+  };
   return (
     <div
       style={styles.subscribe}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => openCenteredPopup(targetUrl)}
     >
       <img style={styles.bgImg} src="/whatsappBg.png" alt="arrow" />
-      <div style={styles.mainImgText}> ישיבת מעלות בוואטסאפ</div>
-      <div style={styles.imgText}>הצטרפו לקבוצה השקטה</div>
+      <div style={styles.title}> {title}</div>
+      <div style={styles.subTitle}>{"הצטרפו לקבוצה השקטה"}</div>
     </div>
   );
 };

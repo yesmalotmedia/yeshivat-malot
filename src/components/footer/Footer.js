@@ -104,7 +104,10 @@ const Footer = () => {
             {" "}
             מעוניינים לקבל עדכונים על שיעורים ואירועים בישיבה?{" "}
           </h2>
-          <Subscribe />
+          <Subscribe
+            targetUrl="https://chat.whatsapp.com/JpRgbvP5uBlGvJYaaFohnO"
+            title={"עדכונים - ישיבת מעלות"}
+          />
         </div>
       </div>
       {/* <div style={styles.dedicate}>

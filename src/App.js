@@ -99,7 +99,6 @@ function App() {
   } = useFetch(
     "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent&per_page=100&page=1"
   );
-  console.log(categoriesData);
 
   const {
     data: rabbiesData,
@@ -157,7 +156,6 @@ function App() {
         e.contentType.includes("text")
     );
   }
-  console.log(parsedVideosData);
 
   if (
     lastEiun?.length > 0 &&
