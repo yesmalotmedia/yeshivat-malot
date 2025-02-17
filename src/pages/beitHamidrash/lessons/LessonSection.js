@@ -12,8 +12,10 @@ export default function LessonSection({ videoId }) {
   const { colors, responsive, videos, useCategoryNameById } =
     useContext(AppContext);
   const video = videos?.find((video) => video?.id == videoId);
-  const mainCategory = useCategoryNameById(video?.categories[0]);
-  const subCategory = useCategoryNameById(video?.categories[1]);
+  console.log(video);
+
+  const mainCategory = useCategoryNameById(video?.categories[3]);
+  const subCategory = useCategoryNameById(video?.categories[2]);
   if (!videos) {
     console.error("Videos not available in context");
     return <LoaderAnimation isLoading={!videos} color={colors.orange} />;
@@ -27,9 +29,6 @@ export default function LessonSection({ videoId }) {
     console.error(`No video found with id: ${videoId}`);
     return <LoaderAnimation isLoading={!video} color={colors.orange} />;
   }
-
-  // const mainCategory = getCategoryNameById(video.categories[0]);
-  // const subCategory = getCategoryNameById(video.categories[1]);
 
   const styles = {
     container: {
@@ -139,14 +138,12 @@ export default function LessonSection({ videoId }) {
       <div style={styles.videoSection}>
         <div style={styles.timeAndTimeContainer}>
           <span style={styles.dateAndTimeText}>{video.date}</span>
-          <img style={styles.icon} src="/time.png" alt="time icon" />
-          <span style={styles.dateAndTimeText}> זמן קריאה: 8 דק’ </span>
         </div>
         <div style={styles.dedicate}>{video.dedicatedTo}</div>
-        {isVideo && <YouTubeVideo2 url={video.url} index={video.key} />}
+        {<YouTubeVideo2 url={video.url} index={video.key} />}
       </div>
 
-      {isAudio && (
+      {
         <div style={styles.audioContainer}>
           <div style={styles.playerContainer}>
             <div style={styles.topText}>
@@ -168,7 +165,7 @@ export default function LessonSection({ videoId }) {
             />
           </div>
         </div>
-      )}
+      }
 
       {isText && (
         <div style={styles.descriptionContainer}>
@@ -178,11 +175,6 @@ export default function LessonSection({ videoId }) {
           />
           <h2 style={styles.nameOfRav}></h2>
           <br />
-
-          <Form
-            title={"מעוניינים להגיב על השיעור? שלחו לנו הודעה"}
-            lesson_name={video.title}
-          />
         </div>
       )}
     </div>

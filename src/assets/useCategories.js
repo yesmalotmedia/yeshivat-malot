@@ -3,7 +3,11 @@ import { AppContext } from "../App";
 
 export const useCategoryNameById = (id) => {
   const { categories } = useContext(AppContext);
-  const category = categories.find((cat) => cat.id === id);
+  console.log(id, categories);
+
+  const category = categories.find((cat) => cat.id == id);
+  console.log(category);
+
   return category ? category.name : "קטגוריה"; // ערך ברירת מחדל אם לא נמצא
 };
 

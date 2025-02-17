@@ -1,93 +1,44 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// function useFetch(url) {
-//   const [data, setData] = useState([]);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   const fetchData = async (urlWithCacheBuster, isMounted) => {
-//     setLoading(true);
-//     let allData = [];
-//     try {
-//       // Fetch the first page to get total pages
-//       const firstPageResponse = await axios.get(`${urlWithCacheBuster}&page=1`);
-//       allData = [...firstPageResponse.data];
-//       const totalPages = parseInt(
-//         firstPageResponse.headers["x-wp-totalpages"] || "1",
-//         10
-//       );
-//       // Fetch remaining pages in parallel
-//       const requests = [];
-//       for (let page = 2; page <= totalPages; page++) {
-//         requests.push(axios.get(`${urlWithCacheBuster}&page=${page}`));
-//       }
-
-//       const responses = await Promise.all(requests);
-//       responses.forEach((response) => {
-//         allData = [...allData, ...response.data];
-//       });
-
-//       if (isMounted()) {
-//         setData(allData);
-//       }
-//     } catch (err) {
-//       if (isMounted()) {
-//         setError(err);
-//       }
-//     } finally {
-//       if (isMounted()) {
-//         setLoading(false);
-//       }
-//     }
-//   };
-
-//   useEffect(() => {
-//     let isMounted = true; // Ensure fetch only runs when component is mounted
-//     const urlWithCacheBuster = `${url}${url.includes("?") ? "&" : "?"}cacheBuster=${new Date().getTime()}`;
-
-//     fetchData(urlWithCacheBuster, () => isMounted);
-
-//     return () => {
-//       isMounted = false; // Cleanup on component unmount
-//     };
-//   }, [url]);
-
-//   const refetch = () => {
-//     const urlWithCacheBuster = `${url}${url.includes("?") ? "&" : "?"}cacheBuster=${new Date().getTime()}`;
-//     fetchData(urlWithCacheBuster, () => true); // Pass always-true for manual refetch
-//   };
-
-//   return { data, loading, error, refetch };
-// }
-
-// export default useFetch;
 import { useState, useEffect } from "react";
 
-const useFetch = (baseUrl, perPage = 10) => {
-  const [data, setData] = useState([]); // שמירת כל הנתונים שכבר נטענו
+const useFetchAll = (baseUrl, perPage = 100, limit = null) => {
+  const [data, setData] = useState([]); // כל הנתונים
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(1); // ניהול מספר העמוד
-  const [hasMore, setHasMore] = useState(true); // בדיקה אם יש עוד נתונים
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAllData = async () => {
       setLoading(true);
       setError(null);
+      let allData = [];
+      let page = 1;
+      let totalPages = 1;
+      let fetchedCount = 0; // סופר כמה פריטים נטענו
 
       try {
-        const response = await fetch(
-          `${baseUrl}?per_page=${perPage}&page=${page}`
-        );
-        const newData = await response.json();
+        while (page <= totalPages) {
+          const response = await fetch(
+            `${baseUrl}?per_page=${perPage}&page=${page}`
+          );
 
-        if (response.ok) {
-          setData((prevData) => [...prevData, ...newData]); // מצרף את הנתונים הקודמים לחדשים
-          setHasMore(newData.length === perPage); // אם יש פחות מ-perPage, נגמרו הנתונים
-        } else {
-          throw new Error(newData.message || "שגיאה בטעינת הנתונים");
+          if (!response.ok) throw new Error("שגיאה בטעינת הנתונים");
+
+          const newData = await response.json();
+
+          // בדיקה אם צריך לעצור בגלל ה-limit
+          if (limit !== null && fetchedCount + newData.length > limit) {
+            const remaining = limit - fetchedCount;
+            allData = [...allData, ...newData.slice(0, remaining)];
+            break; // לא טוען יותר עמודים
+          }
+
+          allData = [...allData, ...newData];
+          fetchedCount = allData.length; // עדכון הספירה
+
+          totalPages = parseInt(response.headers.get("X-WP-TotalPages")) || 1;
+          page++;
         }
+
+        setData(allData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -95,15 +46,10 @@ const useFetch = (baseUrl, perPage = 10) => {
       }
     };
 
-    fetchData();
-  }, [baseUrl, perPage, page]); // רץ מחדש רק כש-page משתנה
+    fetchAllData();
+  }, [baseUrl, perPage, limit]);
 
-  // פונקציה לטעינת עמוד נוסף
-  const loadMore = () => {
-    if (hasMore) setPage((prevPage) => prevPage + 1);
-  };
-
-  return { data, loading, error, loadMore, hasMore };
+  return { data, loading, error };
 };
 
-export default useFetch;
+export default useFetchAll;

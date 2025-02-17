@@ -83,22 +83,22 @@ function App() {
     data: postsData,
     loading: loadingPosts,
     error: errorPosts,
-  } = useFetch(
-    "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=100&page=1"
-  );
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts", 100, 10);
 
   const {
     data: noticesData,
     loading: loadingNotices,
     error: errorNotices,
-  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/message?per_page=1");
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/message?per_page=2");
   const {
     data: categoriesData,
     loading: loadingCategories,
     error: errorCategories,
   } = useFetch(
-    "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent&per_page=100&page=1"
+    "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent",
+    100
   );
+  console.log(categoriesData);
 
   const {
     data: rabbiesData,
