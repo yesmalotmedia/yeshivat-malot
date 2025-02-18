@@ -15,11 +15,11 @@ export default function Bogrim() {
     container: {
       display: "flex",
       marginInline: "auto",
-      width: responsive("", "90%", "100%"),
-      flexDirection: responsive("", "column", "column"),
-      alignItems: responsive("flex-start", "center", "center"),
+      width: responsive("85%", "90%", "100%"),
+      alignItems: "flex-start",
       justifyContent: responsive("", "center", "center"),
       gap: 50,
+      position: responsive("static", "static", "relative"),
     },
     title: {
       textAlign: "center",

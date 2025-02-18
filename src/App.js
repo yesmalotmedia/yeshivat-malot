@@ -26,6 +26,7 @@ import ExtractNewsData from "./assets/ExtractNewsData";
 import useResponsive from "./Hooks/useResponsive";
 import ExtractPublishData from "./assets/ExtractPublishData";
 import ExtractTalmudMemuzagData from "./assets/ExtractTalmudMemuzagData";
+// import { section1 } from "./styles/sectionsStyle";
 export const AppContext = React.createContext();
 
 function App() {

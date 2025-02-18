@@ -20,7 +20,7 @@ export default function Shvushim() {
       alignItems: "flex-start",
       justifyContent: responsive("", "center", "center"),
       gap: 50,
-      position: "relative",
+      position: responsive("static", "static", "relative"),
     },
     title: {
       textAlign: "center",

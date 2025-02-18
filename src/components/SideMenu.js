@@ -9,7 +9,7 @@ export default function SideMenu({
 }) {
   const { bgColors, responsive } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
-
+  const isMobile = responsive(false, false, true);
   const styles = {
     overlay: {
       position: "fixed",
@@ -24,8 +24,9 @@ export default function SideMenu({
     sideBtnContainer: {
       background: bgColors.lightAzure,
       width: "30%",
+      maxWidth: 250,
       padding: 50,
-      marginTop: responsive(50, 50, 50),
+      marginTop: responsive(150, 150, 50),
       borderRadius: 20,
       boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
       display: "flex",
@@ -33,12 +34,12 @@ export default function SideMenu({
       flexDirection: "column",
       justifyContent: "center",
       gap: 45,
-      position: "fixed",
+      position: responsive("static", "static", "fixed"),
       right: isOpen ? "0px" : "-30%",
       top: "50%",
-      transform: "translateY(-50%)",
+      transform: responsive("", "", "translateY(-50%)"),
       transition: "right 0.3s ease-in-out",
-      zIndex: 1000,
+      zIndex: responsive(0, 0, 1000),
     },
     toggleBtn: {
       position: "fixed",
@@ -70,7 +71,7 @@ export default function SideMenu({
       {isOpen && (
         <div style={styles.overlay} onMouseDown={handleOutsideClick} />
       )}
-      {!isOpen && (
+      {!isOpen && isMobile && (
         <div style={styles.toggleBtn} onClick={() => setIsOpen(!isOpen)}>
           {">"}
         </div>
