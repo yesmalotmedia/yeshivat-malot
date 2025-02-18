@@ -83,7 +83,7 @@ function App() {
     data: postsData,
     loading: loadingPosts,
     error: errorPosts,
-  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts", 100, 10);
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 100, 100);
 
   const {
     data: noticesData,
@@ -96,7 +96,8 @@ function App() {
     error: errorCategories,
   } = useFetch(
     "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent",
-    100
+    100,
+    300
   );
   console.log(categoriesData);
 
@@ -126,7 +127,7 @@ function App() {
     loading: loadingPublish,
     error: errorPublish,
   } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/publish"
+    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/publish?"
   );
   const {
     data: memuzagData,

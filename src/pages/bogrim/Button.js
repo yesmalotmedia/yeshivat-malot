@@ -34,7 +34,7 @@ const Button = ({ imgSrc, title, isActive }) => {
       bottom: "-20px",
       fontWeight: 600,
       color: colors.darkBlue,
-      fontSize: responsive("1.3rem", "1.2rem", "1rem"),
+      fontSize: responsive("1.3rem", "1rem", "0.7rem"),
       whiteSpace: "nowrap",
     },
   };

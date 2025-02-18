@@ -30,6 +30,7 @@ export default function Team({ title, titleStyle }) {
       flexDirection: "column",
       alignItems: "center",
       width: "24%",
+      minWidth: 180,
       textAlign: "center",
       backgroundColor: colors.white,
       boxShadow: shadow.boxShadow1,

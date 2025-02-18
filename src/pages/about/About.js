@@ -48,10 +48,10 @@ export default function About() {
   return (
     <>
       <HeroSection
-        title={"אודותינו"}
+        title={"על הישיבה"}
         subTitle={"הכירו את בית המדרש לאיחוד התלמודים"}
         isSubscribe={false}
-        titleColor={colors.darkBlue}
+        titleColor={colors.white}
         height={responsive("60vmin", "60vmin", "60vmin")}
         marginTop={responsive("30px", "50px", "120px")}
         backgroundImage={"/publishingHero.png"}
@@ -77,7 +77,6 @@ export default function About() {
           <RenderContents sectionData={getActiveSectionData()} />
         </div>
       </div>
-      <LastLessons />
     </>
   );
 }

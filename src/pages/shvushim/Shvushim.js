@@ -17,10 +17,10 @@ export default function Shvushim() {
       display: "flex",
       marginInline: "auto",
       width: responsive("85%", "90%", "100%"),
-      flexDirection: responsive("", "column", "column"),
-      alignItems: responsive("flex-start", "center", "center"),
+      alignItems: "flex-start",
       justifyContent: responsive("", "center", "center"),
       gap: 50,
+      position: "relative",
     },
     title: {
       textAlign: "center",
@@ -43,13 +43,13 @@ export default function Shvushim() {
     },
     {
       id: "2",
-      title: "ישיבת מעלות, נעים להכיר",
+      title: "נעים להכיר",
       imgSrc: "/introductionIcon.png",
       component: <Introduction titleStyle={styles.title} />,
     },
     {
       id: "3",
-      title: "טיפים ושאלות נפוצות",
+      title: "טיפים ושאלות",
       imgSrc: "/faqIcon.png",
       component: <Fqa titleStyle={styles.title} />,
     },
@@ -94,7 +94,7 @@ export default function Shvushim() {
               initial={{ opacity: 0, y: 2 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -2 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
             >
               {activeComponent}
             </motion.div>

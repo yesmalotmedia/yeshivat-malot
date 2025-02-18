@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 
-const useFetchAll = (baseUrl, perPage = 100, limit = null) => {
+const useFetch = (baseUrl, perPage = 100, limit = null) => {
   const [data, setData] = useState([]); // כל הנתונים
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  console.log(baseUrl);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -17,12 +18,13 @@ const useFetchAll = (baseUrl, perPage = 100, limit = null) => {
       try {
         while (page <= totalPages) {
           const response = await fetch(
-            `${baseUrl}?per_page=${perPage}&page=${page}`
+            `${baseUrl}&per_page=${perPage}&page=${page}`
           );
 
           if (!response.ok) throw new Error("שגיאה בטעינת הנתונים");
 
           const newData = await response.json();
+          console.log(newData);
 
           // בדיקה אם צריך לעצור בגלל ה-limit
           if (limit !== null && fetchedCount + newData.length > limit) {
@@ -52,4 +54,4 @@ const useFetchAll = (baseUrl, perPage = 100, limit = null) => {
   return { data, loading, error };
 };
 
-export default useFetchAll;
+export default useFetch;
