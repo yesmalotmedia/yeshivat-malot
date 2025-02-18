@@ -25,7 +25,7 @@ export default function Bogrim() {
       textAlign: "center",
       marginTop: 10,
       color: colors.darkBlue,
-      fontSize: "3.5vw",
+      fontSize: responsive("3vw", "5vw", "8vw"),
     },
   };
 

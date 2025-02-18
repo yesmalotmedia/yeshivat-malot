@@ -3,21 +3,21 @@ import { AppContext } from "../../App";
 import Notice from "./Notice";
 
 export default function NoticeBoard({ title, titleStyle }) {
-  const { colors } = useContext(AppContext);
+  const { colors, responsive } = useContext(AppContext);
 
   const styles = {
     container: {
       display: "flex",
       flexWrap: "wrap",
       backgroundImage: "url('/noticeBoardBg.png')",
-      backgroundSize: "90%",
+      backgroundSize: "contain",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
       width: "100%",
-      height: "60vw",
+      height: responsive("40vw", "45vw", "60vw"),
       justifyContent: "center",
       alignItems: "center",
-      gap: 5,
+      gap: 0,
     },
     title: titleStyle,
   };

@@ -9,16 +9,16 @@ export default function Modal() {
 
   const styles = {
     form: {
-      background: isShrink ? colors.yellow : colors.darkBlue,
-      width: isShrink ? (isMobile ? 80 : 150) : isMobile ? "40vmax" : 500,
-      height: isShrink ? (isMobile ? 80 : 150) : isMobile ? "340px" : "",
+      background: isShrink ? colors.darkBlue : colors.darkBlue,
+      width: isShrink ? (isMobile ? 90 : 110) : isMobile ? "40vmax" : 500,
+      height: isShrink ? (isMobile ? 90 : 110) : isMobile ? "340px" : "",
       display: "flex",
       flexDirection: "column",
       padding: 30,
       position: "fixed",
       left: isShrink ? (isMobile ? 60 : 100) : isMobile ? "50%" : 300,
       transform: "translateX(-50%)",
-      bottom: isShrink ? (isMobile ? 110 : 50) : isMobile ? 20 : 200,
+      bottom: isShrink ? (isMobile ? 20 : 50) : isMobile ? 100 : 200,
       borderRadius: isShrink ? "50%" : 30,
       zIndex: 999,
       opacity: isVisible ? 1 : 0, // Set opacity based on visibility state
@@ -27,13 +27,21 @@ export default function Modal() {
       boxShadow: "rgba(99, 99, 99, 0.2) 0px 10px 20px 0px",
     },
     label: {
-      fontSize: isShrink ? (isMobile ? 12 : 20) : 30,
-      fontWeight: 600,
-      color: colors.darkBlue,
+      fontSize: isShrink ? (isMobile ? 16 : 16) : 30, // "בואו להיות" קטן יותר
+      fontWeight: 400,
+      color: colors.white,
       cursor: isShrink ? "pointer" : "auto",
       textAlign: "center",
-      margin: isShrink ? (isMobile ? "-20px -10px 0 0" : "") : "",
+      margin: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100%", // מרכז אנכית
+      flexDirection: "column", // מסדר את התוכן בשתי שורות
+      whiteSpace: "nowrap", // מונע ירידת שורה
+      lineHeight: 1,
     },
+
     inputContainer: {
       display: "flex",
       flexDirection: isMobile ? "column" : "row",
@@ -88,7 +96,10 @@ export default function Modal() {
             </div>
           )}
           <label onClick={() => setIsShrink(false)} style={styles.label}>
-            בואו להיות שותפים!
+            בואו להיות{" "}
+            <span style={{ fontSize: isShrink ? 21 : 37, fontWeight: "bold" }}>
+              שותפים
+            </span>
           </label>
           {!isShrink && (
             <div style={styles.inputContainer}>

@@ -15,8 +15,8 @@ const Button = ({ imgSrc, title, isActive }) => {
     },
     ImgContainer: {
       position: "relative",
-      height: responsive("9vmax", "12vmax", "12vmax"),
-      width: responsive("9vmax", "12vmax", "12vmax"),
+      height: responsive("9vmax", "9vmax", "12vmax"),
+      width: responsive("9vmax", "9vmax", "12vmax"),
       borderRadius: "50%",
       border: `4px solid ${colors.darkBlue}`,
       borderWidth: isActive ? "6px" : "4px",

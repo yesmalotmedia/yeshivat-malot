@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../App";
 import Button from "../pages/bogrim/Button";
 
@@ -9,7 +9,20 @@ export default function SideMenu({
 }) {
   const { bgColors, responsive } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(window.innerHeight / 2);
+
   const isMobile = responsive(false, false, true);
+
+  // מעדכן את המיקום של הכפתור בהתאם לגלילה
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.innerHeight / 2);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const styles = {
     overlay: {
       position: "fixed",
@@ -26,7 +39,7 @@ export default function SideMenu({
       width: "30%",
       maxWidth: 250,
       padding: 50,
-      marginTop: responsive(150, 150, 50),
+      marginTop: responsive(50, 50, 50),
       borderRadius: 20,
       boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
       display: "flex",
@@ -38,34 +51,37 @@ export default function SideMenu({
       right: isOpen ? "0px" : "-30%",
       top: "50%",
       transform: responsive("", "", "translateY(-50%)"),
-      transition: "right 0.3s ease-in-out",
+      transition: "right  0.3s ease-in-out",
       zIndex: responsive(0, 0, 1000),
     },
     toggleBtn: {
       position: "fixed",
       right: isOpen ? "200px" : "10px",
-      transition: "right 0.3s ease-in-out",
-      top: "50%",
+      top: `${scrollPosition}px`, // מיקום דינמי בהתאם לגלילה
       transform: "translateY(-50%)",
+      transition: "top 1.5s ease-in-out, right 0.3s ease-in-out", // תנועה חלקה
       background: bgColors.lightAzure,
       borderRadius: "10px",
       padding: "10px",
       boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
       cursor: "pointer",
       zIndex: 1100,
+      animation:
+        "wiggle 1.5s infinite ease-in-out, sideWiggle 3s infinite ease-in-out",
     },
   };
 
-  // פונקציה לסגירה כאשר לוחצים מחוץ לתפריט
   const handleOutsideClick = (e) => {
     if (!e?.target?.closest(".side-menu")) {
       setIsOpen(false);
     }
   };
+
   const handleClick = (id) => {
     setActiveSection(id);
     setIsOpen(false);
   };
+
   return (
     <>
       {isOpen && (
