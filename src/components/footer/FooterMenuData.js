@@ -4,7 +4,7 @@ const FooterMenuData = [
     url: "/BeitHamidrash",
   },
   {
-    title: "התלמוד הממוזג",
+    title: 'שבושי"ם',
     url: "/TalmudHaMemuzag",
   },
   {
@@ -12,8 +12,8 @@ const FooterMenuData = [
     url: "/Contact",
   },
   {
-    title: "מה חדש?",
-    url: "WhatsNew",
+    title: "בוגרים",
+    url: "Bogrim",
   },
   {
     title: "אודות",

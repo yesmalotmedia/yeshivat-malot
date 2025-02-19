@@ -5,6 +5,7 @@ import FooterMenu from "./FooterMenu";
 import LogoAndSocialIcon from "./LogoAndSocialIcon";
 import FooterMenuData from "./FooterMenuData";
 import Subscribe from "../elements/Subscribe";
+import { transform } from "framer-motion";
 
 const Footer = () => {
   const { colors, responsive } = useContext(AppContext);
@@ -12,15 +13,13 @@ const Footer = () => {
   const styles = {
     container: {
       minWidth: "100%",
-      backgroundImage: responsive(
-        'url("/footerImg.png")',
-        'url("/mobileFooterImg.png")',
-        'url("/mobileFooterImg.png")'
-      ),
-      backgroundSize: "100% 100%",
+      backgroundImage: 'url("/footerImg.png")',
+      backgroundSize: responsive("100% 100%", "cover", "cover"),
+      backgroundPosition: "75% 80%",
       color: colors.yellow,
       zIndex: 20,
       position: "relative",
+      paddingTop: responsive(0, 100, 0),
     },
     footerItemWrapper: {
       paddingTop: responsive("18vw", "20vh", "30vh"),
@@ -34,6 +33,7 @@ const Footer = () => {
       marginInline: "auto",
       position: "relative",
       flexDirection: responsive("row", "column-reverse", "column-reverse"),
+      alignItems: "center",
     },
     footerMenuWrapper: {
       display: "flex",
@@ -44,7 +44,8 @@ const Footer = () => {
       display: "flex",
       flexWrap: "wrap",
       gap: "10px",
-      width: responsive(500, "100%", "10%"),
+      width: responsive(500, "100%", "100%"),
+      transform: responsive("", "", "translateX(-00px)"),
     },
     footerMenuItem: {
       flex: "1 1 calc(25% - 10px)",

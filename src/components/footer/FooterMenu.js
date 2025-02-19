@@ -29,6 +29,7 @@ export default function FooterMenu({ data }) {
       gap: "30px",
       width: responsive("100%", "100%", "300px"),
       paddingRight: responsive(0, 130, 0),
+      flexDirection: responsive("row", "row", "column"),
     },
     menuColumn: {
       flex: "1 1 26%",
@@ -55,7 +56,7 @@ export default function FooterMenu({ data }) {
       fontSize: responsive("2rem", "2.2rem", "1.4rem"),
     },
     links: (isHovered) => ({
-      fontSize: responsive("1.6vw", "1.7rem", "1.1rem"),
+      fontSize: responsive("1.6vw", "1.7rem", "1.4rem"),
       textDecoration: "none",
       color: isHovered ? colors.orange : colors.white,
     }),
