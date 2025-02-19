@@ -34,14 +34,14 @@ function Header() {
       padding: responsive(10, 10, 7),
     },
     logo: {
-      height: responsive("180px", "140px", "100px"),
-      width: responsive("180px", "140px", "100px"),
+      height: responsive("180px", "140px", "120px"),
+      width: responsive("180px", "140px", "120px"),
       zIndex: 100,
       cursor: "pointer",
       transform: responsive(
         "translate(-28px, 40px)",
         "translate(-13px, 40px)",
-        "translate(-16px, 25px)"
+        "translate(-5px, 15px)"
       ),
     },
     vector: {

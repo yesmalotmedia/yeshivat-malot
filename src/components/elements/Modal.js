@@ -21,11 +21,12 @@ export default function Modal() {
       bottom: isShrink ? (isMobile ? 20 : 50) : isMobile ? 100 : 200,
       borderRadius: isShrink ? "50%" : 30,
       zIndex: 999,
-      opacity: isVisible ? 1 : 0, // Set opacity based on visibility state
-      transition: "all 0.3s", // Add transition effect
-      border: "solid white 1px",
-      boxShadow: "rgba(99, 99, 99, 0.2) 0px 10px 20px 0px",
+      opacity: isVisible ? 1 : 0,
+      transition: "all 0.3s",
+      outline: ` ${colors.darkBlue} 2px solid`,
+      border: "white 1px solid ",
     },
+
     label: {
       fontSize: isShrink ? (isMobile ? 16 : 16) : 30, // "בואו להיות" קטן יותר
       fontWeight: 400,

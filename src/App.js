@@ -47,13 +47,13 @@ function App() {
       const [lastEiunData, lastDafYomiData, lastClalimData] = await Promise.all(
         [
           fetch(
-            "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/posts?per_page=1&page=1&categories=19"
+            "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=1&page=1&categories=68"
           ).then((res) => res.json()),
           fetch(
-            "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/posts?per_page=1&page=1&categories=5"
+            "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=1&page=1&categories=66"
           ).then((res) => res.json()),
           fetch(
-            "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/posts?per_page=1&page=1&categories=18"
+            "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=1&page=1&categories=43"
           ).then((res) => res.json()),
         ]
       );
@@ -84,7 +84,8 @@ function App() {
     data: postsData,
     loading: loadingPosts,
     error: errorPosts,
-  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 100, 100);
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 10, 10000);
+  console.log(postsData);
 
   const {
     data: noticesData,
@@ -100,7 +101,6 @@ function App() {
     100,
     300
   );
-  console.log(categoriesData);
 
   const {
     data: rabbiesData,

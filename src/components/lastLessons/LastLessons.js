@@ -24,11 +24,11 @@ const LastLessons = () => {
   const loadingLastLessons =
     loadingLastClalim || loadinglastDafYomi || loadingLastEiun;
 
-  // Retrieve category names outside of callbacks or loops
+  const lastLessonsCategories = [68, 66, 43];
   const categoryNames = {
-    19: useCategoryNameById(19),
-    18: useCategoryNameById(18),
-    5: useCategoryNameById(5),
+    [lastLessonsCategories[0]]: useCategoryNameById(lastLessonsCategories[0]),
+    [lastLessonsCategories[1]]: useCategoryNameById(lastLessonsCategories[1]),
+    [lastLessonsCategories[2]]: useCategoryNameById(lastLessonsCategories[2]),
   };
 
   const styles = {
@@ -53,11 +53,11 @@ const LastLessons = () => {
     title: {
       position: "absolute",
       left: "50%",
-      top: 10,
+      top: 0,
       transform: "translateX(-50%)",
       color: colors.darkBlue,
       fontWeight: 600,
-      fontSize: responsive("1.8rem", "1.4rem", "1.3rem"),
+      fontSize: responsive("2.1rem", "1.4rem", "1.3rem"),
     },
     img: {
       margin: responsive(20, 10, 2),
@@ -66,6 +66,7 @@ const LastLessons = () => {
       borderRadius: 25,
     },
   };
+  console.log(categoryNames);
 
   const handleClick = (categoryId) => {
     const categoryName = categoryNames[categoryId];
@@ -85,16 +86,14 @@ const LastLessons = () => {
           title={video?.title}
           rabbiName={video?.rabbiName}
           //thumbnail={video?.thumbnail}
-          thumbnail={
-            "https://i.ytimg.com/vi_webp/RQGTGBU0sYg/maxresdefault.webp"
-          }
+          thumbnail={video?.thumbnail}
         />
       )}
       <Button
         color={index === 2 ? colors.darkBlue : colors.white}
         bgColor={index === 2 ? bgColors.yellow : bgColors.darkBlue} // Example gradients
         title={`לכל שיעורי ${
-          categoryNames[index === 0 ? 19 : index === 1 ? 18 : 5]
+          categoryNames[index === 0 ? 68 : index === 1 ? 43 : 66]
         }`}
         fontSize={responsive("1.2rem", "1.4rem", "1rem")}
         fontWeight={600}
@@ -107,6 +106,7 @@ const LastLessons = () => {
       />
     </div>
   ));
+  console.log(parsedLastVideos);
 
   return (
     <div style={styles.container}>
