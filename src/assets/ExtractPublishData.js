@@ -20,16 +20,18 @@ function convertDateFormat(dateStr) {
 }
 
 const ExtractPublishData = (data) => {
+  console.log(data);
+
   return data.map((post) => ({
-    image: post?.acf?.image,
+    image: post?.yoast_head_json?.og_image[0]?.url,
     id: post?.id,
-    date: convertDateFormat(post?.date?.split("T")[0]), // Extract only the date part
-    title: decodeHtmlEntities(post.title.rendered), // Decode HTML entities in the title
-    article: post?.content?.rendered,
-    pdfFile: post.acf.pdfFile,
-    author: post.acf.author,
-    price: post.acf.price,
-    discountPrice: post.acf.discountPrice,
+    // date: convertDateFormat(post?.date?.split("T")[0]), // Extract only the date part
+    title: decodeHtmlEntities(post?.title?.rendered), // Decode HTML entities in the title
+    description: post?.content?.rendered,
+    pdfFile: post?.acf?.pdfFile,
+    author: post?.acf?.author,
+    price: post?.acf?.book_price,
+    discountPrice: post?.acf?.discountPrice,
   }));
 };
 

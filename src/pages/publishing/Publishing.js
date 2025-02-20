@@ -9,6 +9,7 @@ import ComingSoon from "../ComingSoon";
 export default function Publishing() {
   const { colors, isMobile, responsive, parsedPublishData } =
     useContext(AppContext);
+  console.log(parsedPublishData);
 
   const styles = {
     mainContainer: {

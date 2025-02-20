@@ -129,9 +129,7 @@ function App() {
     data: publishData,
     loading: loadingPublish,
     error: errorPublish,
-  } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/publish?"
-  );
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/books?");
   const {
     data: memuzagData,
     loading: loadingMemuzag,
