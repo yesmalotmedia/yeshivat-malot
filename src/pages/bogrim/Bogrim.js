@@ -67,7 +67,7 @@ export default function Bogrim() {
         titleColor={colors.white}
         height={responsive("60vmin", "60vmin", "60vmin")}
         marginTop={responsive("30px", "50px", "120px")}
-        backgroundImage={"/publishingHero.png"}
+        backgroundImage={"/bogrimHero.png"}
       />
       <div style={styles.container}>
         <SideMenu

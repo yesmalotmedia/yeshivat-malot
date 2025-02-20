@@ -26,6 +26,7 @@ import ExtractNewsData from "./assets/ExtractNewsData";
 import useResponsive from "./Hooks/useResponsive";
 import ExtractPublishData from "./assets/ExtractPublishData";
 import ExtractTalmudMemuzagData from "./assets/ExtractTalmudMemuzagData";
+import extractNoticesData from "./assets/extractNoticesData";
 // import { section1 } from "./styles/sectionsStyle";
 export const AppContext = React.createContext();
 
@@ -84,14 +85,15 @@ function App() {
     data: postsData,
     loading: loadingPosts,
     error: errorPosts,
-  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 10, 10000);
-  console.log(postsData);
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 10, 50);
 
   const {
     data: noticesData,
     loading: loadingNotices,
     error: errorNotices,
-  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/message?per_page=2");
+  } = useFetch(
+    "https://yesmalot.co.il/wp-json/wp/v2/messages?per_page=100&page=4"
+  );
   const {
     data: categoriesData,
     loading: loadingCategories,
@@ -150,6 +152,7 @@ function App() {
 
   if (postsData) {
     parsedVideosData = ExtractPostsData(postsData);
+    parsedVideosData?.sort((a, b) => new Date(b.date) - new Date(a.date));
     videos = parsedVideosData.filter(
       (e) =>
         e.contentType.includes("video") ||
@@ -175,8 +178,9 @@ function App() {
     parsedNewsData = ExtractNewsData(newsData);
   }
   if (noticesData) {
-    parsedNoticesData = ExtractNewsData(noticesData);
+    parsedNoticesData = extractNoticesData(noticesData);
   }
+  console.log(parsedNoticesData);
 
   if (categoriesData) {
     categories = categoriesData;

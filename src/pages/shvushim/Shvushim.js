@@ -30,7 +30,7 @@ export default function Shvushim() {
     },
     contentWrapper: {
       flex: "2", // שני שלישים מהרוחב
-      minWidth: "500px",
+      // minWidth: "500px",
     },
   };
 

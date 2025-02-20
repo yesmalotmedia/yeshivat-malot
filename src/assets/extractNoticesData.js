@@ -10,27 +10,14 @@ const decodeHtmlEntities = (str) => {
 };
 
 const extractNoticesData = (data) => {
+  console.log(data);
+
   return data.map((item) => ({
     id: item?.id,
     content: item?.title?.rendered,
+    type: item?.acf?.type,
     date: item?.date?.split("T")[0], // Extract only the date part
     heDate: item?.meta?.heDate,
-    title: decodeHtmlEntities(item?.title?.rendered), // Decode HTML entities in the title
-    rabbiName: getRabbieNameById(item.rabbies[0]),
-    thumbnail: extractYoutubeCoverByVideoId(extractYoutubeUrl(item?.acf?.url)),
-    contentType: item.acf.contentType,
-    url: extractYoutubeUrl(item?.acf?.url),
-    article: item.acf.articleContent,
-    dedicatedTo: item.acf.dedicatedTo,
-    audioUrl: item.acf.audioUrl,
-    categories: item.categories,
-    combinedValues: [
-      item?.date?.split("T")[0],
-      item?.meta?.heDate,
-      decodeHtmlEntities(item?.title?.rendered),
-      getRabbieNameById(item.rabbies[0]),
-      ...item.categories,
-    ],
   }));
 };
 

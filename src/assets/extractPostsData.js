@@ -55,7 +55,6 @@ function extractRabbiName(youtubeIframe) {
 }
 const ExtractPostsData = (data) => {
   if (!Array.isArray(data)) return [];
-  console.log(data);
 
   return data.map((item) => ({
     id: item?.id,

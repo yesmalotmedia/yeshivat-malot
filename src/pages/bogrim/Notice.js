@@ -1,18 +1,16 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../App";
 
-export default function Notice({ content, noticeType }) {
+export default function Notice({ content, type }) {
   const { colors, responsive } = useContext(AppContext);
+  console.log(type);
 
   // הטיית המודעה באופן אקראי בין -3 ל-3 מעלות
   const rotation = Math.random() * 6 - 3;
-
   const styles = {
     container: {
-      backgroundColor:
-        noticeType === "congratulations" ? colors.yellow : colors.white,
-      color:
-        noticeType === "congratulations" ? colors.darkBlue : colors.darkBlue,
+      backgroundColor: type === "ברכות" ? colors.yellow : colors.white,
+      color: type === "ברכות" ? colors.darkBlue : colors.darkBlue,
       padding: 12,
       width: "25%", // שלוש בשורה
       height: "38%",
