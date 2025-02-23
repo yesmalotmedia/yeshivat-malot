@@ -3,7 +3,7 @@ import { AppContext } from "../../App";
 import LoadMore from "../../components/elements/LoadMore";
 import BookPreviewBox from "./BookPreviewBox";
 
-const BooksCollection = () => {
+const BooksCollection = ({ isRoshYeshiva }) => {
   const {
     responsive,
     colors,
@@ -45,11 +45,16 @@ const BooksCollection = () => {
       marginTop: "20px",
     },
   };
-
+  console.log(parsedPublishData);
+  const filteredBooks = parsedPublishData?.filter((book) =>
+    isRoshYeshiva
+      ? book.author === "הרב יהושע ויצמן"
+      : book.author !== "הרב יהושע ויצמן"
+  );
   return (
     <div style={styles.container}>
       <div style={styles.gridContainer}>
-        {parsedPublishData?.slice(0, visiblePostCount).map((book) => (
+        {filteredBooks?.slice(0, visiblePostCount).map((book) => (
           <BookPreviewBox
             key={book.title}
             image={book.image}
