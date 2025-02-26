@@ -11,7 +11,7 @@ export default function SideMenu({
   const [isOpen, setIsOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(window.innerHeight / 2);
 
-  const isMobile = responsive(false, false, true);
+  const isMobile = responsive(false, true, true);
 
   // מעדכן את המיקום של הכפתור בהתאם לגלילה
   useEffect(() => {
@@ -51,20 +51,21 @@ export default function SideMenu({
       right: responsive("0", isOpen ? "0px" : "-30%", isOpen ? "0px" : "-30%"),
       top: responsive("65%", "0", "0"), // מתחיל מגבול עליון
       height: "100vh", // גובה מסך מלא
+      height: isMobile ? "100vh" : "auto",
       overflow: "hidden", // מונע גלילה פנימית
       transition: "right 0.2s ease-in-out",
-      zIndex: responsive(0, 0, 1000),
+      zIndex: responsive(0, 1000, 1000),
     },
     toggleBtn: {
       position: "fixed",
       fontSize: 35,
-      right: isOpen ? "200px" : "10px",
+      right: isOpen ? "200px" : "0px",
       top: `${scrollPosition}px`, // מיקום דינמי בהתאם לגלילה
       transform: "translateY(-50%)",
       transition: "top 1.5s ease-in-out, right 0.3s ease-in-out", // תנועה חלקה
       color: colors.darkBlue,
       borderRadius: "10px",
-      padding: "10px",
+      padding: "30px",
       // boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
       cursor: "pointer",
       zIndex: 1100,
@@ -82,6 +83,7 @@ export default function SideMenu({
   const handleClick = (id) => {
     setActiveSection(id);
     setIsOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

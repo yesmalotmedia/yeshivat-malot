@@ -9,19 +9,12 @@ import Fqa from "./Fqa";
 import Team from "./Team";
 
 export default function Shvushim() {
-  const { colors, responsive } = useContext(AppContext);
+  const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
+  const { container, leftSection } = useSideMenuSection();
 
   const styles = {
-    container: {
-      display: "flex",
-      marginInline: "auto",
-      width: responsive("85%", "90%", "100%"),
-      alignItems: "flex-start",
-      justifyContent: responsive("", "center", "center"),
-      gap: 50,
-      position: responsive("static", "static", "relative"),
-    },
+    container,
     title: {
       textAlign: "center",
       marginTop: 10,
@@ -39,25 +32,29 @@ export default function Shvushim() {
       id: "1",
       title: "ברוכים הבאים",
       imgSrc: "/bogrim-icon2.png",
-      component: <Welcome titleStyle={styles.title} />,
+      component: (
+        <Welcome titleStyle={styles.title} leftSection={leftSection} />
+      ),
     },
     {
       id: "2",
       title: "נעים להכיר",
       imgSrc: "/introductionIcon.png",
-      component: <Introduction titleStyle={styles.title} />,
+      component: (
+        <Introduction titleStyle={styles.title} leftSection={leftSection} />
+      ),
     },
     {
       id: "3",
       title: "טיפים ושאלות",
       imgSrc: "/faqIcon.png",
-      component: <Fqa titleStyle={styles.title} />,
+      component: <Fqa titleStyle={styles.title} leftSection={leftSection} />,
     },
     {
       id: "4",
       title: "צוות הישיבה",
       imgSrc: "/teamIcon.png",
-      component: <Team titleStyle={styles.title} />,
+      component: <Team titleStyle={styles.title} leftSection={leftSection} />,
     },
   ];
 
@@ -87,20 +84,20 @@ export default function Shvushim() {
           setActiveSection={setActiveSection}
         />
 
-        <div style={styles.contentWrapper}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeSection} // מרענן את האנימציה בעת החלפת מקטע
-              initial={{ opacity: 0, y: 2 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -2 }}
-              transition={{ duration: 0.2 }}
-            >
-              {activeComponent}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        {/* <div style={styles.contentWrapper}> */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSection} // מרענן את האנימציה בעת החלפת מקטע
+            initial={{ opacity: 0, y: 2 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -2 }}
+            transition={{ duration: 0.2 }}
+          >
+            {activeComponent}
+          </motion.div>
+        </AnimatePresence>
       </div>
+      {/* </div> */}
     </>
   );
 }

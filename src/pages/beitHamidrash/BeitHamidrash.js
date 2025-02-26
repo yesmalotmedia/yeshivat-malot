@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../App";
 import HeroHomePage from "../../components/heroHomepage/HeroHomePage";
 import Spacer from "../../components/elements/Spacer";
@@ -13,7 +13,6 @@ import LoaderAnimation from "../../components/elements/LoaderAnimation";
 
 const BeitHamidrash = () => {
   const { topic } = useParams();
-  console.log(topic);
   // data
   const {
     responsive,
@@ -32,6 +31,10 @@ const BeitHamidrash = () => {
     setSelectedTopic,
     selectedRabbi,
     setSelectedRabbi,
+
+    postsStatus,
+    postsError,
+    postsFetchNextPage,
   } = useContext(AppContext);
 
   const screenWidth = window.innerWidth;
@@ -61,7 +64,9 @@ const BeitHamidrash = () => {
         }
       : {},
   };
+
   // functions
+  console.log(postsStatus);
 
   return (
     <>
@@ -95,13 +100,18 @@ const BeitHamidrash = () => {
           />
         )}
         {!videoId ? (
-          loadingPosts ? (
-            <LoaderAnimation isLoading={loadingPosts} color={colors.orange} />
-          ) : (
-            <LessonsCollection
-              lessonsType={lessonsType}
-              setlessonsType={setlessonsType}
+          postsStatus === "pending" ? (
+            <LoaderAnimation
+              isLoading={postsStatus === "pending"}
+              color={colors.orange}
             />
+          ) : (
+            <>
+              <LessonsCollection
+                lessonsType={lessonsType}
+                setlessonsType={setlessonsType}
+              />
+            </>
           )
         ) : (
           <LessonsSection videoId={videoId} />

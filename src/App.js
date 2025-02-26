@@ -13,7 +13,6 @@ import pagesList from "./pages/pagesList";
 import description from "./data/description";
 import dailyTextsData from "./data/dailyTextsData";
 import LastLessons from "./components/lastLessons/LastLessons";
-import VideoUploader from "./components/VideoUploader";
 import routers from "./Routes";
 import postsData from "./data/whatsNewData";
 import useFetch from "./assets/useFetch";
@@ -27,7 +26,12 @@ import useResponsive from "./Hooks/useResponsive";
 import ExtractPublishData from "./assets/ExtractPublishData";
 import ExtractTalmudMemuzagData from "./assets/ExtractTalmudMemuzagData";
 import extractNoticesData from "./assets/extractNoticesData";
+import useSideMenuSection from "./styles/sectionsStyle";
+import usePostsFetch from "./assets/usePostsFetch";
+import { data } from "framer-motion/m";
+import { useInView } from "framer-motion";
 // import { section1 } from "./styles/sectionsStyle";
+
 export const AppContext = React.createContext();
 
 function App() {
@@ -41,6 +45,7 @@ function App() {
   const [loadingLastEiun, setLoadingLastEiun] = useState(true);
   const [loadingLastDafYomi, setLoadingLastDafYomi] = useState(true);
   const [loadingLastClalim, setLoadingLastClalim] = useState(true);
+  const { ref, inView } = useInView;
 
   const fetchData = async () => {
     try {
@@ -81,12 +86,19 @@ function App() {
   }, []); // Fetch data when the component mounts
 
   // Continue with the other fetches for posts, categories, etc.
+  // const {
+  //   data: postsData,
+  //   loading: loadingPosts,
+  //   firstTwentyLoaded: firstTwentyLoaded,
+  //   error: errorPosts,
+  // } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 10, 100);
+
   const {
     data: postsData,
-    loading: loadingPosts,
-    error: errorPosts,
-  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 10, 50);
-
+    status: postsStatus,
+    error: postsError,
+    fetchNextPage: postsFetchNextPage,
+  } = usePostsFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?");
   const {
     data: noticesData,
     loading: loadingNotices,
@@ -111,32 +123,12 @@ function App() {
   } = useFetch(
     "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/rabbies?_fields=id,description,name&orderby=id&order=desc"
   );
-  const {
-    data: dedicationsData,
-    loading: loadingDedications,
-    error: errordedications,
-  } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/dedications"
-  );
-  const {
-    data: newsData,
-    loading: loadingNews,
-    error: errorNews,
-  } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/news"
-  );
+
   const {
     data: publishData,
     loading: loadingPublish,
     error: errorPublish,
   } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/books?");
-  const {
-    data: memuzagData,
-    loading: loadingMemuzag,
-    error: errorMemuzag,
-  } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/memuzag?per_page=100&page=1"
-  );
 
   // Parsing data
   let parsedVideosData = [];
@@ -147,10 +139,12 @@ function App() {
   let parsedMemuzagData = [];
   let parsedLastVideos = [];
   let parsedNoticesData = [];
+  let parsedaAllPostsData = [];
 
   if (postsData) {
-    parsedVideosData = ExtractPostsData(postsData);
-    parsedVideosData?.sort((a, b) => new Date(b.date) - new Date(a.date));
+    parsedVideosData = ExtractPostsData(postsData?.pages);
+
+    parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
     videos = parsedVideosData.filter(
       (e) =>
         e.contentType.includes("video") ||
@@ -172,13 +166,9 @@ function App() {
     ]);
   }
 
-  if (newsData) {
-    parsedNewsData = ExtractNewsData(newsData);
-  }
   if (noticesData) {
     parsedNoticesData = extractNoticesData(noticesData);
   }
-  console.log(parsedNoticesData);
 
   if (categoriesData) {
     categories = categoriesData;
@@ -186,10 +176,6 @@ function App() {
 
   if (publishData) {
     parsedPublishData = ExtractPublishData(publishData);
-  }
-
-  if (memuzagData) {
-    parsedMemuzagData = ExtractTalmudMemuzagData(memuzagData);
   }
 
   // Handle mobile view
@@ -223,9 +209,13 @@ function App() {
         isMobile,
         description,
         dailyTextsData,
-        postsData,
         parsedLastVideos,
-        loadingPosts,
+
+        postsData,
+        postsStatus,
+        postsError,
+        postsFetchNextPage,
+
         parsedNoticesData,
         loadingNotices,
         lastEiun,
@@ -242,14 +232,9 @@ function App() {
         rabbiesData,
         loadingRabbies,
         lessonsFilter,
-        dedicationsData,
-        loadingDedications,
-        errordedications,
         parsedNewsData,
-        loadingNews,
         parsedPublishData,
         parsedMemuzagData,
-        loadingMemuzag,
         setlessonsType,
         setIsMobileNavOpen,
         getCategoriesByParent,
@@ -260,6 +245,8 @@ function App() {
         setSelectedRabbi,
         useCategoryIdByName,
         useCategoryNameById,
+        useSideMenuSection,
+        useInView,
       }}
     >
       <div className="App">

@@ -10,7 +10,7 @@ const decodeHtmlEntities = (str) => {
 
 function convertDateFormat(dateStr) {
   // Split the input date string by '-'
-  const parts = dateStr.split("-");
+  const parts = dateStr?.split("-");
 
   // Rearrange the parts to match the desired format "DD-MM-YYYY"
   const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;

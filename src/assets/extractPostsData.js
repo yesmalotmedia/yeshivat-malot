@@ -45,22 +45,30 @@ import extractYoutubeCoverByVideoId from "./extractYoutubeCoverByVideoId";
 
 // Function to decode HTML entities
 const decodeHtmlEntities = (str) => {
-  var txt = document.createElement("textarea");
+  if (!str) return "";
+  const txt = document.createElement("textarea");
   txt.innerHTML = str;
   return txt.value;
 };
+
 function extractRabbiName(youtubeIframe) {
   const match = youtubeIframe?.match(/title="[^"]*הרב ([^"]+)"/);
   return match ? `הרב ${match[1]}` : null;
 }
-const ExtractPostsData = (data) => {
-  if (!Array.isArray(data)) return [];
 
-  return data.map((item) => ({
+const flattenData = (data) => {
+  return Array.isArray(data) ? data.flat(Infinity) : [];
+};
+
+const ExtractPostsData = (data) => {
+  const flatData = flattenData(data);
+  if (!Array.isArray(flatData) || flatData.length === 0) return [];
+
+  return flatData.map((item) => ({
     id: item?.id,
     date: item?.date?.split("T")[0], // תאריך בלבד
     heDate: item?.acf?.he_date || "", // תאריך עברי
-    title: decodeHtmlEntities(item?.title?.rendered || ""), // ניקוי HTML מהכותרת
+    title: decodeHtmlEntities(item?.title?.rendered || ""),
     rabbiName: extractRabbiName(item?.acf?.youtube),
     thumbnail: extractYoutubeCoverByVideoId(
       extractYoutubeUrl(item?.acf?.youtube)
@@ -71,7 +79,7 @@ const ExtractPostsData = (data) => {
         ? "audio"
         : "text",
     url: extractYoutubeUrl(item?.acf?.youtube),
-    article: item?.content?.rendered || "", // גוף המאמר
+    article: item?.content?.rendered || "",
     dedicatedTo: item?.acf?.dedicatedTo || "",
     audioUrl: item?.acf?.audio || "",
     categories: item?.categories || [],

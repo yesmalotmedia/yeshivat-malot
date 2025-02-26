@@ -2,22 +2,11 @@ import React, { useContext } from "react";
 import { AppContext } from "../../App";
 import { col } from "framer-motion/m";
 
-export default function Welcome({ title, titleStyle }) {
+export default function Welcome({ title, titleStyle, leftSection }) {
   const { colors } = useContext(AppContext);
 
   const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "85%",
-      padding: 40,
-      gap: 20,
-      margin: "auto",
-      marginTop: 50,
-      color: colors.darkBlue,
-    },
+    container: leftSection,
     title: titleStyle,
   };
 

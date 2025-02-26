@@ -9,19 +9,12 @@ import Fqa from "../shvushim/Fqa";
 import Team from "../shvushim/Team";
 
 export default function Shvushim() {
-  const { colors, responsive } = useContext(AppContext);
+  const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
+  const { container, leftSection } = useSideMenuSection();
 
   const styles = {
-    container: {
-      display: "flex",
-      marginInline: "auto",
-      width: responsive("85%", "90%", "100%"),
-      alignItems: "flex-start",
-      justifyContent: responsive("", "center", "center"),
-      gap: 50,
-      position: responsive("static", "static", "relative"),
-    },
+    container: container,
     title: {
       textAlign: "center",
       marginTop: 10,
@@ -39,25 +32,29 @@ export default function Shvushim() {
       id: "1",
       title: "ברוכים הבאים",
       imgSrc: "/bogrim-icon2.png",
-      component: <Welcome titleStyle={styles.title} />,
+      component: (
+        <Welcome titleStyle={styles.title} leftSection={leftSection} />
+      ),
     },
     {
       id: "2",
       title: "נעים להכיר",
       imgSrc: "/introductionIcon.png",
-      component: <Introduction titleStyle={styles.title} />,
+      component: (
+        <Introduction titleStyle={styles.title} leftSection={leftSection} />
+      ),
     },
     {
       id: "3",
       title: "טיפים ושאלות",
       imgSrc: "/faqIcon.png",
-      component: <Fqa titleStyle={styles.title} />,
+      component: <Fqa titleStyle={styles.title} leftSection={leftSection} />,
     },
     {
       id: "4",
       title: "צוות הישיבה",
       imgSrc: "/teamIcon.png",
-      component: <Team titleStyle={styles.title} />,
+      component: <Team titleStyle={styles.title} leftSection={leftSection} />,
     },
   ];
 
@@ -72,8 +69,8 @@ export default function Shvushim() {
   return (
     <>
       <HeroSection
-        title={'שבושי"ם'}
-        subTitle={'כל מה שצריך לדעת על שבו"ש בישיבת מעלות '}
+        title={"על הישיבה"}
+        subTitle={"פרטים על ישיבת מעלות"}
         isSubscribe={false}
         titleColor={colors.white}
         height={responsive("60vmin", "60vmin", "60vmin")}

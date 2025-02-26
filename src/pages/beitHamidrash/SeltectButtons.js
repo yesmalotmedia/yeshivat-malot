@@ -39,8 +39,8 @@ const SeltectButtons = ({
   //  useEffect(() => {}, [loadingCategories]);
   const getDisplyedCategories = (categories) => {
     return categories
-      .filter((cat) => cat.parent == 3)
-      .sort((a, b) => a.id - b.id);
+      ?.filter((cat) => cat.parent == 3)
+      ?.sort((a, b) => a.id - b.id);
   };
 
   const handleClick = (btnTitle) => {

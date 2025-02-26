@@ -116,6 +116,6 @@
 
 // export default getCategoryIdByName;
 const getCategoryIdByName = (name, categories) => {
-  const category = categories.find((cat) => cat.name === name);
+  const category = categories?.find((cat) => cat.name === name);
   return category ? category.id : -1; // ערך ברירת מחדל אם לא נמצא
 };

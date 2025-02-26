@@ -10,15 +10,15 @@ export default function Modal() {
   const styles = {
     form: {
       background: isShrink ? colors.darkBlue : colors.darkBlue,
-      width: isShrink ? (isMobile ? 90 : 110) : isMobile ? "40vmax" : 500,
-      height: isShrink ? (isMobile ? 90 : 110) : isMobile ? "340px" : "",
+      width: isShrink ? (isMobile ? 70 : 100) : isMobile ? "40vmax" : 500,
+      height: isShrink ? (isMobile ? 70 : 100) : isMobile ? "340px" : "",
       display: "flex",
       flexDirection: "column",
       padding: 30,
       position: "fixed",
-      left: isShrink ? (isMobile ? 60 : 100) : isMobile ? "50%" : 300,
+      left: isShrink ? (isMobile ? 40 : 100) : isMobile ? "50%" : 300,
       transform: "translateX(-50%)",
-      bottom: isShrink ? (isMobile ? 20 : 50) : isMobile ? 100 : 200,
+      bottom: isShrink ? (isMobile ? 8 : 50) : isMobile ? 100 : 200,
       borderRadius: isShrink ? "50%" : 30,
       zIndex: 999,
       opacity: isVisible ? 1 : 0,
@@ -28,7 +28,7 @@ export default function Modal() {
     },
 
     label: {
-      fontSize: isShrink ? (isMobile ? 16 : 16) : 30, // "בואו להיות" קטן יותר
+      fontSize: isShrink ? (isMobile ? 14 : 16) : 30, // "בואו להיות" קטן יותר
       fontWeight: 400,
       color: colors.white,
       cursor: isShrink ? "pointer" : "auto",
@@ -98,7 +98,7 @@ export default function Modal() {
           )}
           <label onClick={() => setIsShrink(false)} style={styles.label}>
             בואו להיות{" "}
-            <span style={{ fontSize: isShrink ? 21 : 37, fontWeight: "bold" }}>
+            <span style={{ fontSize: isShrink ? 18 : 37, fontWeight: "bold" }}>
               שותפים
             </span>
           </label>

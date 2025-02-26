@@ -12,7 +12,6 @@ export default function LessonSection({ videoId }) {
   const { colors, responsive, videos, useCategoryNameById } =
     useContext(AppContext);
   const video = videos?.find((video) => video?.id == videoId);
-  console.log(video);
 
   const mainCategory = useCategoryNameById(video?.categories[3]);
   const subCategory = useCategoryNameById(video?.categories[2]);

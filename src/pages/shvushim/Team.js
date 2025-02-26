@@ -3,20 +3,11 @@ import { AppContext } from "../../App";
 import description from "../../data/description";
 import { object } from "framer-motion/m";
 
-export default function Team({ title, titleStyle }) {
+export default function Team({ title, titleStyle, leftSection }) {
   const { colors, shadow } = useContext(AppContext);
 
   const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      width: "85%",
-      gap: 20,
-      margin: "auto",
-      marginTop: 50,
-      color: colors.darkBlue,
-    },
+    container: leftSection,
     title: titleStyle,
     teamContainer: {
       display: "flex",

@@ -3,7 +3,7 @@ import { AppContext } from "../../App";
 import LoadMore from "../../components/elements/LoadMore";
 import BookPreviewBox from "./BookPreviewBox";
 
-const BooksCollection = ({ isRoshYeshiva }) => {
+const BooksCollection = ({ isRoshYeshiva, leftSection }) => {
   const {
     responsive,
     colors,
@@ -19,7 +19,6 @@ const BooksCollection = ({ isRoshYeshiva }) => {
     loadingPosts,
     parsedPublishData,
   } = useContext(AppContext);
-  console.log(parsedPublishData);
   const [visiblePostCount, setVisiblePostCount] = useState(20);
 
   const loadMorePosts = (increment) => {
@@ -27,17 +26,14 @@ const BooksCollection = ({ isRoshYeshiva }) => {
   };
 
   const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "column",
-    },
     gridContainer: {
       display: "flex",
-      width: "100%",
+      width: "70%",
       flexWrap: "wrap",
       gap: "20px",
       alignItems: "center",
       justifyContent: "center",
+      margin: "auto",
     },
     loadMoreContainer: {
       display: "flex",

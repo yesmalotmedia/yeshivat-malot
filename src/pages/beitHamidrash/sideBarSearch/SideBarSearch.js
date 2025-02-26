@@ -13,7 +13,6 @@ const SideBarSearch = ({
   handleToggle,
   selectedRabbi,
 }) => {
-  console.log("seclected", setSelectedRabbi);
   const navigate = useNavigate();
   //data
   const {
@@ -44,7 +43,6 @@ const SideBarSearch = ({
   const [videoChecked, setVideoChecked] = useState(true);
   const [audioChecked, setAudioChecked] = useState(true);
   const [textChecked, setTextChecked] = useState(true);
-  console.log(getMainCategories(categories, 3));
   // styles
   const styles = {
     container: {
@@ -206,7 +204,6 @@ const SideBarSearch = ({
         options={rabbiesData}
         value={selectedRabbi}
         onChange={(e) => {
-          console.log("Selected Rabbi:", e.target.value);
           setSelectedRabbi(e.target.value); // This is the setter function
         }}
       />

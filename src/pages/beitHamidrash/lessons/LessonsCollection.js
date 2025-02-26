@@ -1,93 +1,85 @@
 import React, { useContext, useEffect, useState } from "react";
 import LessonPreviewBox from "./LessonPreviewBox";
 import colors from "../../../styles/colors";
-import SelectInput from "../sideBarSearch/SelectInput";
 import { AppContext } from "../../../App";
 import MobileFilter from "../MobileFilter";
 import usefilterLessons from "../../../assets/dataTest/useFilteredLessons";
 import LoadMore from "../../../components/elements/LoadMore";
-
+import { useInView } from "react-intersection-observer";
+import LoaderAnimation from "../../../components/elements/LoaderAnimation";
+import useStopScrollBeforeFooter from "../../../assets/useStopScrollBeforeFooter";
 const LessonsCollection = ({ lessonsType, setlessonsType }) => {
-  const {
-    isMobile,
-    parsedData,
-    videos,
-    lessonsFilter,
-    responsive,
-    setlessonsFilter,
-  } = useContext(AppContext);
-  const [displayedLessons, setDisplayedLessons] = useState([]);
+  const { isMobile, videos, lessonsFilter, postsFetchNextPage, postsStatus } =
+    useContext(AppContext);
+
   const [visiblePostCount, setVisiblePostCount] = useState(10);
-  const loadMorePosts = (increment) => {
-    setVisiblePostCount((prevCount) => prevCount + increment);
-  };
+  const [isFetching, setIsFetching] = useState(false);
 
-  // styles
-  const styles = {
-    mainContainer: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    },
-    lessonsContainer: {
-      width: "100%",
-      maxWidth: 1200,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexWrap: "wrap",
-      gap: "20px",
-      margin: "0 auto",
-    },
-    titleSection: {
-      display: "flex",
-      width: "80%",
-      padding: "0 1%",
-      justifyContent: "space-between",
-    },
-    title: {
-      color: colors.darkBlue,
-      fontWeight: 700,
-      fontSize: 22,
-      marginBottom: 10,
-    },
-    sortContainer: {
-      width: "40%",
-      display: "flex",
-    },
-    label: {
-      width: "30%",
-      lineHeight: 3,
-      color: colors.azure,
-      fontWeight: 500,
-    },
-    loadMoreContainer: {
-      margin: "20px 0",
-    },
-  };
+  const { ref, inView } = useInView({
+    threshold: 0.5, // קריאה מתבצעת כאשר 50% מהכפתור בתוך התצוגה
+    triggerOnce: false, // נוודא שזה קורה בכל פעם שהמשתמש מגיע לסוף
+  });
 
-  // חישוב הלקחים הממוינים בעזרת ה-hook
+  // חישוב השיעורים המסוננים
   const filteredLessons = usefilterLessons(videos, lessonsFilter);
-
+  filteredLessons?.sort((a, b) => new Date(b.date) - new Date(a.date));
   useEffect(() => {
-    if (filteredLessons) {
-      setDisplayedLessons(filteredLessons.slice(0, visiblePostCount));
+    if (inView && !isFetching) {
+      setIsFetching(true); // למנוע קריאות כפולות
+      postsFetchNextPage().finally(() => {
+        setTimeout(() => setIsFetching(false), 500); // המתנה קטנה לפני ביטול הסטטוס
+        window.scrollBy({ top: 0 }); // גלילה חלקה מעט למעלה
+      });
     }
-  }, [filteredLessons, visiblePostCount]);
+  }, [inView]);
 
-  const lessonsBoxesElements = displayedLessons?.map((video) => (
-    <LessonPreviewBox key={video.id} video={video} />
-  ));
+  // useStopScrollBeforeFooter();
 
   return (
-    <div style={styles.mainContainer}>
-      <div style={styles.titleSection}>
-        <div style={styles.title}>{lessonsFilter.category}</div>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <div
+        style={{
+          display: "flex",
+          width: "80%",
+          padding: "0 1%",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            color: colors.darkBlue,
+            fontWeight: 700,
+            fontSize: 22,
+            marginBottom: 10,
+          }}
+        >
+          {lessonsFilter.category}
+        </div>
       </div>
       {isMobile && <MobileFilter />}
-      <div style={styles.lessonsContainer}>{lessonsBoxesElements}</div>
-      <div style={styles.loadMoreContainer}>
-        <LoadMore onClick={() => loadMorePosts(10)} />
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 1200,
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          justifyContent: "center",
+        }}
+      >
+        {filteredLessons?.map((video) => (
+          <LessonPreviewBox key={video.id} video={video} />
+        ))}
+      </div>
+      <div style={{ margin: "20px 0" }}>
+        {isFetching ? (
+          <LoaderAnimation isLoading={isFetching} color={colors.orange} />
+        ) : (
+          // <div></div>
+          <LoadMore onClick={() => postsFetchNextPage()} />
+        )}
       </div>
     </div>
   );

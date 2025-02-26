@@ -57,19 +57,13 @@ import BooksCollection from "../publishing/BooksCollection";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Publishing() {
-  const { colors, responsive } = useContext(AppContext);
+  const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
+  const { container, leftSection } = useSideMenuSection();
 
   const styles = {
-    container: {
-      display: "flex",
-      marginInline: "auto",
-      width: responsive("85%", "90%", "100%"),
-      alignItems: "flex-start",
-      justifyContent: responsive("", "center", "center"),
-      gap: 50,
-      position: responsive("static", "relative", "relative"),
-    },
+    container: container,
+
     title: {
       textAlign: "center",
       marginTop: 10,
@@ -108,8 +102,8 @@ export default function Publishing() {
   return (
     <>
       <HeroSection
-        title={"בוגרים"}
-        subTitle={" בוגרי ישיבת מעלות לדורותיה"}
+        title={"הוצאה לאור"}
+        subTitle={'ספרי ראש הישיבה והרמי"ם'}
         isSubscribe={false}
         titleColor={colors.white}
         height={responsive("60vmin", "60vmin", "60vmin")}

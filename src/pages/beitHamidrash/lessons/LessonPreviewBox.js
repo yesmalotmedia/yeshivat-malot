@@ -103,6 +103,12 @@ export default function LessonPreviewBox({ video }) {
   //functions
 
   return (
+    // <div style={{ display: "flex", flexDirection: "column" }}>
+    //   <h2>{video.title}</h2>
+    //   <div>{video.id}</div>
+    //   <br></br>
+    // </div>
+
     <Link style={styles.btn} to={`/BeitHamidrash/${video.id}`}>
       <div
         style={styles.container}

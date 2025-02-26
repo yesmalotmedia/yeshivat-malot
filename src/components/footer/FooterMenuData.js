@@ -5,7 +5,7 @@ const FooterMenuData = [
   },
   {
     title: 'שבושי"ם',
-    url: "/TalmudHaMemuzag",
+    url: "/Shvushim",
   },
   {
     title: "צרו קשר",

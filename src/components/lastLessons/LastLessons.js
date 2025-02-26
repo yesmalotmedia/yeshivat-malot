@@ -66,7 +66,6 @@ const LastLessons = () => {
       borderRadius: 25,
     },
   };
-  console.log(categoryNames);
 
   const handleClick = (categoryId) => {
     const categoryName = categoryNames[categoryId];
@@ -106,7 +105,6 @@ const LastLessons = () => {
       />
     </div>
   ));
-  console.log(parsedLastVideos);
 
   return (
     <div style={styles.container}>
