@@ -83,7 +83,7 @@ export default function SideMenu({
   const handleClick = (id) => {
     setActiveSection(id);
     setIsOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: isMobile ? 100 : 350, behavior: "smooth" });
   };
 
   return (

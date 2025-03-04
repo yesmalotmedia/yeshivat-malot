@@ -9,8 +9,13 @@ import { useInView } from "react-intersection-observer";
 import LoaderAnimation from "../../../components/elements/LoaderAnimation";
 import useStopScrollBeforeFooter from "../../../assets/useStopScrollBeforeFooter";
 const LessonsCollection = ({ lessonsType, setlessonsType }) => {
-  const { isMobile, videos, lessonsFilter, postsFetchNextPage, postsStatus } =
-    useContext(AppContext);
+  const {
+    isMobile,
+    displayedVideos,
+    lessonsFilter,
+    postsFetchNextPage,
+    postsStatus,
+  } = useContext(AppContext);
 
   const [visiblePostCount, setVisiblePostCount] = useState(10);
   const [isFetching, setIsFetching] = useState(false);
@@ -21,8 +26,8 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
   });
 
   // חישוב השיעורים המסוננים
-  const filteredLessons = usefilterLessons(videos, lessonsFilter);
-  filteredLessons?.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const filteredLessons = usefilterLessons(displayedVideos, lessonsFilter);
+  displayedVideos?.sort((a, b) => new Date(b.date) - new Date(a.date));
   useEffect(() => {
     if (inView && !isFetching) {
       setIsFetching(true); // למנוע קריאות כפולות
@@ -69,7 +74,7 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
           justifyContent: "center",
         }}
       >
-        {filteredLessons?.map((video) => (
+        {displayedVideos?.map((video) => (
           <LessonPreviewBox key={video.id} video={video} />
         ))}
       </div>

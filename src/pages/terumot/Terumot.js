@@ -1,122 +1,98 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../../App";
 import HeroSection from "../../components/elements/HeroSection";
-import { AppContext } from "./../../App";
-import terumotData from "../../data/terumotData";
+import SideMenu from "../../components/SideMenu";
+import { motion, AnimatePresence } from "framer-motion";
+import Welcome from "../shvushim/Welcome";
+import Introduction from "../shvushim/Introduction";
+import Fqa from "../shvushim/Fqa";
+import Team from "../shvushim/Team";
 
 export default function Terumot() {
-  const { colors, responsive } = useContext(AppContext);
+  const { colors, responsive, useSideMenuSection } = useContext(AppContext);
+  const [activeSection, setActiveSection] = useState("1");
+  const { container, leftSection, title } = useSideMenuSection();
 
   const styles = {
-    mainContainer: {
-      marginInline: "auto",
-      width: responsive("60%", "80%", "90%"),
-    },
-    title: {
-      color: colors.darkBlue,
-      fontSize: responsive("2.5rem", "2rem", "1.6rem"),
-      marginTop: 40,
-    },
-    description: {
-      fontSize: responsive("1.3rem", "1.2rem", "1.2rem"),
-      lineHeight: responsive("2rem", "2rem", "1.7rem"),
-      textAlign: "justify",
-      marginTop: 30,
-    },
-    imgContainer: {
-      marginTop: 40,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 10,
-      width: "100%",
-      flexWrap: "wrap",
-    },
-    btn: {
-      position: "relative",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      cursor: "pointer",
-    },
-    img: {
-      height: responsive("13vmax", "16vmax", "13vmax"),
-      width: responsive("13vmax", "16vmax", "13vmax"),
-      transition: "transform 0.3s ease-in-out",
-    },
-    text: {
-      position: "absolute",
-      fontSize: responsive("1.2vmax", "1.7vmax", "2vmax"),
-      fontWeight: 700,
-      color: colors.white,
-      zIndex: 30,
-      textShadow: "0px 0px 6px #000",
-      textAlign: "center",
+    container,
+    title,
+    contentWrapper: {
+      flex: "2", // שני שלישים מהרוחב
+      // minWidth: "500px",
     },
   };
 
-  const data = terumotData[0];
+  const sections = [
+    {
+      id: "1",
+      title: "ברוכים הבאים",
+      imgSrc: "/bogrim-icon2.png",
+      component: (
+        <Welcome titleStyle={styles.title} leftSection={leftSection} />
+      ),
+    },
+    {
+      id: "2",
+      title: "נעים להכיר",
+      imgSrc: "/introductionIcon.png",
+      component: (
+        <Introduction titleStyle={styles.title} leftSection={leftSection} />
+      ),
+    },
+    {
+      id: "3",
+      title: "טיפים ושאלות",
+      imgSrc: "/faqIcon.png",
+      component: <Fqa titleStyle={styles.title} leftSection={leftSection} />,
+    },
+    {
+      id: "4",
+      title: "צוות הישיבה",
+      imgSrc: "/teamIcon.png",
+      component: <Team titleStyle={styles.title} leftSection={leftSection} />,
+    },
+  ];
 
-  // Event handlers for hover and touch effects
-  const handleMouseEnter = (e) => {
-    e.currentTarget.firstChild.style.transform = "scale(1.1)";
-  };
-
-  const handleMouseLeave = (e) => {
-    e.currentTarget.firstChild.style.transform = "scale(1)";
-  };
-
-  const handleTouchStart = (e) => {
-    e.currentTarget.firstChild.style.transform = "scale(1.1)";
-  };
-
-  const handleTouchEnd = (e) => {
-    e.currentTarget.firstChild.style.transform = "scale(1)";
-  };
-
+  const activeSectionData = sections.find(
+    (section) => section.id === activeSection
+  );
+  const activeComponent = activeSectionData
+    ? React.cloneElement(activeSectionData.component, {
+        title: activeSectionData.title,
+      })
+    : null;
   return (
     <>
       <HeroSection
-        title={"מוזמנים להיות חלק"}
-        backgroundImage={"/heroTrumot.png"}
-        subTitle={" ולהקדיש שיעור לזכות וברכה "}
+        title={"תרומות"}
+        subTitle={"בואו להיות שותפים"}
         isSubscribe={false}
         titleColor={colors.white}
-        height={responsive("60vmin", "60vmin", "80vmin")}
-        marginTop={responsive(90, 95, 120)}
-        isButton={true}
-        btnTitle={"לתרומה מהירה"}
+        height={responsive("60vmin", "60vmin", "60vmin")}
+        marginTop={responsive("30px", "50px", "120px")}
+        backgroundImage={"/publishingHero.png"}
       />
-      <div style={styles.mainContainer}>
-        <h2 style={styles.title}>{data.title}</h2>
-        <p style={styles.description}>{data.description}</p>
-        <h2 style={styles.title}>{data.btnTitle}</h2>
-        <div style={styles.imgContainer}>
-          {data.options.map((option, index) => (
-            <a
-              href={option.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "none" }}
-              key={index}
-            >
-              <div
-                style={styles.btn}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-              >
-                <img
-                  style={styles.img}
-                  src={option.image}
-                  alt={`image-${index}`}
-                />
-                <span style={styles.text}>{option.text}</span>
-              </div>
-            </a>
-          ))}
-        </div>
+      <div style={styles.container}>
+        <SideMenu
+          sections={sections}
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
+        />
+
+        {/* <div style={styles.contentWrapper}> */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSection} // מרענן את האנימציה בעת החלפת מקטע
+            initial={{ opacity: 0, y: 2 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -2 }}
+            transition={{ duration: 0.2 }}
+          >
+            {activeComponent}
+          </motion.div>
+        </AnimatePresence>
       </div>
+      {/* </div> */}
     </>
   );
 }

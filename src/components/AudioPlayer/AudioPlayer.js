@@ -1,30 +1,17 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { AppContext } from "../../App";
-import AudioControls from './AudioControls'; // Import the new component
-
-const styles = {
-  PlayerContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-  },
-  HiddenVideo: {
-    width: 0,
-    height: 0,
-    overflow: 'hidden',
-  }
-};
+import AudioControls from "./AudioControls"; // Import the new component
 
 // Function to extract video ID from YouTube URL or return ID if already provided
 const getVideoIdFromUrl = (url) => {
-  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const regex =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
   const match = url.match(regex);
   return match ? match[1] : url; // If it's a URL, return the video ID, otherwise return the input
 };
 
 const AudioPlayer = ({ audioUrl, shouldPlay, playerVars = {} }) => {
-  const { isMobile } = useContext(AppContext);
+  const { isMobile, responsive } = useContext(AppContext);
   const playerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -34,7 +21,19 @@ const AudioPlayer = ({ audioUrl, shouldPlay, playerVars = {} }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [volume, setVolume] = useState(50);
   const [isMuted, setIsMuted] = useState(false);
-
+  const styles = {
+    PlayerContainer: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "100%",
+    },
+    HiddenVideo: {
+      width: 0,
+      height: 0,
+      overflow: "hidden",
+    },
+  };
   useEffect(() => {
     const videoId = getVideoIdFromUrl(audioUrl); // Extract the video ID
 
@@ -64,11 +63,11 @@ const AudioPlayer = ({ audioUrl, shouldPlay, playerVars = {} }) => {
     const onPlayerError = () => {
       setIsPlaying(false);
       setIsLoading(false);
-      alert('Error loading audio.');
+      alert("Error loading audio.");
     };
 
     const createPlayer = () => {
-      playerRef.current = new window.YT.Player('youtube-player', {
+      playerRef.current = new window.YT.Player("youtube-player", {
         videoId: videoId, // Use extracted video ID here
         playerVars: {
           autoplay: 0,
@@ -84,9 +83,9 @@ const AudioPlayer = ({ audioUrl, shouldPlay, playerVars = {} }) => {
     };
 
     if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
       window.onYouTubeIframeAPIReady = createPlayer;
@@ -138,12 +137,11 @@ const AudioPlayer = ({ audioUrl, shouldPlay, playerVars = {} }) => {
   const handleVolumeChange = (e) => {
     const newVolume = e.target.value;
     setVolume(newVolume);
-  
+
     if (isPlayerReady && playerRef.current) {
       playerRef.current.setVolume(newVolume);
     }
-  
-  
+
     if (newVolume == 0) {
       setIsMuted(true);
       if (isPlayerReady && playerRef.current) {
@@ -156,7 +154,6 @@ const AudioPlayer = ({ audioUrl, shouldPlay, playerVars = {} }) => {
       }
     }
   };
-  
 
   const handleMuteUnmute = () => {
     if (isPlayerReady && playerRef.current) {

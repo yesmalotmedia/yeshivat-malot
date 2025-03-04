@@ -66,7 +66,6 @@ const BeitHamidrash = () => {
   };
 
   // functions
-  console.log(postsStatus);
 
   return (
     <>

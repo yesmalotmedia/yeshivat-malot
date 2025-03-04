@@ -1,9 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const usePostsFetch = (baseUrl) => {
+  console.log("fetch");
   const fetchData = async ({ pageParam }) => {
     const res = await fetch(
-      `${baseUrl}page=${pageParam}&per_page=9&orderby=date&order=desc`
+      `${baseUrl}page=${pageParam}&per_page=20&orderby=date&order=desc`
     );
     return res.json();
   };

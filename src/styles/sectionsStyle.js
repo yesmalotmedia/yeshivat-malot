@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../App";
+import { title } from "framer-motion/m";
 
 const useSideMenuSection = () => {
   const { responsive, colors } = useContext(AppContext);
@@ -26,6 +27,12 @@ const useSideMenuSection = () => {
       margin: "auto",
       marginTop: 50,
       color: colors.darkBlue,
+    },
+    title: {
+      textAlign: "center",
+      marginTop: 10,
+      color: colors.darkBlue,
+      fontSize: responsive("3vw", "5vw", "8vw"),
     },
   };
 };

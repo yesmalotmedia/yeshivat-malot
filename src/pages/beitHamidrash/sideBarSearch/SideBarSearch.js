@@ -6,6 +6,11 @@ import Checkbox from "./Checkbox";
 import yerushalmiMasectot from "../../../data/yerushalmiMasectot";
 import getMainCategories from "../../../assets/getMainCategories";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../../../assets/useFetch";
+import usePostsFetch from "../../../assets/usePostsFetch";
+import ExtractPostsData from "../../../assets/extractPostsData";
+import useQueryPostFetch from "../../../assets/useQueryPostFetch";
+import extractQueryPosts from "../../../assets/extractQueryPosts";
 const SideBarSearch = ({
   selectedTopic,
   setSelectedTopic,
@@ -26,6 +31,7 @@ const SideBarSearch = ({
     getCategoriesByParent,
     setlessonsFilter,
     lessonsFilter,
+    setDisplayedVideos,
   } = useContext(AppContext);
 
   const [selectedValue, setSelectedValue] = useState(500);
@@ -43,6 +49,8 @@ const SideBarSearch = ({
   const [videoChecked, setVideoChecked] = useState(true);
   const [audioChecked, setAudioChecked] = useState(true);
   const [textChecked, setTextChecked] = useState(true);
+
+  const [fetchUrl, setFetchUrl] = useState();
   // styles
   const styles = {
     container: {
@@ -162,14 +170,36 @@ const SideBarSearch = ({
     filteringSearch,
   ]);
 
-  useEffect(() => {
-    setlessonsFilter(lessonsFilter);
-  }, [setlessonsFilter]);
+  // useEffect(() => {
+  //   setlessonsFilter(lessonsFilter);
+  // }, [setlessonsFilter]);
 
   const handleSelectChange = (e) => {
-    setSelectedTopic(e.target.value);
-    navigate(`/BeitHamidrash?category=${selectedTopic}`);
+    const selectCategory = e?.target?.value;
+    setSelectedTopic(selectCategory);
+    setFetchUrl(`https://yesmalot.co.il/wp-json/wp/v2/posts`);
+    navigate(`/BeitHamidrash?category=${selectCategory}`);
   };
+
+  const {
+    data: postsData,
+    status: postsStatus,
+    error: postsError,
+    fetchNextPage: postsFetchNextPage,
+  } = useQueryPostFetch(fetchUrl, selectedTopic);
+
+  useEffect(() => {
+    if (postsData) {
+      let parsedVideosData = extractQueryPosts(
+        ExtractPostsData(postsData?.pages),
+        selectedTopic,
+        categories
+      );
+
+      parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
+      setDisplayedVideos(parsedVideosData);
+    }
+  }, [postsData, selectedTopic]);
   return (
     <form style={styles.container}>
       {isMobile && (

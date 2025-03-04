@@ -11,16 +11,11 @@ import Team from "../shvushim/Team";
 export default function Shvushim() {
   const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
-  const { container, leftSection } = useSideMenuSection();
+  const { container, leftSection, title } = useSideMenuSection();
 
   const styles = {
     container: container,
-    title: {
-      textAlign: "center",
-      marginTop: 10,
-      color: colors.darkBlue,
-      fontSize: "3.5vw",
-    },
+    title,
     contentWrapper: {
       flex: "2", // שני שלישים מהרוחב
       // minWidth: "500px",

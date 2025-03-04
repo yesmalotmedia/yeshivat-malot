@@ -151,3 +151,4 @@ const getCategoryNameById = (id, categories) => {
   const category = categories?.find((cat) => cat.id === id);
   return category ? category.name : "קטגוריה"; // ערך ברירת מחדל אם לא נמצא
 };
+export default getCategoryNameById;

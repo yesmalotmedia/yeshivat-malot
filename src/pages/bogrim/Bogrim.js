@@ -10,16 +10,11 @@ import KeepInTouch from "./KeepInTouch";
 export default function Bogrim() {
   const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
-  const { container, leftSection } = useSideMenuSection();
+  const { container, leftSection, title } = useSideMenuSection();
 
   const styles = {
     container: container,
-    title: {
-      textAlign: "center",
-      marginTop: 10,
-      color: colors.darkBlue,
-      fontSize: responsive("3vw", "5vw", "8vw"),
-    },
+    title,
   };
 
   const sections = [

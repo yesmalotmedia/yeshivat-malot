@@ -16,7 +16,7 @@ function useFilteredLessons(data, filter) {
 
     // סינון לפי קטגוריה
     if (filter.category && filter.category !== "כל השיעורים") {
-      filteredLessons = filteredLessons.filter((video) =>
+      filteredLessons = filteredLessons?.filter((video) =>
         video.categories.includes(categoryId)
       );
     }
@@ -52,7 +52,7 @@ function useFilteredLessons(data, filter) {
     }
 
     // מיון השיעורים לפי שם
-    filteredLessons.sort((a, b) => a.title.localeCompare(b.title));
+    filteredLessons?.sort((a, b) => a.title.localeCompare(b.title));
 
     return filteredLessons;
   }, [data, filter, categoryId, freeQueryCategoryId]); // עדכון התלויות

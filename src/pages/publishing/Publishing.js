@@ -108,7 +108,7 @@ export default function Publishing() {
         titleColor={colors.white}
         height={responsive("60vmin", "60vmin", "60vmin")}
         marginTop={responsive("30px", "50px", "120px")}
-        backgroundImage={"/bogrimHero.png"}
+        backgroundImage={"/publishingHero.png"}
       />
       <div style={styles.container}>
         <SideMenu

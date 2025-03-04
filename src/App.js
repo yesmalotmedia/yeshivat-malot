@@ -45,6 +45,10 @@ function App() {
   const [loadingLastEiun, setLoadingLastEiun] = useState(true);
   const [loadingLastDafYomi, setLoadingLastDafYomi] = useState(true);
   const [loadingLastClalim, setLoadingLastClalim] = useState(true);
+
+  const [displayedVideos, setDisplayedVideos] = useState([]);
+  console.log(displayedVideos);
+
   const { ref, inView } = useInView;
 
   const fetchData = async () => {
@@ -100,20 +104,20 @@ function App() {
     fetchNextPage: postsFetchNextPage,
   } = usePostsFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?");
   const {
-    data: noticesData,
+    allData: noticesData,
     loading: loadingNotices,
     error: errorNotices,
   } = useFetch(
     "https://yesmalot.co.il/wp-json/wp/v2/messages?per_page=100&page=4"
   );
   const {
-    data: categoriesData,
+    allData: categoriesData,
     loading: loadingCategories,
     error: errorCategories,
   } = useFetch(
     "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent",
-    100,
-    300
+    100, // כמה פוסטים נטענים בכל בקשה
+    300 // המגבלה הכללית
   );
 
   const {
@@ -121,11 +125,11 @@ function App() {
     loading: loadingRabbies,
     error: errorRabbies,
   } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/rabbies?_fields=id,description,name&orderby=id&order=desc"
+    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/rabbies?_fields=id,description,name"
   );
 
   const {
-    data: publishData,
+    allData: publishData,
     loading: loadingPublish,
     error: errorPublish,
   } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/books?");
@@ -141,18 +145,13 @@ function App() {
   let parsedNoticesData = [];
   let parsedaAllPostsData = [];
 
-  if (postsData) {
-    parsedVideosData = ExtractPostsData(postsData?.pages);
-
-    parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
-    videos = parsedVideosData.filter(
-      (e) =>
-        e.contentType.includes("video") ||
-        e.contentType.includes("וידאו") ||
-        e.contentType.includes("audio") ||
-        e.contentType.includes("text")
-    );
-  }
+  useEffect(() => {
+    if (postsData) {
+      let parsedVideosData = ExtractPostsData(postsData?.pages);
+      parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
+      setDisplayedVideos(parsedVideosData);
+    }
+  }, [postsData]);
 
   if (
     lastEiun?.length > 0 &&
@@ -210,7 +209,8 @@ function App() {
         description,
         dailyTextsData,
         parsedLastVideos,
-
+        displayedVideos,
+        setDisplayedVideos,
         postsData,
         postsStatus,
         postsError,
@@ -225,7 +225,7 @@ function App() {
         lastClalim,
         loadingLastClalim,
         isMobileNavOpen,
-        videos,
+        // videos,
         categories: categories || [],
         loadingCategories,
         lessonsType,
