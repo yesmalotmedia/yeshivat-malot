@@ -1,12 +1,20 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const usePostsFetch = (baseUrl, categoryParam) => {
+const usePostsFetch = (baseUrl, categoryParam, searchQuery) => {
   const fetchData = async ({ pageParam = 1 }) => {
-    const res = await fetch(
-      categoryParam && categoryParam != "-1"
-        ? `${baseUrl}?page=${pageParam}&per_page=20&orderby=date&order=desc&categories=${categoryParam}`
-        : `${baseUrl}?page=${pageParam}&per_page=20&orderby=date&order=desc`
-    );
+    let fetchUrl = "";
+    if (!searchQuery) {
+      fetchUrl =
+        categoryParam && categoryParam != "-1"
+          ? `${baseUrl}?page=${pageParam}&per_page=20&orderby=date&order=desc&categories=${categoryParam}`
+          : `${baseUrl}?page=${pageParam}&per_page=20&orderby=date&order=desc`;
+      console.log("category serch");
+    } else {
+      fetchUrl = `${baseUrl}?page=${pageParam}&per_page=20&orderby=date&order=desc&search=${searchQuery}`;
+      console.log("query serch", searchQuery);
+    }
+
+    const res = await fetch(fetchUrl);
     return res.json();
   };
 

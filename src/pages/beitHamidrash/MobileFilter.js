@@ -150,13 +150,13 @@ export default function MobileFilter() {
 
   return (
     <>
-      <style>
+      {/* <style>
         {`
           .no-scroll {
             overflow: hidden;
           }
         `}
-      </style>
+      </style> */}
 
       <div style={styles.filterDropdown}>
         <div style={styles.filterTop}>

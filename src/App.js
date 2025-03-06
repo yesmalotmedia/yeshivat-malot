@@ -51,6 +51,8 @@ function App() {
     `https://yesmalot.co.il/wp-json/wp/v2/posts?`
   );
   const [categoryParam, setCategoryParam] = useState();
+  const [searchQuery, setSearchQuery] = useState(undefined);
+
   console.log(categoryParam);
 
   const { ref, inView } = useInView;
@@ -98,7 +100,7 @@ function App() {
     status: postsStatus,
     error: postsError,
     fetchNextPage: postsFetchNextPage,
-  } = usePostsFetch(postFetchUrl, categoryParam);
+  } = usePostsFetch(postFetchUrl, categoryParam, searchQuery);
 
   const {
     allData: noticesData,
@@ -215,6 +217,8 @@ function App() {
         postsFetchNextPage,
         setPostFetchUrl,
         setCategoryParam,
+        searchQuery,
+        setSearchQuery,
         parsedNoticesData,
         loadingNotices,
         lastEiun,

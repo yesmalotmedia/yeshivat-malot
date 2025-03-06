@@ -35,6 +35,8 @@ const SideBarSearch = ({
     lessonsFilter,
     setDisplayedVideos,
     setCategoryParam,
+    searchQuery,
+    setSearchQuery,
   } = useContext(AppContext);
 
   const [selectedValue, setSelectedValue] = useState(500);
@@ -45,8 +47,6 @@ const SideBarSearch = ({
   );
   const [masectotOptions, setMasectotOptions] = useState();
   const [rabbiesOptions, setRabbiesOptions] = useState();
-
-  const [searchQuery, setSearchQuery] = useState("");
 
   const [selectedMasechet, setSelectedMasechet] = useState("");
   const [videoChecked, setVideoChecked] = useState(true);
@@ -119,7 +119,7 @@ const SideBarSearch = ({
     },
     btnContainer: {
       width: "100%",
-      margin: responsive("", "", "50% 0 0px 0"),
+      margin: responsive("", "", "0 0 40% 0"),
       display: "flex",
       justifyContent: "center",
     },
@@ -173,16 +173,11 @@ const SideBarSearch = ({
     filteringSearch,
   ]);
 
-  // useEffect(() => {
-  //   setlessonsFilter(lessonsFilter);
-  // }, [setlessonsFilter]);
-
   const handleSelectChange = useCallback(
     (e) => {
       const selectCategory = e?.target?.value;
       setSelectedTopic(selectCategory);
       const categoryId = getCategoryIdByName(selectCategory, categories);
-
       if (categoryId) {
         setCategoryParam(categoryId);
       }
@@ -190,27 +185,18 @@ const SideBarSearch = ({
     [categories, setSelectedTopic, setSelectedTopic]
   );
 
-  const {
-    data: postsData,
-    status: postsStatus,
-    error: postsError,
-    fetchNextPage: postsFetchNextPage,
-  } = useQueryPostFetch(fetchUrl, selectedTopic);
+  const handleButtonClick = (e) => {
+    handleToggle();
 
-  // useEffect(() => {
-  //   if (postsData) {
-  //     let parsedVideosData = extractQueryPosts(
-  //       ExtractPostsData(postsData?.pages),
-  //       selectedTopic,
-  //       categories
-  //     );
-
-  //     parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
-  //     setDisplayedVideos(parsedVideosData);
-  //   }
-  // }, [postsData, selectedTopic]);
+    const selectCategory = e?.target?.value;
+    setSelectedTopic(searchQuery);
+    const categoryId = getCategoryIdByName(searchQuery, categories);
+    if (categoryId) {
+      setCategoryParam(categoryId);
+    }
+  };
   return (
-    <form style={styles.container}>
+    <form style={styles.container} onSubmit={() => {}}>
       {isMobile && (
         <>
           <div style={styles.clearAll}>
@@ -223,15 +209,37 @@ const SideBarSearch = ({
         <div style={styles.lable}>חיפוש חופשי </div>
         <input
           style={styles.searchInput}
-          placeholder="הקלידו שם רב או נושא"
+          placeholder="הקלידו נושא או מילת מפתח"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => setSearchQuery(e.target.value)} // עדכון השאילתה
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              alert(searchQuery);
+
+              e.preventDefault();
+              handleSelectChange(e);
+            }
+          }}
         />
         <img src={"/searchIcon.png"} alt="Search" style={styles.searchIcon} />{" "}
       </div>
+      <div style={styles.btnContainer}>
+        <Button
+          color={colors.darkBlue}
+          bgColor={bgColors.yellow}
+          hoveredBgColor={bgColors.darkBlueGradient}
+          title={"בצע חיפוש"}
+          fontSize={20}
+          fontWeight={500}
+          borderRadius={50}
+          width={"90%"}
+          arrow={true}
+          onClick={handleButtonClick} // קריאה ל- handleClick
+        />
+      </div>
 
       <br></br>
-      <div style={styles.lable}>הנושאים</div>
+      <div style={styles.lable}>חיפוש לפי נושאים</div>
       <SelectInput
         options={getMainCategories(categories, 211) || categoriesOptions}
         value={selectedTopic}
@@ -263,20 +271,6 @@ const SideBarSearch = ({
         onChange={() => setTextChecked(!textChecked)}
       />
       <br />
-      <div style={styles.btnContainer}>
-        <Button
-          color={colors.darkBlue}
-          bgColor={bgColors.yellow}
-          hoveredBgColor={bgColors.darkBlueGradient}
-          title={"בצע חיפוש"}
-          fontSize={20}
-          fontWeight={500}
-          borderRadius={50}
-          width={"90%"}
-          arrow={true}
-          onClick={handleToggle}
-        />{" "}
-      </div>
 
       <style>{`::placeholder {color: ${colors.darkBlue}`}</style>
     </form>
