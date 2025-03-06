@@ -9,7 +9,6 @@ const extractQueryPosts = (lessons, search, categories) => {
   return lessons.filter((lesson) =>
     lesson.categories?.some((categoryId) => {
       const categoryName = getCategoryNameById(categoryId, categories);
-      console.log(categoryName);
 
       return (
         categoryName &&

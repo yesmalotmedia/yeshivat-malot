@@ -11,6 +11,8 @@ import usePostsFetch from "../../../assets/usePostsFetch";
 import ExtractPostsData from "../../../assets/extractPostsData";
 import useQueryPostFetch from "../../../assets/useQueryPostFetch";
 import extractQueryPosts from "../../../assets/extractQueryPosts";
+import getCategoryNameById from "../../../assets/getCategoryNameById";
+import getCategoryIdByName from "../../../assets/geCategoryIdByName";
 const SideBarSearch = ({
   selectedTopic,
   setSelectedTopic,
@@ -32,6 +34,7 @@ const SideBarSearch = ({
     setlessonsFilter,
     lessonsFilter,
     setDisplayedVideos,
+    setCategoryParam,
   } = useContext(AppContext);
 
   const [selectedValue, setSelectedValue] = useState(500);
@@ -174,12 +177,18 @@ const SideBarSearch = ({
   //   setlessonsFilter(lessonsFilter);
   // }, [setlessonsFilter]);
 
-  const handleSelectChange = (e) => {
-    const selectCategory = e?.target?.value;
-    setSelectedTopic(selectCategory);
-    setFetchUrl(`https://yesmalot.co.il/wp-json/wp/v2/posts`);
-    navigate(`/BeitHamidrash?category=${selectCategory}`);
-  };
+  const handleSelectChange = useCallback(
+    (e) => {
+      const selectCategory = e?.target?.value;
+      setSelectedTopic(selectCategory);
+      const categoryId = getCategoryIdByName(selectCategory, categories);
+
+      if (categoryId) {
+        setCategoryParam(categoryId);
+      }
+    },
+    [categories, setSelectedTopic, setSelectedTopic]
+  );
 
   const {
     data: postsData,
@@ -188,18 +197,18 @@ const SideBarSearch = ({
     fetchNextPage: postsFetchNextPage,
   } = useQueryPostFetch(fetchUrl, selectedTopic);
 
-  useEffect(() => {
-    if (postsData) {
-      let parsedVideosData = extractQueryPosts(
-        ExtractPostsData(postsData?.pages),
-        selectedTopic,
-        categories
-      );
+  // useEffect(() => {
+  //   if (postsData) {
+  //     let parsedVideosData = extractQueryPosts(
+  //       ExtractPostsData(postsData?.pages),
+  //       selectedTopic,
+  //       categories
+  //     );
 
-      parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
-      setDisplayedVideos(parsedVideosData);
-    }
-  }, [postsData, selectedTopic]);
+  //     parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
+  //     setDisplayedVideos(parsedVideosData);
+  //   }
+  // }, [postsData, selectedTopic]);
   return (
     <form style={styles.container}>
       {isMobile && (

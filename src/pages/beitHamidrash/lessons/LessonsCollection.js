@@ -3,7 +3,6 @@ import LessonPreviewBox from "./LessonPreviewBox";
 import colors from "../../../styles/colors";
 import { AppContext } from "../../../App";
 import MobileFilter from "../MobileFilter";
-import usefilterLessons from "../../../assets/dataTest/useFilteredLessons";
 import LoadMore from "../../../components/elements/LoadMore";
 import { useInView } from "react-intersection-observer";
 import LoaderAnimation from "../../../components/elements/LoaderAnimation";
@@ -24,9 +23,9 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
     threshold: 0.5, // קריאה מתבצעת כאשר 50% מהכפתור בתוך התצוגה
     triggerOnce: false, // נוודא שזה קורה בכל פעם שהמשתמש מגיע לסוף
   });
+  // console.log(displayedVideos);
 
   // חישוב השיעורים המסוננים
-  const filteredLessons = usefilterLessons(displayedVideos, lessonsFilter);
   displayedVideos?.sort((a, b) => new Date(b.date) - new Date(a.date));
   useEffect(() => {
     if (inView && !isFetching) {
@@ -37,8 +36,6 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
       });
     }
   }, [inView]);
-
-  // useStopScrollBeforeFooter();
 
   return (
     <div

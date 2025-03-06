@@ -46,8 +46,12 @@ function App() {
   const [loadingLastDafYomi, setLoadingLastDafYomi] = useState(true);
   const [loadingLastClalim, setLoadingLastClalim] = useState(true);
 
-  const [displayedVideos, setDisplayedVideos] = useState([]);
-  console.log(displayedVideos);
+  const [displayedVideos, setDisplayedVideos] = useState();
+  const [postFetchUrl, setPostFetchUrl] = useState(
+    `https://yesmalot.co.il/wp-json/wp/v2/posts?`
+  );
+  const [categoryParam, setCategoryParam] = useState();
+  console.log(categoryParam);
 
   const { ref, inView } = useInView;
 
@@ -89,20 +93,13 @@ function App() {
     fetchData();
   }, []); // Fetch data when the component mounts
 
-  // Continue with the other fetches for posts, categories, etc.
-  // const {
-  //   data: postsData,
-  //   loading: loadingPosts,
-  //   firstTwentyLoaded: firstTwentyLoaded,
-  //   error: errorPosts,
-  // } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?", 10, 100);
-
   const {
     data: postsData,
     status: postsStatus,
     error: postsError,
     fetchNextPage: postsFetchNextPage,
-  } = usePostsFetch("https://yesmalot.co.il/wp-json/wp/v2/posts?");
+  } = usePostsFetch(postFetchUrl, categoryParam);
+
   const {
     allData: noticesData,
     loading: loadingNotices,
@@ -110,6 +107,7 @@ function App() {
   } = useFetch(
     "https://yesmalot.co.il/wp-json/wp/v2/messages?per_page=100&page=4"
   );
+
   const {
     allData: categoriesData,
     loading: loadingCategories,
@@ -148,10 +146,10 @@ function App() {
   useEffect(() => {
     if (postsData) {
       let parsedVideosData = ExtractPostsData(postsData?.pages);
-      parsedVideosData?.sort((b, a) => new Date(b.date) - new Date(a.date));
+      postsData?.pages?.sort((b, a) => new Date(b.date) - new Date(a.date));
       setDisplayedVideos(parsedVideosData);
     }
-  }, [postsData]);
+  }, [postsData, postFetchUrl]);
 
   if (
     lastEiun?.length > 0 &&
@@ -215,7 +213,8 @@ function App() {
         postsStatus,
         postsError,
         postsFetchNextPage,
-
+        setPostFetchUrl,
+        setCategoryParam,
         parsedNoticesData,
         loadingNotices,
         lastEiun,

@@ -61,6 +61,8 @@ const flattenData = (data) => {
 };
 
 const ExtractPostsData = (data) => {
+  console.log(data);
+
   const flatData = flattenData(data);
   if (!Array.isArray(flatData) || flatData.length === 0) return [];
 

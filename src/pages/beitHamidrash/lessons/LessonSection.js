@@ -9,20 +9,25 @@ import LoaderAnimation from "../../../components/elements/LoaderAnimation";
 import Form from "../../contact/Form";
 
 export default function LessonSection({ videoId }) {
-  const { colors, responsive, videos, useCategoryNameById } =
+  const { colors, responsive, displayedVideos, useCategoryNameById } =
     useContext(AppContext);
-  const video = videos?.find((video) => video?.id == videoId);
+  console.log(displayedVideos);
+
+  const video = displayedVideos?.find((video) => video?.id == videoId);
 
   const mainCategory = useCategoryNameById(video?.categories[3]);
   const subCategory = useCategoryNameById(video?.categories[2]);
-  if (!videos) {
+  if (!displayedVideos) {
     console.error("Videos not available in context");
-    return <LoaderAnimation isLoading={!videos} color={colors.orange} />;
+    return (
+      <LoaderAnimation isLoading={!displayedVideos} color={colors.orange} />
+    );
   }
 
   const isVideo = video?.contentType.includes("video");
   const isAudio = video?.contentType.includes("audio");
   const isText = video?.contentType.includes("text");
+  console.log(video);
 
   if (!video) {
     console.error(`No video found with id: ${videoId}`);
