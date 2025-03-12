@@ -51,9 +51,7 @@ function App() {
     `https://yesmalot.co.il/wp-json/wp/v2/posts?`
   );
   const [categoryParam, setCategoryParam] = useState();
-  const [searchQuery, setSearchQuery] = useState(undefined);
-
-  console.log(categoryParam);
+  const [searchQuery, setSearchQuery] = useState();
 
   const { ref, inView } = useInView;
 
@@ -63,13 +61,13 @@ function App() {
       const [lastEiunData, lastDafYomiData, lastClalimData] = await Promise.all(
         [
           fetch(
-            "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=1&page=1&categories=68"
+            `https://yesmalot.co.il/wp-json/custom/v1/search?per_page=1&page=1&category=68`
           ).then((res) => res.json()),
           fetch(
-            "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=1&page=1&categories=66"
+            `https://yesmalot.co.il/wp-json/custom/v1/search?per_page=1&page=1&category=66`
           ).then((res) => res.json()),
           fetch(
-            "https://yesmalot.co.il/wp-json/wp/v2/posts?per_page=1&page=1&categories=43"
+            `https://yesmalot.co.il/wp-json/custom/v1/search?per_page=1&page=1&category=43`
           ).then((res) => res.json()),
         ]
       );
@@ -100,7 +98,8 @@ function App() {
     status: postsStatus,
     error: postsError,
     fetchNextPage: postsFetchNextPage,
-  } = usePostsFetch(postFetchUrl, categoryParam, searchQuery);
+  } = usePostsFetch(categoryParam, searchQuery);
+  console.log(postsData);
 
   const {
     allData: noticesData,
@@ -119,7 +118,6 @@ function App() {
     100, // כמה פוסטים נטענים בכל בקשה
     300 // המגבלה הכללית
   );
-
   const {
     data: rabbiesData,
     loading: loadingRabbies,
@@ -148,7 +146,11 @@ function App() {
   useEffect(() => {
     if (postsData) {
       let parsedVideosData = ExtractPostsData(postsData?.pages);
-      postsData?.pages?.sort((b, a) => new Date(b.date) - new Date(a.date));
+
+      parsedVideosData.sort(
+        (b, a) => new Date(a.date) - new Date(b.date) // הצגת החדשים קודם
+      );
+
       setDisplayedVideos(parsedVideosData);
     }
   }, [postsData, postFetchUrl]);

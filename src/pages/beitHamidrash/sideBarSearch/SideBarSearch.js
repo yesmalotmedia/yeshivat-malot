@@ -175,28 +175,34 @@ const SideBarSearch = ({
 
   const handleSelectChange = useCallback(
     (e) => {
+      console.log("Before update:", searchQuery);
+
+      // האם קיבלת את הערך הנכון?
+      console.log("Event target value:", e?.target?.value);
+
+      setSearchQuery(searchQuery); // שים לב: זה לא מעדכן שום דבר!
+      console.log("After update:", searchQuery);
+
       const selectCategory = e?.target?.value;
       setSelectedTopic(selectCategory);
+
       const categoryId = getCategoryIdByName(selectCategory, categories);
       if (categoryId) {
         setCategoryParam(categoryId);
       }
     },
-    [categories, setSelectedTopic, setSelectedTopic]
+    [categories, setSelectedTopic]
   );
-
   const handleButtonClick = (e) => {
     handleToggle();
-
-    const selectCategory = e?.target?.value;
-    setSelectedTopic(searchQuery);
-    const categoryId = getCategoryIdByName(searchQuery, categories);
-    if (categoryId) {
-      setCategoryParam(categoryId);
-    }
   };
   return (
-    <form style={styles.container} onSubmit={() => {}}>
+    <form
+      style={styles.container}
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       {isMobile && (
         <>
           <div style={styles.clearAll}>
@@ -212,30 +218,24 @@ const SideBarSearch = ({
           placeholder="הקלידו נושא או מילת מפתח"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)} // עדכון השאילתה
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              alert(searchQuery);
-
-              e.preventDefault();
-              handleSelectChange(e);
-            }
-          }}
         />
         <img src={"/searchIcon.png"} alt="Search" style={styles.searchIcon} />{" "}
       </div>
       <div style={styles.btnContainer}>
-        <Button
-          color={colors.darkBlue}
-          bgColor={bgColors.yellow}
-          hoveredBgColor={bgColors.darkBlueGradient}
-          title={"בצע חיפוש"}
-          fontSize={20}
-          fontWeight={500}
-          borderRadius={50}
-          width={"90%"}
-          arrow={true}
-          onClick={handleButtonClick} // קריאה ל- handleClick
-        />
+        {isMobile && (
+          <Button
+            color={colors.darkBlue}
+            bgColor={bgColors.yellow}
+            hoveredBgColor={bgColors.darkBlueGradient}
+            title={"בצע חיפוש"}
+            fontSize={20}
+            fontWeight={500}
+            borderRadius={50}
+            width={"90%"}
+            arrow={true}
+            onClick={(e) => handleButtonClick(e)}
+          />
+        )}
       </div>
 
       <br></br>
@@ -243,7 +243,7 @@ const SideBarSearch = ({
       <SelectInput
         options={getMainCategories(categories, 211) || categoriesOptions}
         value={selectedTopic}
-        onChange={(e) => handleSelectChange(e)}
+        onChange={(e) => handleButtonClick(e)}
       />
 
       <div style={styles.lable}>הרבנים</div>

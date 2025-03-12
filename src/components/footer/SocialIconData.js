@@ -6,7 +6,7 @@ const SocialIconData = [
 
   {
     image: "/footerImages/youtube.png",
-    url: "https://www.youtube.com/@tsadkoyahdav",
+    url: "https://www.youtube.com/@yesmalot",
   },
 ];
 export default SocialIconData;

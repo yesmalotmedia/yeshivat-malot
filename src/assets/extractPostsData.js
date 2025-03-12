@@ -1,49 +1,7 @@
-// import React, { useContext, useState } from "react";
-// import useFetch from "./useFetch";
-// import extractYoutubeUrl from "./extractYoutubeUrl";
-// import getRabbieNameById from "./getRabbieNameById";
-// import extractSpotifyUrl from "./extractSpotifyUrl";
-// import extractYoutubeCoverByVideoId from "./extractYoutubeCoverByVideoId";
-
-// // Function to decode HTML entities
-// const decodeHtmlEntities = (str) => {
-//   var txt = document.createElement("textarea");
-//   txt.innerHTML = str;
-//   return txt.value;
-// };
-
-// const ExtractPostsData = (data) => {
-//   console.log(data);
-
-//   return data.map((item) => ({
-//     id: item?.id,
-//     date: item?.date?.split("T")[0], // Extract only the date part
-//     heDate: item?.meta?.heDate,
-//     title: decodeHtmlEntities(item?.title?.rendered), // Decode HTML entities in the title
-//     rabbiName: getRabbieNameById(item?.rabbies[0]),
-//     thumbnail: extractYoutubeCoverByVideoId(extractYoutubeUrl(item?.acf?.url)),
-//     contentType: item.acf.contentType,
-//     url: extractYoutubeUrl(item?.acf?.url),
-//     article: item.acf.articleContent,
-//     dedicatedTo: item.acf.dedicatedTo,
-//     audioUrl: item.acf.audioUrl,
-//     categories: item.categories,
-//     combinedValues: [
-//       item?.date?.split("T")[0],
-//       item?.meta?.heDate,
-//       decodeHtmlEntities(item?.title?.rendered),
-//       getRabbieNameById(item.rabbies[0]),
-//       ...item.categories,
-//     ],
-//   }));
-// };
-
-// export default ExtractPostsData;
 import extractYoutubeUrl from "./extractYoutubeUrl";
-import getRabbieNameById from "./getRabbieNameById";
 import extractYoutubeCoverByVideoId from "./extractYoutubeCoverByVideoId";
 
-// Function to decode HTML entities
+// פונקציה לפענוח ישויות HTML
 const decodeHtmlEntities = (str) => {
   if (!str) return "";
   const txt = document.createElement("textarea");
@@ -51,48 +9,56 @@ const decodeHtmlEntities = (str) => {
   return txt.value;
 };
 
-function extractRabbiName(youtubeIframe) {
+// שליפת שם הרב מתוך ה-iframe
+const extractRabbiName = (youtubeIframe) => {
   const match = youtubeIframe?.match(/title="[^"]*הרב ([^"]+)"/);
   return match ? `הרב ${match[1]}` : null;
-}
+};
 
+// פונקציה לשיטוח נתונים
 const flattenData = (data) => {
   return Array.isArray(data) ? data.flat(Infinity) : [];
 };
 
+// פונקציה להמרת תאריך לפורמט YYYY-MM-DD
+const formatDate = (dateStr) => {
+  if (!dateStr) return "";
+  const [day, month, year] = dateStr.split("/");
+  return `${year}-${month}-${day}`;
+};
+
+// עיבוד הנתונים לפורמט הרצוי
 const ExtractPostsData = (data) => {
   console.log(data);
 
   const flatData = flattenData(data);
   if (!Array.isArray(flatData) || flatData.length === 0) return [];
 
-  return flatData.map((item) => ({
-    id: item?.id,
-    date: item?.date?.split("T")[0], // תאריך בלבד
-    heDate: item?.acf?.he_date || "", // תאריך עברי
-    title: decodeHtmlEntities(item?.title?.rendered || ""),
-    rabbiName: extractRabbiName(item?.acf?.youtube),
-    thumbnail: extractYoutubeCoverByVideoId(
-      extractYoutubeUrl(item?.acf?.youtube)
-    ),
-    contentType: item?.acf?.video
-      ? "video"
-      : item?.acf?.audio
-        ? "audio"
-        : "text",
-    url: extractYoutubeUrl(item?.acf?.youtube),
-    article: item?.content?.rendered || "",
-    dedicatedTo: item?.acf?.dedicatedTo || "",
-    audioUrl: item?.acf?.audio || "",
-    categories: item?.categories || [],
-    combinedValues: [
-      item?.date?.split("T")[0],
-      item?.acf?.he_date || "",
-      decodeHtmlEntities(item?.title?.rendered || ""),
-      getRabbieNameById(item?.author),
-      ...(item?.categories || []),
-    ],
-  }));
+  return flatData.map((item) => {
+    const youtubeUrl = extractYoutubeUrl(item?.acf_fields?.youtube);
+    const thumbnail =
+      extractYoutubeCoverByVideoId(youtubeUrl) || item?.thumbnail || "";
+    const dateParts = item?.date?.split(" – ") || [];
+    const formattedDate = formatDate(dateParts[1]); // המרת תאריך לפורמט YYYY-MM-DD
+    return {
+      id: item?.id,
+      date: formattedDate, // תאריך בפורמט המתאים למיון
+      heDate: dateParts[0] || "", // תאריך עברי בלבד
+      title: decodeHtmlEntities(item?.title || ""),
+      rabbiName: extractRabbiName(item?.acf_fields?.youtube),
+      thumbnail,
+      contentType: item?.acf_fields?.video
+        ? "video"
+        : item?.acf_fields?.audio
+          ? "audio"
+          : "text",
+      url: youtubeUrl,
+      article: item?.content || "",
+      dedicatedTo: item?.dedicatedTo || "",
+      audioUrl: item?.acf_fields?.audio || "",
+      categories: item?.categories || [],
+    };
+  });
 };
 
 export default ExtractPostsData;
