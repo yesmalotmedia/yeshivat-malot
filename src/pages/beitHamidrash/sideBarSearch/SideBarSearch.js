@@ -175,24 +175,25 @@ const SideBarSearch = ({
 
   const handleSelectChange = useCallback(
     (e) => {
-      console.log("Before update:", searchQuery);
+      const { value } = e.target;
+      console.log(value);
 
-      // האם קיבלת את הערך הנכון?
-      console.log("Event target value:", e?.target?.value);
+      const categoryId = getCategoryIdByName(value, categories);
+      console.log(categoryId);
 
-      setSearchQuery(searchQuery); // שים לב: זה לא מעדכן שום דבר!
-      console.log("After update:", searchQuery);
+      setCategoryParam(categoryId);
+      setSelectedTopic(value);
 
-      const selectCategory = e?.target?.value;
-      setSelectedTopic(selectCategory);
-
-      const categoryId = getCategoryIdByName(selectCategory, categories);
-      if (categoryId) {
-        setCategoryParam(categoryId);
-      }
+      // אם המשתמש בוחר קטגוריה חדשה, נאפס את החיפוש החופשי
+      setSearchQuery("");
     },
-    [categories, setSelectedTopic]
+    [categories, setSelectedTopic, setCategoryParam, setSearchQuery]
   );
+  const handleSearchQueryChange = (e) => {
+    setSearchQuery(e.target.value);
+    setSelectedTopic("בחר אפשרות");
+  };
+
   const handleButtonClick = (e) => {
     handleToggle();
   };
@@ -217,7 +218,7 @@ const SideBarSearch = ({
           style={styles.searchInput}
           placeholder="הקלידו נושא או מילת מפתח"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // עדכון השאילתה
+          onChange={(e) => handleSearchQueryChange(e)} // עדכון השאילתה
         />
         <img src={"/searchIcon.png"} alt="Search" style={styles.searchIcon} />{" "}
       </div>
@@ -243,7 +244,7 @@ const SideBarSearch = ({
       <SelectInput
         options={getMainCategories(categories, 211) || categoriesOptions}
         value={selectedTopic}
-        onChange={(e) => handleButtonClick(e)}
+        onChange={(e) => handleSelectChange(e)}
       />
 
       <div style={styles.lable}>הרבנים</div>

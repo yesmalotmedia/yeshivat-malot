@@ -2,17 +2,16 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import useDebounce from "../Hooks/useDebounce";
 
 const usePostsFetch = (categoryParam, searchQuery) => {
-  console.log("🔍 חיפוש:", searchQuery);
-
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   const fetchData = async ({ pageParam = 1, signal }) => {
-    const fetchUrl = `https://yesmalot.co.il/wp-json/custom/v1/search${
-      debouncedSearchQuery ? `?s=${debouncedSearchQuery}` : "?s="
-    }&page=${pageParam}&per_page=20&orderby=date&order=desc`;
-    // const fetchUrl = `https://yesmalot.co.il/wp-json/custom/v1/search?s=&page=${pageParam}&per_page=20&orderby=date&order=desc`;
+    let fetchUrl;
 
-    console.log("📡 Fetching:", fetchUrl);
+    if (debouncedSearchQuery) {
+      fetchUrl = `https://yesmalot.co.il/wp-json/custom/v1/search?s=${debouncedSearchQuery}&page=${pageParam}&per_page=20&orderby=date&order=desc`;
+    } else {
+      fetchUrl = `https://yesmalot.co.il/wp-json/custom/v1/search?category=${categoryParam}&page=${pageParam}&per_page=20&orderby=date&order=desc`;
+    }
 
     const res = await fetch(fetchUrl, { signal });
 
@@ -24,7 +23,7 @@ const usePostsFetch = (categoryParam, searchQuery) => {
   };
 
   const { data, status, error, fetchNextPage, refetch } = useInfiniteQuery({
-    queryKey: ["lessons", categoryParam, debouncedSearchQuery], // תמיד נשלח גם כשהחיפוש ריק
+    queryKey: ["lessons", categoryParam, debouncedSearchQuery],
     queryFn: ({ pageParam }) => {
       const controller = new AbortController();
       return fetchData({ pageParam, signal: controller.signal });

@@ -54,7 +54,16 @@ function App() {
   const [searchQuery, setSearchQuery] = useState();
 
   const { ref, inView } = useInView;
-
+  // Parsing data
+  let parsedVideosData = [];
+  let videos = [];
+  let categories = [];
+  let parsedNewsData = [];
+  let parsedPublishData = [];
+  let parsedMemuzagData = [];
+  let parsedLastVideos = [];
+  let parsedNoticesData = [];
+  let parsedaAllPostsData = [];
   const fetchData = async () => {
     try {
       // Fetch the last lessons first (priority)
@@ -131,17 +140,6 @@ function App() {
     loading: loadingPublish,
     error: errorPublish,
   } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/books?");
-
-  // Parsing data
-  let parsedVideosData = [];
-  let videos = [];
-  let categories = [];
-  let parsedNewsData = [];
-  let parsedPublishData = [];
-  let parsedMemuzagData = [];
-  let parsedLastVideos = [];
-  let parsedNoticesData = [];
-  let parsedaAllPostsData = [];
 
   useEffect(() => {
     if (postsData) {
