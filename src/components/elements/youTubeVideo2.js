@@ -5,6 +5,8 @@ import bgColors from "../../styles/bg-colors";
 
 function YouTubeVideo2({ url }) {
   // Context
+  console.log(url);
+
   const { colors } = useContext(AppContext);
 
   const styles = {

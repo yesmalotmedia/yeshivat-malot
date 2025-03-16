@@ -1,5 +1,5 @@
 export default function extractYoutubeCoverByVideoId(url) {
-  if (!url) return "/harav-ishay-lesson.png"; // ברירת מחדל אם אין URL
+  if (!url) return "/default-cover.png"; // ברירת מחדל אם אין URL
 
   const match =
     url.match(/[?&]v=([^&#]+)/) ||
@@ -7,7 +7,7 @@ export default function extractYoutubeCoverByVideoId(url) {
     url.match(/embed\/([^/?]+)/);
   const videoId = match ? match[1] : null;
 
-  if (!videoId) return "/harav-ishay-lesson.png"; // אם אין מזהה וידאו - החזר תמונת ברירת מחדל
+  if (!videoId) return "/default-cover.png"; // אם אין מזהה וידאו - החזר תמונת ברירת מחדל
 
   return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 }

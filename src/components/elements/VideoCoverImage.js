@@ -3,28 +3,35 @@ import { AppContext } from "../../App";
 import bgColors from "../../styles/bg-colors";
 import { Link } from "react-router-dom";
 import shadow from "../../styles/shadows";
-function VideoCoverImage({ url, videoId, title, rabbiName, thumbnail }) {
+function VideoCoverImage({
+  url,
+  videoId,
+  title,
+  rabbiName,
+  thumbnail,
+  imgWidth,
+}) {
   // State
   const [isHovered, setIsHovered] = useState(false);
   // Context
   const { colors, responsive, isMobile } = useContext(AppContext);
 
-  // Function to extract YouTube video ID from the URL
-  const getYouTubeVideoId = (url) => {
-    try {
-      const urlParts = url?.split("/");
-      const lastPart = urlParts[urlParts?.length - 1];
-      const idWithParams = lastPart.split("?")[0];
-      return idWithParams;
-    } catch (error) {
-      console.error("Error extracting YouTube video ID:", error);
-      return null;
-    }
-  };
+  // // Function to extract YouTube video ID from the URL
+  // const getYouTubeVideoId = (url) => {
+  //   try {
+  //     const urlParts = url?.split("/");
+  //     const lastPart = urlParts[urlParts?.length - 1];
+  //     const idWithParams = lastPart.split("?")[0];
+  //     return idWithParams;
+  //   } catch (error) {
+  //     console.error("Error extracting YouTube video ID:", error);
+  //     return null;
+  //   }
+  // };
 
-  const youTubeVideoId = getYouTubeVideoId(url);
+  // const youTubeVideoId = getYouTubeVideoId(url);
 
-  let thumbnailUrl = thumbnail;
+  let thumbnailUrl = imgWidth == 120 ? "/default-cover.png" : thumbnail;
 
   const styles = {
     container: {

@@ -175,6 +175,8 @@ const SideBarSearch = ({
 
   const handleSelectChange = useCallback(
     (e) => {
+      navigate("/BeitHamidrash"); // חזרה לכתובת הראשית לפני החיפוש
+
       const { value } = e.target;
       console.log(value);
 
@@ -190,6 +192,8 @@ const SideBarSearch = ({
     [categories, setSelectedTopic, setCategoryParam, setSearchQuery]
   );
   const handleSearchQueryChange = (e) => {
+    navigate("/BeitHamidrash"); // חזרה לכתובת הראשית לפני החיפוש
+
     setSearchQuery(e.target.value);
     setSelectedTopic("בחר אפשרות");
   };

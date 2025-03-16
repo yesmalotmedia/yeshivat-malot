@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import YouTubeVideo2 from "../../../components/elements/youTubeVideo2";
 import { Link } from "react-router-dom";
@@ -7,6 +7,16 @@ import VideoCoverImage from "../../../components/elements/VideoCoverImage";
 export default function LessonPreviewBox({ video }) {
   const { colors, responsive } = useContext(AppContext);
   const [isHovered, setIsHovered] = useState(false);
+  const [imgWidth, setImgWidth] = useState(0);
+  useEffect(() => {
+    if (video.thumbnail) {
+      const img = new Image();
+      img.src = video.thumbnail;
+      img.onload = () => {
+        setImgWidth(img.width);
+      };
+    }
+  }, [video.thumbnail]);
 
   const styles = {
     container: {
@@ -124,6 +134,7 @@ export default function LessonPreviewBox({ video }) {
             title={video.title}
             rabbiName={video.rabbiName}
             thumbnail={video.thumbnail}
+            imgWidth={imgWidth}
           />
         }
         <div style={styles.description}>
@@ -131,13 +142,14 @@ export default function LessonPreviewBox({ video }) {
             <h2 style={styles.title}> {video.title}</h2>
             <h2 style={styles.subTitle}> {video.rabbiName}</h2>
           </div>
+
           <div>
             {" "}
             <h3 style={styles.date}>{video.date}</h3>
             <h3 style={styles.date}>{video.heDate}</h3>
           </div>
         </div>
-        <div style={styles.bottomSection}>
+        {/* <div style={styles.bottomSection}>
           <div style={styles.btnContainer}>
             {video.contentType.includes("video") && (
               <img style={styles.icon} src="watch.png" alt="watch"></img>
@@ -149,7 +161,7 @@ export default function LessonPreviewBox({ video }) {
               <img style={styles.icon} src="read.png" alt="read"></img>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

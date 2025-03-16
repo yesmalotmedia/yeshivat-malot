@@ -23,7 +23,7 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
     threshold: 0.5, // קריאה מתבצעת כאשר 50% מהכפתור בתוך התצוגה
     triggerOnce: false, // נוודא שזה קורה בכל פעם שהמשתמש מגיע לסוף
   });
-  // console.log(displayedVideos);
+  console.log(displayedVideos);
 
   // חישוב השיעורים המסוננים
   displayedVideos?.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -71,9 +71,10 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
           justifyContent: "center",
         }}
       >
-        {displayedVideos?.map((video) => (
-          <LessonPreviewBox key={video.id} video={video} />
-        ))}
+        {displayedVideos?.map(
+          (video) =>
+            video.url && <LessonPreviewBox key={video.id} video={video} />
+        )}
       </div>
       <div style={{ margin: "20px 0" }}>
         {isFetching ? (
