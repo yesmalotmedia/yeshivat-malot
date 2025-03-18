@@ -7,6 +7,8 @@ import { useCategoryNameById } from "../../assets/useCategories";
 import LoaderAnimation from "../elements/LoaderAnimation";
 import bgColors from "../../styles/bg-colors";
 import shadow from "../../styles/shadows";
+import getCategoryIdByName from "../../assets/geCategoryIdByName";
+
 const LastLessons = () => {
   const navigate = useNavigate();
 
@@ -19,6 +21,7 @@ const LastLessons = () => {
     loadinglastDafYomi,
     loadingLastEiun,
     parsedLastVideos,
+    setCategoryParam,
   } = useContext(AppContext);
 
   const loadingLastLessons =
@@ -70,6 +73,7 @@ const LastLessons = () => {
   const handleClick = (categoryId) => {
     const categoryName = categoryNames[categoryId];
     setlessonsFilter({ category: categoryName });
+    setCategoryParam(categoryId);
     navigate(`/BeitHamidrash`);
   };
 
@@ -101,7 +105,7 @@ const LastLessons = () => {
         arrow={true}
         arrowColor={index === 2 ? "blue" : "white"}
         margin={"10px 0 0 0"}
-        onClick={() => handleClick(index === 0 ? 19 : index === 1 ? 18 : 5)}
+        onClick={() => handleClick(index === 0 ? 68 : index === 1 ? 43 : 66)}
       />
     </div>
   ));
