@@ -133,12 +133,9 @@ const BeitHamidrash = () => {
           />
         )}
 
-        {postsStatus === "pending" ? (
-          <LoaderAnimation
-            color={colors.orange}
-            isLoading={postsStatus === "pending"}
-          />
-        ) : lesson ? (
+        {loading || postsStatus === "pending" ? ( // ודא שגם loading משפיע
+          <LoaderAnimation color={colors.orange} isLoading />
+        ) : lesson && lesson.length > 0 ? (
           <LessonsSection lesson={lesson[0]} />
         ) : (
           <LessonsCollection
