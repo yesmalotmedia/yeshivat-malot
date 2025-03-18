@@ -108,7 +108,6 @@ function App() {
     error: postsError,
     fetchNextPage: postsFetchNextPage,
   } = usePostsFetch(categoryParam, searchQuery);
-  console.log(postsData);
 
   const {
     allData: noticesData,

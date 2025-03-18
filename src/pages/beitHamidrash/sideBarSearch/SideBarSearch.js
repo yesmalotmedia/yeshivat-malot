@@ -14,6 +14,7 @@ import extractQueryPosts from "../../../assets/extractQueryPosts";
 import getCategoryNameById from "../../../assets/getCategoryNameById";
 import getCategoryIdByName from "../../../assets/geCategoryIdByName";
 const SideBarSearch = ({
+  setLesson,
   selectedTopic,
   setSelectedTopic,
   setSelectedRabbi,
@@ -176,7 +177,7 @@ const SideBarSearch = ({
   const handleSelectChange = useCallback(
     (e) => {
       navigate("/BeitHamidrash"); // חזרה לכתובת הראשית לפני החיפוש
-
+      setLesson(undefined);
       const { value } = e.target;
       console.log(value);
 
@@ -193,6 +194,7 @@ const SideBarSearch = ({
   );
   const handleSearchQueryChange = (e) => {
     navigate("/BeitHamidrash"); // חזרה לכתובת הראשית לפני החיפוש
+    setLesson(undefined);
 
     setSearchQuery(e.target.value);
     setSelectedTopic("בחר אפשרות");

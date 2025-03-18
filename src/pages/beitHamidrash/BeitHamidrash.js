@@ -10,6 +10,7 @@ import HeroSection from "../../components/elements/HeroSection";
 import LessonsCollection from "./lessons/LessonsCollection";
 import { useParams } from "react-router-dom";
 import LoaderAnimation from "../../components/elements/LoaderAnimation";
+import ExtractPostsData from "../../assets/extractPostsData";
 
 const BeitHamidrash = () => {
   const { topic } = useParams();
@@ -40,6 +41,38 @@ const BeitHamidrash = () => {
   const screenWidth = window.innerWidth;
   // states
   const { videoId } = useParams();
+  const [lesson, setLesson] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  console.log(lesson);
+
+  useEffect(() => {
+    const fetchLesson = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(
+          `https://yesmalot.co.il/wp-json/custom/v1/post/${videoId}`
+        );
+
+        if (!response.ok) throw new Error("שגיאה בטעינת השיעור");
+
+        const data = await response.json();
+
+        const parsData = ExtractPostsData(data);
+
+        setLesson(parsData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLesson();
+  }, [videoId]); // הפעלת ה-fetch בכל שינוי של postId
+
   // styles
   const styles = {
     mainSection: {
@@ -90,6 +123,7 @@ const BeitHamidrash = () => {
       <section style={styles.mainSection}>
         {!isMobile && (
           <SideBarSearch
+            setLesson={setLesson}
             lessonsType={lessonsType}
             setlessonsType={setlessonsType}
             selectedTopic={selectedTopic}
@@ -98,22 +132,19 @@ const BeitHamidrash = () => {
             setSelectedRabbi={setSelectedRabbi}
           />
         )}
-        {!videoId ? (
-          postsStatus === "pending" ? (
-            <LoaderAnimation
-              isLoading={postsStatus === "pending"}
-              color={colors.orange}
-            />
-          ) : (
-            <>
-              <LessonsCollection
-                lessonsType={lessonsType}
-                setlessonsType={setlessonsType}
-              />
-            </>
-          )
+
+        {postsStatus === "pending" ? (
+          <LoaderAnimation
+            color={colors.orange}
+            isLoading={postsStatus === "pending"}
+          />
+        ) : lesson ? (
+          <LessonsSection lesson={lesson[0]} />
         ) : (
-          <LessonsSection videoId={videoId} />
+          <LessonsCollection
+            lessonsType={lessonsType}
+            setlessonsType={setlessonsType}
+          />
         )}
       </section>
     </>

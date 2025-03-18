@@ -23,7 +23,6 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
     threshold: 0.5, // קריאה מתבצעת כאשר 50% מהכפתור בתוך התצוגה
     triggerOnce: false, // נוודא שזה קורה בכל פעם שהמשתמש מגיע לסוף
   });
-  console.log(displayedVideos);
 
   // חישוב השיעורים המסוננים
   displayedVideos?.sort((a, b) => new Date(b.date) - new Date(a.date));

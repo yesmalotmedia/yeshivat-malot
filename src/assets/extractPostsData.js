@@ -26,12 +26,11 @@ const formatDate = (dateStr) => {
   const [day, month, year] = dateStr.split("/");
   return `${year}-${month}-${day}`;
 };
-
-// עיבוד הנתונים לפורמט הרצוי
 const ExtractPostsData = (data) => {
-  console.log(data);
+  // אם data הוא אובייקט – שנה אותו למערך
+  const normalizedData = Array.isArray(data) ? data : [data];
 
-  const flatData = flattenData(data);
+  const flatData = flattenData(normalizedData);
   if (!Array.isArray(flatData) || flatData.length === 0) return [];
 
   return flatData.map((item) => {
@@ -40,6 +39,7 @@ const ExtractPostsData = (data) => {
       extractYoutubeCoverByVideoId(youtubeUrl) || item?.thumbnail || "";
     const dateParts = item?.date?.split(" – ") || [];
     const formattedDate = formatDate(dateParts[1]); // המרת תאריך לפורמט YYYY-MM-DD
+
     return {
       id: item?.id,
       date: formattedDate, // תאריך בפורמט המתאים למיון
@@ -60,5 +60,4 @@ const ExtractPostsData = (data) => {
     };
   });
 };
-
 export default ExtractPostsData;

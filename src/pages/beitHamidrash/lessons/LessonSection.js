@@ -8,15 +8,13 @@ import extractYoutubeCoverByVideoId from "../../../assets/extractYoutubeCoverByV
 import LoaderAnimation from "../../../components/elements/LoaderAnimation";
 import Form from "../../contact/Form";
 
-export default function LessonSection({ videoId }) {
+export default function LessonSection({ lesson }) {
   const { colors, responsive, displayedVideos, useCategoryNameById } =
     useContext(AppContext);
-  console.log(displayedVideos);
+  console.log(lesson);
 
-  const video = displayedVideos?.find((video) => video?.id == videoId);
-
-  const mainCategory = useCategoryNameById(video?.categories[3]);
-  const subCategory = useCategoryNameById(video?.categories[2]);
+  const mainCategory = useCategoryNameById(lesson?.categories[3]);
+  const subCategory = useCategoryNameById(lesson?.categories[2]);
   if (!displayedVideos) {
     console.error("Videos not available in context");
     return (
@@ -24,14 +22,14 @@ export default function LessonSection({ videoId }) {
     );
   }
 
-  const isVideo = video?.contentType.includes("video");
-  const isAudio = video?.contentType.includes("audio");
-  const isText = video?.contentType.includes("text");
-  console.log(video);
+  const isVideo = lesson?.contentType.includes("video");
+  const isAudio = lesson?.contentType.includes("audio");
+  const isText = lesson?.contentType.includes("text");
+  console.log(lesson);
 
-  if (!video) {
-    console.error(`No video found with id: ${videoId}`);
-    return <LoaderAnimation isLoading={!video} color={colors.orange} />;
+  if (!lesson) {
+    console.error(`No video found with id: ${lesson}`);
+    return <LoaderAnimation isLoading={!lesson} color={colors.orange} />;
   }
 
   const styles = {
@@ -128,35 +126,34 @@ export default function LessonSection({ videoId }) {
       fontWeight: 500,
     },
   };
-
   return (
     <div style={styles.container}>
       <div style={styles.headerSection}>
         <p style={styles.breadcrumb}>
           <span>{mainCategory}</span> / <span>{subCategory}</span>
         </p>
-        <h2 style={styles.nameOfRav}>{video.rabbiName}</h2>
-        <h1 style={styles.nameOfShiur}>{video.title}</h1>
+        <h2 style={styles.nameOfRav}>{lesson.rabbiName}</h2>
+        <h1 style={styles.nameOfShiur}>{lesson.title}</h1>
       </div>
 
       <div style={styles.videoSection}>
         <div style={styles.timeAndTimeContainer}>
-          <span style={styles.dateAndTimeText}>{video.date}</span>
+          <span style={styles.dateAndTimeText}>{lesson.date}</span>
         </div>
-        <div style={styles.dedicate}>{video.dedicatedTo}</div>
-        {<YouTubeVideo2 url={video.url} index={video.key} />}
+        <div style={styles.dedicate}>{lesson.dedicatedTo}</div>
+        {<YouTubeVideo2 url={lesson.url} index={lesson.key} />}
       </div>
 
       {
         <div style={styles.audioContainer}>
           <div style={styles.playerContainer}>
             <div style={styles.topText}>
-              <p style={styles.title}>{video.title}</p>
-              <p style={styles.date}>{video.date}</p>
+              <p style={styles.title}>{lesson.title}</p>
+              <p style={styles.date}>{lesson.date}</p>
             </div>
             <AudioPlayer
-              key={video.url}
-              audioUrl={video.url}
+              key={lesson.url}
+              audioUrl={lesson.url}
               shouldPlay={false}
               playerVars={playerVars}
             />
@@ -164,7 +161,7 @@ export default function LessonSection({ videoId }) {
           <div style={styles.thumbContainer}>
             <img
               style={styles.audioThumbnail}
-              src={extractYoutubeCoverByVideoId(video.url)}
+              src={extractYoutubeCoverByVideoId(lesson.url)}
               alt="Audio Thumbnail"
             />
           </div>
@@ -175,7 +172,7 @@ export default function LessonSection({ videoId }) {
         <div style={styles.descriptionContainer}>
           <div
             style={styles.description}
-            dangerouslySetInnerHTML={{ __html: video.article }}
+            dangerouslySetInnerHTML={{ __html: lesson.article }}
           />
           <h2 style={styles.nameOfRav}></h2>
           <br />
