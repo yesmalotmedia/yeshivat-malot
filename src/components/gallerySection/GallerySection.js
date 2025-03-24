@@ -1,4 +1,9 @@
+import React, { useContext } from "react";
+import { AppContext } from "../../App";
+
 export default function ImageGallery() {
+  const { colors, responsive, displayedVideos, useCategoryNameById } =
+    useContext(AppContext);
   const commonImageStyle = {
     width: "100%",
     objectFit: "cover",
@@ -16,11 +21,11 @@ export default function ImageGallery() {
   const styles = {
     container: {
       margin: "0 auto",
-      width: "80%",
+      width: responsive("80%", "80%", "100%"),
     },
     img: {
       width: "100%",
-      marginTop: 100,
+      marginTop: responsive(100, 100, 115),
     },
   };
 

@@ -130,7 +130,7 @@ export default function LessonSection({ lesson }) {
     <div style={styles.container}>
       <div style={styles.headerSection}>
         <p style={styles.breadcrumb}>
-          <span>{mainCategory}</span> / <span>{subCategory}</span>
+          <span>{subCategory}</span> / <span>{mainCategory}</span>
         </p>
         <h2 style={styles.nameOfRav}>{lesson.rabbiName}</h2>
         <h1 style={styles.nameOfShiur}>{lesson.title}</h1>

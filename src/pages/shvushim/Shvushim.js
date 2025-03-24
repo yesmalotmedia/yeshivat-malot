@@ -25,14 +25,6 @@ export default function Shvushim() {
   const sections = [
     {
       id: "1",
-      title: "ברוכים הבאים",
-      imgSrc: "/bogrim-icon2.png",
-      component: (
-        <Welcome titleStyle={styles.title} leftSection={leftSection} />
-      ),
-    },
-    {
-      id: "2",
       title: "נעים להכיר",
       imgSrc: "/introductionIcon.png",
       component: (
@@ -40,13 +32,13 @@ export default function Shvushim() {
       ),
     },
     {
-      id: "3",
-      title: "טיפים ושאלות",
+      id: "2",
+      title: "שאלות וטיפים",
       imgSrc: "/faqIcon.png",
       component: <Fqa titleStyle={styles.title} leftSection={leftSection} />,
     },
     {
-      id: "4",
+      id: "3",
       title: "צוות הישיבה",
       imgSrc: "/teamIcon.png",
       component: <Team titleStyle={styles.title} leftSection={leftSection} />,

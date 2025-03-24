@@ -7,7 +7,7 @@ import LoadMore from "../../../components/elements/LoadMore";
 import { useInView } from "react-intersection-observer";
 import LoaderAnimation from "../../../components/elements/LoaderAnimation";
 import useStopScrollBeforeFooter from "../../../assets/useStopScrollBeforeFooter";
-const LessonsCollection = ({ lessonsType, setlessonsType }) => {
+const LessonsCollection = ({ lessonsType, setlessonsType, setLesson }) => {
   const {
     isMobile,
     displayedVideos,
@@ -59,7 +59,7 @@ const LessonsCollection = ({ lessonsType, setlessonsType }) => {
           {lessonsFilter.category}
         </div>
       </div>
-      {isMobile && <MobileFilter />}
+      {isMobile && <MobileFilter setLesson={setLesson} />}
       <div
         style={{
           width: "100%",

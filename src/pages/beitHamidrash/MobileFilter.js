@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../../App";
 import SideBarSearch from "./sideBarSearch/SideBarSearch";
 
-export default function MobileFilter() {
+export default function MobileFilter({ setLesson }) {
   const {
     responsive,
     colors,
@@ -167,6 +167,7 @@ export default function MobileFilter() {
         </div>
 
         <SideBarSearch
+          setLesson={setLesson}
           handleToggle={handleToggle}
           lessonsType={lessonsType}
           setlessonsType={setlessonsType}

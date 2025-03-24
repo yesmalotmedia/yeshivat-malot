@@ -134,11 +134,16 @@ const BeitHamidrash = () => {
         )}
 
         {loading || postsStatus === "pending" ? ( // ודא שגם loading משפיע
-          <LoaderAnimation color={colors.orange} isLoading />
+          <LoaderAnimation
+            selectedTopic={selectedTopic}
+            color={colors.orange}
+            isLoading
+          />
         ) : lesson && lesson.length > 0 ? (
           <LessonsSection lesson={lesson[0]} />
         ) : (
           <LessonsCollection
+            setLesson={setLesson}
             lessonsType={lessonsType}
             setlessonsType={setlessonsType}
           />

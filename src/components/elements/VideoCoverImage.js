@@ -3,6 +3,7 @@ import { AppContext } from "../../App";
 import bgColors from "../../styles/bg-colors";
 import { Link } from "react-router-dom";
 import shadow from "../../styles/shadows";
+import { transform } from "framer-motion";
 function VideoCoverImage({
   url,
   videoId,
@@ -44,7 +45,6 @@ function VideoCoverImage({
       justifyContent: "space-around",
       position: "relative",
       flexWrap: "wrap",
-      boxShadow: shadow.boxShadow1,
     },
     img: {
       width: "100%",

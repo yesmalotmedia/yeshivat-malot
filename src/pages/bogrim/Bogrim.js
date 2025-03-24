@@ -6,6 +6,7 @@ import BooksCollection from "../publishing/BooksCollection";
 import NoticeBoard from "./NoticeBoard";
 import { motion, AnimatePresence } from "framer-motion";
 import KeepInTouch from "./KeepInTouch";
+import Events from "./Events";
 
 export default function Bogrim() {
   const { colors, responsive, useSideMenuSection } = useContext(AppContext);
@@ -28,6 +29,12 @@ export default function Bogrim() {
     },
     {
       id: "2",
+      title: "מפגשים ואירועים",
+      imgSrc: "/events.png",
+      component: <Events titleStyle={styles.title} leftSection={leftSection} />,
+    },
+    {
+      id: "3",
       title: "עלון לבוגרים",
       imgSrc: "/bogrim-icon2.png",
       component: (
@@ -35,7 +42,7 @@ export default function Bogrim() {
       ),
     },
     {
-      id: "3",
+      id: "4",
       title: "לוח מודעות",
       imgSrc: "/bogrim-icon3.png",
       component: (
