@@ -167,6 +167,7 @@ function App() {
   if (noticesData) {
     parsedNoticesData = extractNoticesData(noticesData);
   }
+  console.log(parsedNoticesData);
 
   if (categoriesData) {
     categories = categoriesData;
