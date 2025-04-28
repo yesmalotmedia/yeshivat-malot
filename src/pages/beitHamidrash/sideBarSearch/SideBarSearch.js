@@ -2,17 +2,10 @@ import React, { useContext, useEffect, useState, useCallback } from "react";
 import { AppContext } from "../../../App";
 import Button from "../../../components/elements/Button";
 import SelectInput from "./SelectInput";
-import Checkbox from "./Checkbox";
-import yerushalmiMasectot from "../../../data/yerushalmiMasectot";
-import getMainCategories from "../../../assets/getMainCategories";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../../assets/useFetch";
-import usePostsFetch from "../../../assets/usePostsFetch";
-import ExtractPostsData from "../../../assets/extractPostsData";
-import useQueryPostFetch from "../../../assets/useQueryPostFetch";
-import extractQueryPosts from "../../../assets/extractQueryPosts";
-import getCategoryNameById from "../../../assets/getCategoryNameById";
+import getMainCategories from "../../../assets/getMainCategories";
 import getCategoryIdByName from "../../../assets/geCategoryIdByName";
+
 const SideBarSearch = ({
   setLesson,
   selectedTopic,
@@ -22,7 +15,6 @@ const SideBarSearch = ({
   selectedRabbi,
 }) => {
   const navigate = useNavigate();
-  //data
   const {
     responsive,
     colors,
@@ -33,28 +25,17 @@ const SideBarSearch = ({
     categories,
     getCategoriesByParent,
     setlessonsFilter,
-    lessonsFilter,
-    setDisplayedVideos,
-    setCategoryParam,
     searchQuery,
     setSearchQuery,
+    setCategoryParam,
   } = useContext(AppContext);
 
-  const [selectedValue, setSelectedValue] = useState(500);
-
-  // states for form inputs
-  const [categoriesOptions, setCategoriesOptions] = useState(
-    getCategoriesByParent(categories, 3)
-  );
-  const [masectotOptions, setMasectotOptions] = useState();
-  const [rabbiesOptions, setRabbiesOptions] = useState();
-
+  const [tempSearchQuery, setTempSearchQuery] = useState(searchQuery); // ערך זמני להקלדה
   const [selectedMasechet, setSelectedMasechet] = useState("");
   const [videoChecked, setVideoChecked] = useState(true);
   const [audioChecked, setAudioChecked] = useState(true);
   const [textChecked, setTextChecked] = useState(true);
 
-  const [fetchUrl, setFetchUrl] = useState();
   // styles
   const styles = {
     container: {
@@ -66,7 +47,7 @@ const SideBarSearch = ({
       maxWidth: responsive(300, "100%", "100%"),
       maxHeight: responsive(700, "100vh", "100%"),
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "start",
       alignItems: "center",
       flexDirection: "column",
       marginLeft: 20,
@@ -82,19 +63,18 @@ const SideBarSearch = ({
       borderRadius: 50,
       width: "100%",
       outline: "none",
-      border: "solid 1px" + colors.darkBlue,
+      border: `solid 1px ${colors.darkBlue}`,
       color: colors.darkBlue,
       fontWeight: 500,
-      paddingRight: 10, // Adjust padding to accommodate the icon
+      paddingRight: 10,
       fontSize: 17,
     },
     searchIcon: {
       position: "absolute",
-      left: 10, // Adjust the position of the icon as needed
-      top: "50%", // Center vertically
-      //transform: "translateY(-50%)", // Center vertically
-      width: 20, // Set the width of the icon
-      height: 20, // Set the height of the icon
+      left: 10,
+      top: "50%",
+      width: 20,
+      height: 20,
     },
     lable: {
       textAlign: "right",
@@ -126,7 +106,15 @@ const SideBarSearch = ({
     },
   };
 
-  //functions
+  // חיפוש חופשי
+  const freeSearch = useCallback(() => {
+    const formData = {
+      freeQuery: searchQuery,
+    };
+    setlessonsFilter(formData);
+  }, [searchQuery, setlessonsFilter]);
+
+  // פילטור לפי קטגוריות
   const filteringSearch = useCallback(() => {
     const formData = {
       freeQuery: searchQuery,
@@ -139,31 +127,29 @@ const SideBarSearch = ({
         text: textChecked,
       },
     };
-
     setlessonsFilter(formData);
   }, [
-    selectedRabbi,
+    searchQuery,
     selectedTopic,
     selectedMasechet,
+    selectedRabbi,
     videoChecked,
     audioChecked,
     textChecked,
     setlessonsFilter,
   ]);
 
-  const freeSearch = useCallback(() => {
-    const formData = {
-      freeQuery: searchQuery,
-    };
-    setlessonsFilter(formData);
-  }, [searchQuery]);
+  // חיפוש אוטומטי - רק בדסקטופ
+  useEffect(() => {
+    if (!isMobile) {
+      freeSearch();
+    }
+  }, [searchQuery, freeSearch, isMobile]);
 
   useEffect(() => {
-    freeSearch();
-  }, [searchQuery, freeSearch]);
-
-  useEffect(() => {
-    filteringSearch();
+    if (!isMobile) {
+      filteringSearch();
+    }
   }, [
     selectedRabbi,
     selectedTopic,
@@ -172,64 +158,68 @@ const SideBarSearch = ({
     audioChecked,
     textChecked,
     filteringSearch,
+    isMobile,
   ]);
 
-  const handleSelectChange = useCallback(
-    (e) => {
-      navigate("/BeitHamidrash"); // חזרה לכתובת הראשית לפני החיפוש
-      setLesson(undefined);
-      const { value } = e.target;
-      console.log(value);
-
-      const categoryId = getCategoryIdByName(value, categories);
-      console.log(categoryId);
-
-      setCategoryParam(categoryId);
-      setSelectedTopic(value);
-
-      // אם המשתמש בוחר קטגוריה חדשה, נאפס את החיפוש החופשי
-      setSearchQuery("");
-    },
-    [categories, setSelectedTopic, setCategoryParam, setSearchQuery]
-  );
   const handleSearchQueryChange = (e) => {
-    navigate("/BeitHamidrash"); // חזרה לכתובת הראשית לפני החיפוש
-    setLesson(undefined);
+    const value = e.target.value;
+    setTempSearchQuery(value); // תמיד לעדכן את ה-input
 
-    setSearchQuery(e.target.value);
-    setSelectedTopic("בחר אפשרות");
+    if (!isMobile) {
+      setSearchQuery(value); // רק בדסקטופ לעדכן גם את החיפוש האמיתי
+    }
   };
 
   const handleButtonClick = (e) => {
-    handleToggle();
+    e.preventDefault();
+    navigate("/BeitHamidrash");
+    setLesson(undefined);
+    setSearchQuery(tempSearchQuery); // מעדכן את החיפוש רק בלחיצה
+    handleToggle(); // סוגר את חלון החיפוש
   };
+
+  const handleSelectChange = useCallback(
+    (e) => {
+      navigate("/BeitHamidrash");
+      setLesson(undefined);
+      const { value } = e.target;
+      const categoryId = getCategoryIdByName(value, categories);
+      setCategoryParam(categoryId);
+      setSelectedTopic(value);
+      setSearchQuery(""); // מאפס את החיפוש החופשי
+    },
+    [
+      categories,
+      setSelectedTopic,
+      setCategoryParam,
+      setSearchQuery,
+      navigate,
+      setLesson,
+    ]
+  );
+
   return (
-    <form
-      style={styles.container}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
+    <form style={styles.container} onSubmit={(e) => e.preventDefault()}>
       {isMobile && (
-        <>
-          <div style={styles.clearAll}>
-            <img src="/clearAll.svg" />
-            <span>נקה הכל</span>
-          </div>
-        </>
+        <div style={styles.clearAll}>
+          <img src="/clearAll.svg" alt="Clear All" />
+          <span>נקה הכל</span>
+        </div>
       )}
+
       <div style={styles.searchContainer}>
         <div style={styles.lable}>חיפוש חופשי </div>
         <input
           style={styles.searchInput}
           placeholder="הקלידו נושא או מילת מפתח"
-          value={searchQuery}
-          onChange={(e) => handleSearchQueryChange(e)} // עדכון השאילתה
+          value={tempSearchQuery}
+          onChange={handleSearchQueryChange}
         />
-        <img src={"/searchIcon.png"} alt="Search" style={styles.searchIcon} />{" "}
+        <img src={"/searchIcon.png"} alt="Search" style={styles.searchIcon} />
       </div>
-      <div style={styles.btnContainer}>
-        {isMobile && (
+
+      {isMobile && (
+        <div style={styles.btnContainer}>
           <Button
             color={colors.darkBlue}
             bgColor={bgColors.yellow}
@@ -240,46 +230,30 @@ const SideBarSearch = ({
             borderRadius={50}
             width={"90%"}
             arrow={true}
-            onClick={(e) => handleButtonClick(e)}
+            onClick={handleButtonClick}
           />
-        )}
-      </div>
+        </div>
+      )}
 
-      <br></br>
+      <br />
+
       <div style={styles.lable}>חיפוש לפי נושאים</div>
       <SelectInput
-        options={getMainCategories(categories, 211) || categoriesOptions}
+        options={getMainCategories(categories, 211)}
         value={selectedTopic}
-        onChange={(e) => handleSelectChange(e)}
+        onChange={handleSelectChange}
       />
 
       <div style={styles.lable}>הרבנים</div>
       <SelectInput
         options={rabbiesData}
         value={selectedRabbi}
-        onChange={(e) => {
-          setSelectedRabbi(e.target.value); // This is the setter function
-        }}
+        onChange={(e) => setSelectedRabbi(e.target.value)}
       />
-      <div style={styles.lable}>סוג השיעור</div>
-      <Checkbox
-        label={"שיעורי וידאו"}
-        checked={videoChecked}
-        onChange={() => setVideoChecked(!videoChecked)}
-      />
-      <Checkbox
-        label={"שיעורי שמע"}
-        checked={audioChecked}
-        onChange={() => setAudioChecked(!audioChecked)}
-      />
-      <Checkbox
-        label={"שיעורי טקסט"}
-        checked={textChecked}
-        onChange={() => setTextChecked(!textChecked)}
-      />
+
       <br />
 
-      <style>{`::placeholder {color: ${colors.darkBlue}`}</style>
+      <style>{`::placeholder { color: ${colors.darkBlue}; }`}</style>
     </form>
   );
 };

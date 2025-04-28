@@ -9,6 +9,7 @@ export default function BookPreviewBox({
   price,
   discountPrice,
   pdfFile,
+  dataType,
 }) {
   const { colors, bgColors, responsive } = useContext(AppContext);
   const [isHovered, setIsHovered] = useState(false);
@@ -26,7 +27,7 @@ export default function BookPreviewBox({
   const handleTouchEnd = () => {
     setIsHovered(false);
   };
-
+  const isBook = dataType === "books";
   const styles = {
     mainContainer: {
       display: "flex",
@@ -50,7 +51,7 @@ export default function BookPreviewBox({
       position: "relative",
     },
     bookimage: {
-      height: responsive(200, 200, 200),
+      height: responsive("90%", "100%", "80%"),
       objectFit: "cover",
       transition: "transform 0.3s ease",
       transform: isHovered ? "scale(1.1)" : "scale(1)",
@@ -98,7 +99,7 @@ export default function BookPreviewBox({
   //function
 
   const handleClick = () => {
-    window.location.href = pdfFile;
+    window.open(pdfFile, "_blank");
   };
 
   return (
@@ -112,7 +113,7 @@ export default function BookPreviewBox({
       <div style={styles.bookimageContainer}>
         <img
           style={styles.bookimage}
-          src={image ? image : "/SideBtn-1.png"}
+          src={image ? image : "/maalon-default-cover.png"}
           alt="Book Cover"
         />
       </div>
@@ -125,21 +126,22 @@ export default function BookPreviewBox({
             <p style={styles.discountPrice}>{discountPrice} שח </p>
           </>
         ) : (
-          <p style={styles.price}>{price} שח </p>
+          isBook && <p style={styles.price}>{price} שח </p>
         )}
       </div>
       <div style={styles.btnContainer}>
         <Button
           background={bgColors.darkBlue}
-          btnImg={"/addToCart.png"}
-          btnText={"לרכישה"}
+          btnImg={isBook ? "/addToCart.png" : "/download.png"}
+          btnText={isBook ? "לרכישה" : "להורדה"}
+          onClick={handleClick}
         />
-        <Button
+        {/* <Button
           onClick={handleClick}
           background={bgColors.yellow}
           btnImg={"/download.png"}
           btnText={"להורדה"}
-        />
+        /> */}
       </div>
     </div>
   );

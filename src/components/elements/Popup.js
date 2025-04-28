@@ -16,8 +16,8 @@ function Popup({ children }) {
   //styles
   const styles = {
     container: {
-      width: responsive("30vw", "40vw", "70vw"),
-      height: responsive("30vw", "40vw", "70vw"),
+      width: responsive("25vw", "40vw", "70vw"),
+      height: responsive("25vw", "40vw", "70vw"),
       backgroundColor: colors.white,
       color: colors.white,
       position: "fixed",

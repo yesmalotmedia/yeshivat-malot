@@ -11,7 +11,8 @@ import Team from "./Team";
 export default function Shvushim() {
   const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
-  const { container, leftSection, title } = useSideMenuSection();
+  const { container, leftSection, title, descriptionStyle } =
+    useSideMenuSection();
 
   const styles = {
     container,
@@ -25,10 +26,14 @@ export default function Shvushim() {
   const sections = [
     {
       id: "1",
-      title: "נעים להכיר",
+      title: "ברוכים הבאים!",
       imgSrc: "/introductionIcon.png",
       component: (
-        <Introduction titleStyle={styles.title} leftSection={leftSection} />
+        <Introduction
+          titleStyle={styles.title}
+          leftSection={leftSection}
+          descriptionStyle={descriptionStyle}
+        />
       ),
     },
     {

@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../../App";
-import { col } from "framer-motion/m";
 
 export default function Fqa({ title, titleStyle, leftSection }) {
   const { colors } = useContext(AppContext);
+  const [openIndex, setOpenIndex] = useState(null); // null = הכל סגור
+
+  const toggleOpen = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   const styles = {
     container: leftSection,
@@ -13,6 +17,15 @@ export default function Fqa({ title, titleStyle, leftSection }) {
       lineHeight: "1.6",
       color: colors.text,
       marginBottom: "10px",
+    },
+    button: {
+      background: "none",
+      border: "none",
+      color: colors.primary,
+      cursor: "pointer",
+      fontSize: "14px",
+      padding: 0,
+      textDecoration: "underline",
     },
   };
 
@@ -53,7 +66,7 @@ export default function Fqa({ title, titleStyle, leftSection }) {
 
     {
       id: 2,
-      question: "אני לא אוהב ללמוד גמרא…",
+      question: "#אני לא אוהב ללמוד גמרא…",
       summary: "הרבה חבר'ה מרגישים, שהם לא אוהבים ללמוד גמרא...",
       answer: `הרבה חבר'ה מרגישים, שהם לא אוהבים ללמוד גמרא.
       רק המחשבה על כך שבישיבה לומדים גמרא בצורה רצינית במשך שעות בכל יום גורמת להם לכאב ראש.
@@ -99,26 +112,85 @@ export default function Fqa({ title, titleStyle, leftSection }) {
     {
       id: 3,
       question: "מה ההבדל בין מכינה לישיבה? למה דווקא הסדר?",
-      summary:
-        "הרבה שואלים: איך אני יכול ללכת לישיבת הסדר, ולא לעשות שלוש שנים צבא?",
-      answer: ` מלחמת לבנון השניה הסתיימה בצורה מבישה למדי. 32,000 חיילי צה"ל, בליווי טנקים ומטוסים, לא הצליחו להכניע 8,000 לוחמי חיזבאללה...`,
-      quote: "לימוד תורה הוא חלק מהותי מהכח של עם ישראל, לא פחות מהכח הצבאי.",
-      author: "לא ידוע",
+      summary: `הרבה שואלים: איך אני יכול ללכת לישיבת הסדר, ולא לעשות שלוש שנים צבא?
+    האם אני עומד מהצד, כשחברי נלחמים למען מדינת ישראל?
+    איך אתה מסביר את זה ל"חילוני"?`,
+
+      answer: [
+        `השאלה היא ודאי שאלה טובה, והיא נובעת ממידות טובות ומרצון אמיתי לתרום לחברה. אבל בואו נבדוק רגע, לְמה באמת מדינת ישראל זקוקה כרגע.`,
+        `האם מה שחסר לנו זה עוד כמה קצינים או לוחמים?`,
+        `א. מה באמת עם ישראל צריך?
+    
+    מלחמת לבנון השנייה הסתיימה בצורה מבישה למדי. 32,000 חיילי צה"ל לא הצליחו להכניע 8,000 לוחמי חיזבאללה. ועדת וינוגרד קבעה – מה שחסר זה עורף חזק, אמונה, חברה איתנה. והדבר הזה לא בא מהצבא, אלא מבניית אנשים ערכיים.`,
+        `ב. התחדשות בתורה
+    
+    דווקא ישיבות ההסדר היו המקור לחידושים בתורה בעשורים האחרונים – תנ״ך בעוצמה, הלכה למעשה, תורת ארץ ישראל. הרב קוק כתב: "אם התחייה הלאומית לא תחדש לנו הארה בתורה – איננה תחייה אמתית."`,
+        `ג. חיבורים
+    
+    הגמרא אומרת: "כל העוסק בתורה בלבד – דומה כמי שאין לו אלוה" (ע"ז י"ז). הדור שלנו צריך תורה שמחוברת למציאות, לצבא, לחיים. ישיבות ההסדר בונות בדיוק את זה.`,
+        `ד. כמה זמן משרתים?
+    
+    בפועל תלמידי הסדר משרתים בצבא כשנה וחצי, אך נחשבים חיילים ל-4 שנים. הלימוד בישיבה לא פחות תובעני מהשירות הצבאי. סיפור ידוע מהרב כהנמן ממחיש עד כמה לימוד אינטנסיבי דורש כוחות.`,
+        `לסיכום:
+    
+    הסדרניק הוא בן תורה, לוחם, מחובר לחיים. הוא לומד לעומק, מתמודד באמת, ותורם למדינה לא פחות ממי שמשרת בג'בלאות. הוא חלק מהשדרה הרוחנית של עם ישראל.`,
+      ],
+
+      quote:
+        "לימוד תורה הוא חלק מהותי מהכוח של עם ישראל – לא פחות מהכוח הצבאי.",
+      author: "צוות הישיבה",
       role: "",
     },
   ];
-
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>{title}</h2>
 
       {contentData.map((e, index) => (
-        <div key={index}>
-          <h3>{e.question}</h3>
-          <div style={styles.paragraph}>{e.summary}</div>
-          <div style={styles.paragraph}>{e.answer}</div>
-          <div style={styles.paragraph}>{e.author}</div>
-          <div style={styles.paragraph}>{e.role}</div>
+        <div key={index} style={{ marginBottom: "40px" }}>
+          <h3 style={{ color: colors.primary }}>{e.question}</h3>
+
+          <p style={styles.paragraph}>{e.summary}</p>
+
+          {/* הצגת תשובה רק אם פתוח */}
+          {openIndex === index && (
+            <>
+              {Array.isArray(e.answer) ? (
+                e.answer.map((para, i) => (
+                  <p key={i} style={styles.paragraph}>
+                    {para}
+                  </p>
+                ))
+              ) : (
+                <p style={styles.paragraph}>{e.answer}</p>
+              )}
+
+              {e.quote && (
+                <blockquote
+                  style={{
+                    fontStyle: "italic",
+                    color: colors.darkBlue,
+                    borderRight: "3px solid " + colors.primary,
+                    paddingRight: 10,
+                    margin: "10px 0",
+                  }}
+                >
+                  “{e.quote}”
+                </blockquote>
+              )}
+              {e.author && (
+                <div style={{ fontWeight: "bold", marginTop: "10px" }}>
+                  {e.author}
+                </div>
+              )}
+              {e.role && <div>{e.role}</div>}
+            </>
+          )}
+
+          {/* כפתור קרא עוד / סגור */}
+          <button style={styles.button} onClick={() => toggleOpen(index)}>
+            {openIndex === index ? "סגור" : "קרא עוד"}
+          </button>
         </div>
       ))}
     </div>

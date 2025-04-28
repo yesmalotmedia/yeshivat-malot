@@ -61,9 +61,9 @@ export default function Modal() {
     },
     closeButton: {
       position: "absolute",
-      top: -30,
-      right: 0,
-      color: colors.darkBlue,
+      top: 15,
+      right: 15,
+      color: colors.white,
       border: "none",
       cursor: "pointer",
       padding: 5,

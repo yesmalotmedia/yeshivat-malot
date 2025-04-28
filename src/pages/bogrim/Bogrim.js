@@ -38,7 +38,11 @@ export default function Bogrim() {
       title: "עלון לבוגרים",
       imgSrc: "/bogrim-icon2.png",
       component: (
-        <BooksCollection titleStyle={styles.title} leftSection={leftSection} />
+        <BooksCollection
+          titleStyle={styles.title}
+          leftSection={leftSection}
+          dataType={"maalon"}
+        />
       ),
     },
     {

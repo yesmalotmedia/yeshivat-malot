@@ -5,6 +5,7 @@ import Logo from "../elements/Logo";
 import Button from "../elements/Button";
 import { Link, useLocation } from "react-router-dom"; // ייבוא useLocation
 import MobileNav from "./MobileNav";
+import { transform } from "framer-motion";
 
 function Header() {
   const {
@@ -64,10 +65,22 @@ function Header() {
       margin: "0 20px 0 10px",
       cursor: "pointer",
     },
+    firstRunAlert: {
+      position: "fixed",
+      top: 20,
+      left: "50%",
+      transform: "translateX(-50%)",
+      color: "red",
+      zIndex: 2000,
+      fontSize: 15,
+    },
   };
   return (
     <>
       <div style={styles.container}>
+        <div style={styles.firstRunAlert}>
+          האתר בהרצה ראשונית - נא לא להפיץ את הקישור
+        </div>
         <div style={styles.humburgerAndLink}>
           {!isTerumotPage && ( // הצגת הכפתור רק אם לא בעמוד תרומות
             <Link to={"/terumot"} style={styles.terumot}>

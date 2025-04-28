@@ -8,113 +8,100 @@ export default function MobileFilter({ setLesson }) {
     colors,
     bgColors,
     isMobile,
-    videos,
-    categories,
-    loadingCategories,
     lessonsType,
     setlessonsType,
-    setlessonsFilter,
-    lessonsFilter,
-    loadingPosts,
     selectedTopic,
     setSelectedTopic,
     selectedRabbi,
     setSelectedRabbi,
   } = useContext(AppContext);
+
   const [isToggle, setIsToggle] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
 
   const handleToggle = () => {
-    setIsToggle(!isToggle);
-    if (!isToggle) {
-      document.body.classList.add("no-scroll");
-      openFullscreen();
-    } else {
-      document.body.classList.remove("no-scroll");
-      closeFullscreen();
-    }
+    setIsToggle((prev) => {
+      const nextState = !prev;
+      if (nextState) {
+        document.body.classList.add("no-scroll");
+        openFullscreen();
+      } else {
+        document.body.classList.remove("no-scroll");
+        closeFullscreen();
+      }
+      return nextState;
+    });
   };
 
   const handleDropdown = () => {
-    setIsDropdown(!isDropdown);
+    setIsDropdown((prev) => !prev);
   };
 
   const openFullscreen = () => {
     const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      // Firefox
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      // Chrome, Safari and Opera
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      // IE/Edge
-      elem.msRequestFullscreen();
+    if (!document.fullscreenElement && elem.requestFullscreen) {
+      elem
+        .requestFullscreen()
+        .catch((err) => console.error("Failed to open fullscreen:", err));
     }
   };
 
   const closeFullscreen = () => {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      // Firefox
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      // Chrome, Safari and Opera
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      // IE/Edge
-      document.msExitFullscreen();
+    const isInFullscreen =
+      document.fullscreenElement ||
+      document.mozFullScreenElement ||
+      document.webkitFullscreenElement ||
+      document.msFullscreenElement;
+
+    if (isInFullscreen) {
+      if (document.exitFullscreen) {
+        document
+          .exitFullscreen()
+          .catch((err) => console.error("Failed to exit fullscreen:", err));
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
     }
   };
 
   const styles = {
     container: {
-      width: "90%",
+      width: isMobile ? "100%" : "90%",
       display: "flex",
       flexDirection: "column",
       marginBottom: 20,
     },
-    btncontainer: {
+    btnContainer: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-    },
-    filter: {
-      color: colors.azure,
-      fontSize: 18,
-      fontWeight: 500,
-      textAlign: "left",
-      paddingLeft: 60,
     },
     btn: {
       border: `1px solid ${colors.darkBlue}`,
       height: 40,
-      width: 120,
+      width: isMobile ? "100%" : 120,
       borderRadius: 20,
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between",
+      justifyContent: isMobile ? "center" : "space-between",
       padding: "0 10px",
       fontSize: 17,
       fontWeight: 500,
-      cursor: "pointer",
-    },
-    btnWithGrayText: {
-      color: "grey",
-    },
-    btnWithBckground: {
       background: bgColors.lightAzure,
       color: colors.darkBlue,
+      cursor: "pointer",
     },
     filterDropdown: {
       position: "fixed",
-      bottom: 0,
       top: 0,
+      left: 0,
       width: "100%",
       height: "100vh",
+      background: colors.white,
       transition: "transform 0.5s ease-in-out",
       transform: isToggle ? "translateY(0)" : "translateY(100%)",
       zIndex: 1000,
@@ -123,41 +110,34 @@ export default function MobileFilter({ setLesson }) {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      height: 50,
-      background: colors.white,
-      padding: "15px 40px 15px 40px",
+      height: 60,
+      padding: "0 20px",
+      borderBottom: `1px solid ${colors.darkBlue}`,
+      background: bgColors.white,
     },
     closeBtn: {
-      fontSize: "10vw",
+      fontSize: "8vw",
       cursor: "pointer",
       color: "grey",
     },
     sinunBtn: {
-      border: "none",
       background: "none",
-      color: colors.darkBlue,
-      fontSize: 18,
+      border: "none",
+      fontSize: 20,
       fontWeight: 600,
+      color: colors.darkBlue,
     },
     filterDate: {
       position: "absolute",
-      marginTop: 70,
+      top: 70,
       width: "100%",
       height: 300,
-      background: "red",
+      background: "red", // אפשר לשנות בהמשך
     },
   };
 
   return (
     <>
-      {/* <style>
-        {`
-          .no-scroll {
-            overflow: hidden;
-          }
-        `}
-      </style> */}
-
       <div style={styles.filterDropdown}>
         <div style={styles.filterTop}>
           <button style={styles.sinunBtn}>סינון</button>
@@ -177,212 +157,17 @@ export default function MobileFilter({ setLesson }) {
           setSelectedRabbi={setSelectedRabbi}
         />
       </div>
+
       {isDropdown && <div style={styles.filterDate}></div>}
+
       <div style={styles.container}>
-        <div style={styles.btncontainer}>
-          <div
-            style={{ ...styles.btnWithBckground, ...styles.btn }}
-            onClick={handleToggle}
-          >
-            <img src="/filter.svg" alt="Filter" /> חפש שיעור
+        <div style={styles.btnContainer}>
+          <div style={styles.btn} onClick={handleToggle}>
+            <img src="/filter.svg" alt="Filter" style={{ marginRight: 10 }} />
+            חפש שיעור
           </div>
         </div>
       </div>
     </>
   );
 }
-// import React, { useContext, useState } from "react";
-// import { AppContext } from "../../App";
-// import SideBarSearch from "./sideBarSearch/SideBarSearch";
-
-// export default function MobileFilter() {
-//   const {
-//     responsive,
-//     colors,
-//     bgColors,
-//     isMobile,
-//     videos,
-//     categories,
-//     loadingCategories,
-//     lessonsType,
-//     setlessonsType,
-//     setlessonsFilter,
-//     lessonsFilter,
-//     loadingPosts,
-//     selectedTopic,
-//     setSelectedTopic,
-//     selectedRabbi,
-//     setSelectedRabbi,
-//   } = useContext(AppContext);
-//   const [isToggle, setIsToggle] = useState(false);
-//   const [isDropdown, setIsDropdown] = useState(false);
-
-//   const handleToggle = () => {
-//     setIsToggle(!isToggle);
-//     if (!isToggle) {
-//       document.body.classList.add("no-scroll");
-//       openFullscreen();
-//     } else {
-//       document.body.classList.remove("no-scroll");
-//       closeFullscreen();
-//     }
-//   };
-
-//   const handleDropdown = () => {
-//     setIsDropdown(!isDropdown);
-//   };
-
-//   const openFullscreen = () => {
-//     const elem = document.documentElement;
-//     if (elem.requestFullscreen) {
-//       elem.requestFullscreen();
-//     } else if (elem.mozRequestFullScreen) {
-//       // Firefox
-//       elem.mozRequestFullScreen();
-//     } else if (elem.webkitRequestFullscreen) {
-//       // Chrome, Safari and Opera
-//       elem.webkitRequestFullscreen();
-//     } else if (elem.msRequestFullscreen) {
-//       // IE/Edge
-//       elem.msRequestFullscreen();
-//     }
-//   };
-
-//   const closeFullscreen = () => {
-//     if (document.exitFullscreen) {
-//       document.exitFullscreen();
-//     } else if (document.mozCancelFullScreen) {
-//       // Firefox
-//       document.mozCancelFullScreen();
-//     } else if (document.webkitExitFullscreen) {
-//       // Chrome, Safari and Opera
-//       document.webkitExitFullscreen();
-//     } else if (document.msExitFullscreen) {
-//       // IE/Edge
-//       document.msExitFullscreen();
-//     }
-//   };
-
-//   const styles = {
-//     container: {
-//       width: "90%",
-//       display: "flex",
-//       flexDirection: "column",
-//       marginBottom: 20,
-//       maxWidth: 400,
-//     },
-//     btncontainer: {
-//       display: "flex",
-//       alignItems: "center",
-//       justifyContent: "space-between",
-//     },
-//     filter: {
-//       color: colors.azure,
-//       fontSize: 18,
-//       fontWeight: 500,
-//       textAlign: "left",
-//       paddingLeft: 60,
-//     },
-//     btn: {
-//       border: `1px solid ${colors.darkBlue}`,
-//       height: 40,
-//       width: "90%",
-//       borderRadius: 20,
-//       display: "flex",
-//       alignItems: "center",
-//       justifyContent: responsive("center", "center", "center"),
-//       padding: "0 10px",
-//       fontSize: 17,
-//       fontWeight: 500,
-//       cursor: "pointer",
-//       margin: "auto",
-//     },
-//     btnWithGrayText: {
-//       color: "grey",
-//     },
-//     btnWithBckground: {
-//       backgroundColor: " rgb(255, 255, 255, 0.5)" /* כחול עם 50% שקיפות */,
-
-//       color: colors.darkBlue,
-//     },
-//     filterDropdown: {
-//       position: "fixed",
-//       bottom: 0,
-//       top: 0,
-//       width: "100%",
-//       height: "100vh",
-//       transition: "transform 0.5s ease-in-out",
-//       transform: isToggle ? "translateY(0)" : "translateY(100%)",
-//       zIndex: 1000,
-//     },
-//     filterTop: {
-//       display: "flex",
-//       alignItems: "center",
-//       justifyContent: "space-between",
-//       height: 50,
-//       background: colors.white,
-//       padding: "15px 40px 15px 40px",
-//     },
-//     closeBtn: {
-//       fontSize: "10vw",
-//       cursor: "pointer",
-//       color: "grey",
-//     },
-//     sinunBtn: {
-//       border: "none",
-//       background: "none",
-//       color: colors.darkBlue,
-//       fontSize: 18,
-//       fontWeight: 600,
-//     },
-//     filterDate: {
-//       position: "absolute",
-//       marginTop: 70,
-//       width: "100%",
-//       height: 300,
-//       background: "red",
-//     },
-//   };
-
-//   return (
-//     <>
-//       <style>
-//         {`
-//           .no-scroll {
-//             overflow: hidden;
-//           }
-//         `}
-//       </style>
-
-//       <div style={styles.filterDropdown}>
-//         <div style={styles.filterTop}>
-//           <button style={styles.sinunBtn}>סינון</button>
-//           <span style={styles.closeBtn} onClick={handleToggle}>
-//             ×
-//           </span>
-//         </div>
-
-//         <SideBarSearch
-//           handleToggle={handleToggle}
-//           lessonsType={lessonsType}
-//           setlessonsType={setlessonsType}
-//           selectedTopic={selectedTopic}
-//           setSelectedTopic={setSelectedTopic}
-//           selectedRabbi={selectedRabbi}
-//           setSelectedRabbi={setSelectedRabbi}
-//         />
-//       </div>
-//       {isDropdown && <div style={styles.filterDate}></div>}
-//       <div style={styles.container}>
-//         <div style={styles.btncontainer}>
-//           <div
-//             style={{ ...styles.btnWithBckground, ...styles.btn }}
-//             onClick={handleToggle}
-//           >
-//             <img src="/filter.svg" alt="Filter" /> חפש שיעור
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }

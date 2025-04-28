@@ -30,6 +30,7 @@ import useSideMenuSection from "./styles/sectionsStyle";
 import usePostsFetch from "./assets/usePostsFetch";
 import { data } from "framer-motion/m";
 import { useInView } from "framer-motion";
+import ExtractMaalonData from "./assets/ExtractMaalonData";
 // import { section1 } from "./styles/sectionsStyle";
 
 export const AppContext = React.createContext();
@@ -64,6 +65,7 @@ function App() {
   let parsedLastVideos = [];
   let parsedNoticesData = [];
   let parsedaAllPostsData = [];
+  let parsedMaalonData = [];
   const fetchData = async () => {
     try {
       // Fetch the last lessons first (priority)
@@ -116,6 +118,11 @@ function App() {
   } = useFetch(
     "https://yesmalot.co.il/wp-json/wp/v2/messages?per_page=100&page=4"
   );
+  const {
+    allData: maalonData,
+    loading: loadingMaalon,
+    error: errorMaalon,
+  } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/maalon?per_page=100");
 
   const {
     allData: categoriesData,
@@ -175,6 +182,53 @@ function App() {
 
   if (publishData) {
     parsedPublishData = ExtractPublishData(publishData);
+  }
+  if (maalonData) {
+    parsedMaalonData = ExtractMaalonData(maalonData);
+    // parsedMaalonData = [
+    //   {
+    //     id: 69407,
+    //     number: "210",
+    //     title: "ויקהל",
+    //     pdfFile:
+    //       "https://yesmalot.co.il/wp-content/uploads/2025/03/maalon111.pdf",
+    //   },
+    //   {
+    //     id: 69407,
+    //     number: "210",
+    //     title: "ויקהל",
+    //     pdfFile:
+    //       "https://yesmalot.co.il/wp-content/uploads/2025/03/maalon111.pdf",
+    //   },
+    //   {
+    //     id: 69407,
+    //     number: "210",
+    //     title: "ויקהל",
+    //     pdfFile:
+    //       "https://yesmalot.co.il/wp-content/uploads/2025/03/maalon111.pdf",
+    //   },
+    //   {
+    //     id: 69407,
+    //     number: "210",
+    //     title: "ויקהל",
+    //     pdfFile:
+    //       "https://yesmalot.co.il/wp-content/uploads/2025/03/maalon111.pdf",
+    //   },
+    //   {
+    //     id: 69407,
+    //     number: "210",
+    //     title: "ויקהל",
+    //     pdfFile:
+    //       "https://yesmalot.co.il/wp-content/uploads/2025/03/maalon111.pdf",
+    //   },
+    //   {
+    //     id: 69407,
+    //     number: "210",
+    //     title: "ויקהל",
+    //     pdfFile:
+    //       "https://yesmalot.co.il/wp-content/uploads/2025/03/maalon111.pdf",
+    //   },
+    // ];
   }
 
   // Handle mobile view
@@ -238,6 +292,7 @@ function App() {
         parsedNewsData,
         parsedPublishData,
         parsedMemuzagData,
+        parsedMaalonData,
         setlessonsType,
         setIsMobileNavOpen,
         getCategoriesByParent,

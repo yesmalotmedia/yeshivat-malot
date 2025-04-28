@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../App";
+import { transform } from "framer-motion";
 
 export default function Team({ title, titleStyle, leftSection }) {
   const { colors, shadow, responsive } = useContext(AppContext);
@@ -32,6 +33,7 @@ export default function Team({ title, titleStyle, leftSection }) {
       maxWidth: 600,
       display: index === 0 ? "flex" : "inline-block",
       justifyContent: "center",
+      margin: "auto",
     }),
     img: (index) => ({
       width: "100%",

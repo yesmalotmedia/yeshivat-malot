@@ -36,7 +36,7 @@ export default function Notice({ content, type, onClick, isPopup }) {
       width: "12%",
     },
   };
-  const MAX_WORDS = 7; // מספר המילים המקסימלי במודעה
+  const MAX_WORDS = 10; // מספר המילים המקסימלי במודעה
   const extractText = (htmlString) => {
     if (!htmlString) return ""; // אם ריק או לא מוגדר
     const doc = new DOMParser().parseFromString(htmlString, "text/html");

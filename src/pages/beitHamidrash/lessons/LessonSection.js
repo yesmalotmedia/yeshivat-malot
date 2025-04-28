@@ -7,9 +7,10 @@ import getCategoryNameById from "../../../assets/getCategoryNameById";
 import extractYoutubeCoverByVideoId from "../../../assets/extractYoutubeCoverByVideoId";
 import LoaderAnimation from "../../../components/elements/LoaderAnimation";
 import Form from "../../contact/Form";
+import MobileFilter from "../MobileFilter";
 
-export default function LessonSection({ lesson }) {
-  const { colors, responsive, displayedVideos, useCategoryNameById } =
+export default function LessonSection({ lesson, setLesson }) {
+  const { colors, responsive, displayedVideos, useCategoryNameById, isMobile } =
     useContext(AppContext);
   console.log(lesson);
 
@@ -128,6 +129,7 @@ export default function LessonSection({ lesson }) {
   };
   return (
     <div style={styles.container}>
+      {isMobile && <MobileFilter setLesson={setLesson} />}
       <div style={styles.headerSection}>
         <p style={styles.breadcrumb}>
           <span>{subCategory}</span> / <span>{mainCategory}</span>

@@ -140,7 +140,7 @@ const BeitHamidrash = () => {
             isLoading
           />
         ) : lesson && lesson.length > 0 ? (
-          <LessonsSection lesson={lesson[0]} />
+          <LessonsSection lesson={lesson[0]} setLesson={setLesson} />
         ) : (
           <LessonsCollection
             setLesson={setLesson}

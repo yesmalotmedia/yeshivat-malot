@@ -3,7 +3,7 @@ import { AppContext } from "../../App";
 import LoadMore from "../../components/elements/LoadMore";
 import BookPreviewBox from "./BookPreviewBox";
 
-const BooksCollection = ({ isRoshYeshiva, leftSection }) => {
+const BooksCollection = ({ isRoshYeshiva, leftSection, dataType }) => {
   const {
     responsive,
     colors,
@@ -18,12 +18,13 @@ const BooksCollection = ({ isRoshYeshiva, leftSection }) => {
     lessonsFilter,
     loadingPosts,
     parsedPublishData,
+    parsedMaalonData,
   } = useContext(AppContext);
   const [visiblePostCount, setVisiblePostCount] = useState(20);
-
   const loadMorePosts = (increment) => {
     setVisiblePostCount((prevCount) => prevCount + increment);
   };
+  console.log(parsedMaalonData);
 
   const styles = {
     gridContainer: {
@@ -41,8 +42,11 @@ const BooksCollection = ({ isRoshYeshiva, leftSection }) => {
       marginTop: "20px",
     },
   };
-  console.log(parsedPublishData);
-  const filteredBooks = parsedPublishData?.filter((book) =>
+  const currentData =
+    dataType === "books" ? parsedPublishData : parsedMaalonData;
+  console.log(currentData);
+
+  const filteredBooks = currentData?.filter((book) =>
     isRoshYeshiva
       ? book.author === "הרב יהושע ויצמן"
       : book.author !== "הרב יהושע ויצמן"
@@ -59,6 +63,7 @@ const BooksCollection = ({ isRoshYeshiva, leftSection }) => {
             price={book.price}
             discountPrice={book.discountPrice}
             pdfFile={book.pdfFile}
+            dataType={dataType}
           />
         ))}
       </div>

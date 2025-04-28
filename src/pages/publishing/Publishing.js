@@ -78,7 +78,11 @@ export default function Publishing() {
       title: " ספרי ראש הישיבה",
       imgSrc: "/bogrim-icon2.png",
       component: (
-        <BooksCollection titleStyle={styles.title} isRoshYeshiva={true} />
+        <BooksCollection
+          titleStyle={styles.title}
+          isRoshYeshiva={true}
+          dataType={"books"}
+        />
       ),
     },
     {
@@ -86,7 +90,11 @@ export default function Publishing() {
       title: "ספרי רבני הישיבה",
       imgSrc: "/bogrim-icon2.png",
       component: (
-        <BooksCollection titleStyle={styles.title} isRoshYeshiva={false} />
+        <BooksCollection
+          titleStyle={styles.title}
+          isRoshYeshiva={false}
+          dataType={"books"}
+        />
       ),
     },
   ];

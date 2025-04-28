@@ -20,8 +20,8 @@ const useSideMenuSection = () => {
     leftSection: {
       display: "flex",
       flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
+      alignItems: "",
+      justifyContent: "",
       width: "85%",
       gap: 20,
       margin: "auto",
@@ -34,6 +34,7 @@ const useSideMenuSection = () => {
       color: colors.darkBlue,
       fontSize: responsive("3vw", "5vw", "8vw"),
     },
+    descriptionStyle: {},
   };
 };
 
