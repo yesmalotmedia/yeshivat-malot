@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import Nav from "./Nav";
 import Logo from "../elements/Logo";
 import Button from "../elements/Button";
-import { Link, useLocation } from "react-router-dom"; // ייבוא useLocation
+import { Link, useLocation } from "react-router-dom";
 import MobileNav from "./MobileNav";
-import { transform } from "framer-motion";
 
 function Header() {
   const {
@@ -17,13 +16,31 @@ function Header() {
     responsive,
   } = useContext(AppContext);
 
-  // קבלת הנתיב הנוכחי
   const location = useLocation();
-  const isTerumotPage = location.pathname === "/terumot"; // בדיקה אם בעמוד תרומות
+  const isTerumotPage = location.pathname === "/terumot";
+
+  // סטייט חדש לנראות ההודעה
+  const [showFirstRunAlert, setShowFirstRunAlert] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 100) {
+        setShowFirstRunAlert(true); // קרוב לטופ – תראה
+      } else {
+        setShowFirstRunAlert(false); // מתחת ל-50 פיקסלים – תסתיר
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const styles = {
     container: {
-      height: responsive(100, 90, 80),
+      height: responsive(100, 80, 80),
       width: "100%",
       background: bgColors.white,
       display: "flex",
@@ -32,16 +49,16 @@ function Header() {
       alignItems: "center",
       zIndex: 100,
       position: "fixed",
-      padding: responsive(10, 10, 7),
+      padding: responsive(10, 7, 7),
     },
     logo: {
-      height: responsive("180px", "140px", "120px"),
-      width: responsive("180px", "140px", "120px"),
+      height: responsive("180px", "120px", "120px"),
+      width: responsive("180px", "120px", "120px"),
       zIndex: 100,
       cursor: "pointer",
       transform: responsive(
         "translate(-28px, 40px)",
-        "translate(-13px, 40px)",
+        "translate(-5px, 15px)",
         "translate(-5px, 15px)"
       ),
     },
@@ -49,8 +66,8 @@ function Header() {
       position: "absolute",
       right: 0,
       top: -20,
-      width: responsive("250px", "180px", "140px"),
-      height: responsive("200px", "180px", "130px"),
+      width: responsive("250px", "140px", "140px"),
+      height: responsive("200px", "130px", "130px"),
     },
     terumot: {
       textDecoration: "none",
@@ -67,22 +84,25 @@ function Header() {
     },
     firstRunAlert: {
       position: "fixed",
-      top: 20,
+      top: 100,
       left: "50%",
+      width: responsive("70%", "55%", "100%"),
+      textAlign: "center",
       transform: "translateX(-50%)",
-      color: "red",
-      zIndex: 2000,
-      fontSize: 15,
+      color: colors.white,
+      zIndex: 100,
+      fontSize: responsive(15, 15, 13),
+      transition: "opacity 0.3s ease",
+      opacity: showFirstRunAlert ? 1 : 0,
+      pointerEvents: showFirstRunAlert ? "auto" : "none",
     },
   };
+
   return (
     <>
       <div style={styles.container}>
-        <div style={styles.firstRunAlert}>
-          האתר בהרצה ראשונית - נא לא להפיץ את הקישור
-        </div>
         <div style={styles.humburgerAndLink}>
-          {!isTerumotPage && ( // הצגת הכפתור רק אם לא בעמוד תרומות
+          {!isTerumotPage && (
             <Link to={"/terumot"} style={styles.terumot}>
               <Button
                 color={colors.darkBlue}
@@ -104,7 +124,7 @@ function Header() {
               onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
               style={styles.humburgerIcon}
               src="/humburgerMenuIcon.svg"
-              alt="habmurgerBtn"
+              alt="hamburgerBtn"
             />
           )}
         </div>
@@ -112,6 +132,24 @@ function Header() {
         {isMobile ? <MobileNav /> : <Nav />}
         <Logo style={styles.logo} />
         <img style={styles.vector} src="/logo-vector.png" alt="logo-vector" />
+      </div>
+
+      <div style={styles.firstRunAlert}>
+        האתר בתקופת הרצה – תגובות, הצעות שאלות?
+        <br />
+        <a
+          href="https://wa.me/972559378556?text=שלום, בקשר לאתר החדש..."
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            marginRight: "5px",
+            color: "white",
+            textDecoration: "underline",
+            fontWeight: "bold",
+          }}
+        >
+          עדכנו אותנו בוואטסאפ
+        </a>
       </div>
     </>
   );
