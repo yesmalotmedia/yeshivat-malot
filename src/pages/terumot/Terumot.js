@@ -7,6 +7,7 @@ import Welcome from "../shvushim/Welcome";
 import Introduction from "../shvushim/Introduction";
 import Fqa from "../shvushim/Fqa";
 import Team from "../shvushim/Team";
+import YeshivaProjects from "./YeshivaProjects";
 
 export default function Terumot() {
   const { colors, responsive, useSideMenuSection } = useContext(AppContext);
@@ -25,10 +26,10 @@ export default function Terumot() {
   const sections = [
     {
       id: "1",
-      title: "ברוכים הבאים",
+      title: "בואו להיות שותפים במפעלי הישיבה הרבים",
       imgSrc: "/bogrim-icon2.png",
       component: (
-        <Welcome titleStyle={styles.title} leftSection={leftSection} />
+        <YeshivaProjects titleStyle={styles.title} leftSection={leftSection} />
       ),
     },
     {
@@ -44,12 +45,6 @@ export default function Terumot() {
       title: "טיפים ושאלות",
       imgSrc: "/faqIcon.png",
       component: <Fqa titleStyle={styles.title} leftSection={leftSection} />,
-    },
-    {
-      id: "4",
-      title: "צוות הישיבה",
-      imgSrc: "/teamIcon.png",
-      component: <Team titleStyle={styles.title} leftSection={leftSection} />,
     },
   ];
 
@@ -73,24 +68,24 @@ export default function Terumot() {
         backgroundImage={"/publishingHero.png"}
       />
       <div style={styles.container}>
-        <SideMenu
+        {/* <SideMenu
           sections={sections}
           activeSection={activeSection}
           setActiveSection={setActiveSection}
-        />
+        /> */}
 
         {/* <div style={styles.contentWrapper}> */}
-        <AnimatePresence mode="wait">
+        {/* <AnimatePresence mode="wait">
           <motion.div
             key={activeSection} // מרענן את האנימציה בעת החלפת מקטע
             initial={{ opacity: 0, y: 2 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -2 }}
             transition={{ duration: 0.2 }}
-          >
-            {activeComponent}
-          </motion.div>
-        </AnimatePresence>
+          > */}
+        {activeComponent}
+        {/* </motion.div>
+        </AnimatePresence> */}
       </div>
       {/* </div> */}
     </>
