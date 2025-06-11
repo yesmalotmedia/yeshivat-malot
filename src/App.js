@@ -138,7 +138,7 @@ function App() {
     loading: loadingRabbies,
     error: errorRabbies,
   } = useFetch(
-    "https://dev-mizug-talmudim-admin.pantheonsite.io/wp-json/wp/v2/rabbies?_fields=id,description,name"
+    "https://yesmalot.co.il/wp-json/wp/v2/lecturers?per_page=100&_fields=id,name"
   );
 
   const {

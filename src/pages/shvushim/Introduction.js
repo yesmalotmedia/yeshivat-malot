@@ -29,8 +29,7 @@ export default function Introduction({
     },
     {
       title: 'אחראי שבושי"ם',
-      description:
-        "אוראל יעקובי – 050-2735666\nאמיר פישמן – 053-4269363\nאליה אברמוביץ' – 058-5949291\nדביר שלום – 058-4440358",
+      description: "בניהו שטמלר – 058-4551905 \nמתן שטיינהרט – 058-7315948  ",
     },
   ];
 
@@ -46,10 +45,13 @@ export default function Introduction({
               ? e.description.split("\n").map((line, i) => {
                   const [name, phoneRaw] = line.split(" – ");
                   const phone = phoneRaw.replace(/[^0-9]/g, "");
+                  const phoneForLink = "972" + phone.replace(/^0/, "");
+                  const firstName = name.split(" ")[0];
                   const message = encodeURIComponent(
-                    'שלום, אני מעוניין להגיע לשבו"ש לישיבה. דברו איתי בבקשה.'
+                    `שלום ${firstName}, אני מעוניין להגיע לשבו"ש לישיבה. דברו איתי בבקשה.`
                   );
-                  const link = `https://wa.me/${phone}?text=${message}`;
+                  const link = `https://wa.me/${phoneForLink}?text=${message}`;
+
                   return (
                     <div
                       key={i}
