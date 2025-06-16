@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 const useFetch = (baseUrl, perPage = 100, limit = 300) => {
-  const [data, setData] = useState([]); // הנתונים הראשוניים שמוצגים
-  const [allData, setAllData] = useState([]); // כל הנתונים
+  const [data, setData] = useState([]);
+  const [allData, setAllData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [firstLoadComplete, setFirstLoadComplete] = useState(false);
@@ -13,35 +13,52 @@ const useFetch = (baseUrl, perPage = 100, limit = 300) => {
       setError(null);
       let allResults = [];
       let page = 1;
-      let totalPages = 1; // נניח שיש לפחות עמוד אחד
+      let totalPages = 1;
 
       try {
         while (allResults.length < limit && page <= totalPages) {
-          const response = await fetch(
-            `${baseUrl}&per_page=${perPage}&page=${page}`
-          );
-          if (!response.ok) throw new Error("שגיאה בטעינת הנתונים");
+          const url = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}per_page=${perPage}&page=${page}`;
+          console.log(`📡 Fetching page ${page}: ${url}`);
 
-          const newData = await response.json();
-          allResults = [...allResults, ...newData];
+          const response = await fetch(url);
 
-          // עדכון מספר העמודים על בסיס הכותרת של ה-API
-          if (page === 1) {
-            totalPages = parseInt(response.headers.get("X-WP-TotalPages")) || 1;
+          // טיפול בשגיאה 500
+          if (response.status === 500) {
+            console.warn(`⚠️ Server returned 500 (Internal Error) on page ${page}. Stopping.`);
+            break;
           }
 
-          // אם הבאנו פחות מהצפוי, כנראה שאין יותר נתונים
-          if (newData.length < perPage) break;
+          if (!response.ok) {
+            throw new Error(`שגיאה בטעינה: ${response.status} ${response.statusText}`);
+          }
+
+          const newData = await response.json();
+          console.log(`📥 Page ${page} returned ${newData.length} items`);
+
+          allResults = [...allResults, ...newData];
+
+          if (page === 1) {
+            const totalPagesHeader = response.headers.get("X-WP-TotalPages");
+            totalPages = totalPagesHeader ? parseInt(totalPagesHeader) : Infinity;
+            console.log("📄 Total pages (from header or fallback):", totalPages);
+          }
+
+          // עצירה אם פחות מהכמות הנדרשת חזרה
+          if (newData.length < perPage) {
+            console.log("⛔ קיבלנו פחות מה-perPage – סביר שאין עוד עמודים.");
+            break;
+          }
 
           page++;
         }
 
-        setAllData(allResults); // שמירת כל הנתונים
-        setData(allResults.slice(0, perPage)); // שמירת הנתונים הראשונים
+        console.log("✅ סיום איסוף. מספר פריטים בסה״כ:", allResults.length);
+        setAllData(allResults);
+        setData(allResults.slice(0, perPage));
         setFirstLoadComplete(true);
       } catch (err) {
+        console.error("❌ שגיאה:", err.message);
         setError(err.message);
-        console.error("שגיאה בטעינת הנתונים: ", err.message);
       } finally {
         setLoading(false);
       }

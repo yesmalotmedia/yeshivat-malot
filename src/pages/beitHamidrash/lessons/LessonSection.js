@@ -129,7 +129,7 @@ export default function LessonSection({ lesson, setLesson }) {
   };
   return (
     <div style={styles.container}>
-      {isMobile && <MobileFilter setLesson={setLesson} />}
+      {/* {isMobile && <MobileFilter setLesson={setLesson} />} */}
       <div style={styles.headerSection}>
         <p style={styles.breadcrumb}>
           <span>{subCategory}</span> / <span>{mainCategory}</span>

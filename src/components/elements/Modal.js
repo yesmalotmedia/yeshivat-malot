@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import Button from "./Button";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Modal() {
   const { colors, bgColors, isMobile } = useContext(AppContext);
   const [isVisible, setIsVisible] = useState(false); // State to manage visibility
   const [isShrink, setIsShrink] = useState(false); // State to manage shrink
+  const navigate = useNavigate();
+
 
   const styles = {
     form: {
@@ -96,7 +99,7 @@ export default function Modal() {
               X
             </div>
           )}
-          <label onClick={() => setIsShrink(false)} style={styles.label}>
+          <label onClick={() => navigate('/terumot')} style={styles.label}>
             בואו להיות{" "}
             <span style={{ fontSize: isShrink ? 18 : 37, fontWeight: "bold" }}>
               שותפים

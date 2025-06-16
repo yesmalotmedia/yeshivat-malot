@@ -39,19 +39,21 @@ const SideBarSearch = ({
   // styles
   const styles = {
     container: {
-      backgroundColor: bgColors.white,
+      backgroundColor: "transparent",
       borderRadius: responsive(50, 0, 0),
       paddingBottom: 100,
       paddingTop: 30,
-      width: responsive("40%", "100%", "100%"),
-      maxWidth: responsive(300, "100%", "100%"),
-      maxHeight: responsive(700, "100vh", "100%"),
+      // width: responsive("90%", "100%", "100%"),
+      // maxWidth: responsive(1200, "100%", "100%"),
+      // maxHeight: responsive(700, "100vh", "100%"),
+      height:30,
+      width:isMobile?'90%':'60%',
       display: "flex",
       justifyContent: "start",
       alignItems: "center",
       flexDirection: "column",
-      marginLeft: 20,
-      boxShadow: shadow.boxShadow1,
+      margin:'auto',
+      position:'relavite'
     },
     searchContainer: {
       position: "relative",
@@ -77,13 +79,10 @@ const SideBarSearch = ({
       height: 20,
     },
     lable: {
-      textAlign: "right",
       color: colors.darkBlue,
-      fontSize: 15,
+      fontSize: 20,
       fontWeight: 500,
-      width: responsive("90%", "50%", "50%"),
-      marginBottom: 5,
-      marginRight: 5,
+      padding: 10,
     },
     clearAll: {
       border: `1px solid ${colors.darkBlue}`,
@@ -200,14 +199,14 @@ const SideBarSearch = ({
 
   return (
     <form style={styles.container} onSubmit={(e) => e.preventDefault()}>
-      {isMobile && (
+      {/* {isMobile && (
         <div style={styles.clearAll}>
           <img src="/clearAll.svg" alt="Clear All" />
           <span>נקה הכל</span>
         </div>
-      )}
+      )} */}
 
-      <div style={styles.searchContainer}>
+      {/* <div style={styles.searchContainer}>
         <div style={styles.lable}>חיפוש חופשי </div>
         <input
           style={styles.searchInput}
@@ -216,9 +215,9 @@ const SideBarSearch = ({
           onChange={handleSearchQueryChange}
         />
         <img src={"/searchIcon.png"} alt="Search" style={styles.searchIcon} />
-      </div>
+      </div> */}
 
-      {isMobile && (
+      {/* {isMobile && (
         <div style={styles.btnContainer}>
           <Button
             color={colors.darkBlue}
@@ -235,21 +234,20 @@ const SideBarSearch = ({
         </div>
       )}
 
-      <br />
-
-      <div style={styles.lable}>חיפוש לפי נושאים</div>
+      <br /> */}
+<div style={styles.lable}>חפש שיעור</div>
       <SelectInput
         options={getMainCategories(categories, 211)}
         value={selectedTopic}
         onChange={handleSelectChange}
       />
 
-      <div style={styles.lable}>הרבנים</div>
+      {/* <div style={styles.lable}>הרבנים</div>
       <SelectInput
         options={rabbiesData}
         value={selectedRabbi}
         onChange={(e) => setSelectedRabbi(e.target.value)}
-      />
+      /> */}
 
       <br />
 

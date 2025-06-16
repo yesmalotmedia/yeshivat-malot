@@ -124,15 +124,18 @@ function App() {
     error: errorMaalon,
   } = useFetch("https://yesmalot.co.il/wp-json/wp/v2/maalon?per_page=100");
 
-  const {
-    allData: categoriesData,
-    loading: loadingCategories,
-    error: errorCategories,
-  } = useFetch(
-    "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent",
-    100, // כמה פוסטים נטענים בכל בקשה
-    300 // המגבלה הכללית
-  );
+const {
+  allData: categoriesData,
+  loading: loadingCategories,
+  error: errorCategories,
+} = useFetch(
+  "https://yesmalot.co.il/wp-json/wp/v2/categories?_fields=id,name,parent",
+  100, // פריטים לעמוד
+  300  // גבול כולל
+);
+
+  console.log(categoriesData);
+  
   const {
     data: rabbiesData,
     loading: loadingRabbies,
@@ -177,6 +180,7 @@ function App() {
   console.log(parsedNoticesData);
 
   if (categoriesData) {
+    
     categories = categoriesData;
   }
 

@@ -17,6 +17,7 @@ function getMainCategories(categories, mainParentId) {
       categoryMap[category.parent].children.push(categoryMap[category.id]);
     }
   });
+console.log(categories);
 
   return mainCategories;
 }

@@ -59,7 +59,7 @@ const LessonsCollection = ({ lessonsType, setlessonsType, setLesson }) => {
           {lessonsFilter.category}
         </div>
       </div>
-      {isMobile && <MobileFilter setLesson={setLesson} />}
+      {/* {isMobile && <MobileFilter setLesson={setLesson} />} */}
       <div
         style={{
           width: "100%",
