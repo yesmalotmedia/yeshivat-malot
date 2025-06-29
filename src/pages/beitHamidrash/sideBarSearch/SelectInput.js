@@ -1,7 +1,12 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { AppContext } from "../../../App";
 
-const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שיעור " }) => {
+const SelectInput = ({
+  options = [],
+  value,
+  onChange,
+  placeholder = "חפש שיעור ",
+}) => {
   const { colors } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -70,9 +75,12 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
 
   const markOpenSections = (list, term, openMap = {}) => {
     for (const opt of list) {
-      const hasChildren = Array.isArray(opt.children) && opt.children.length > 0;
+      const hasChildren =
+        Array.isArray(opt.children) && opt.children.length > 0;
       const matches = opt.name.includes(term);
-      const filteredChildren = hasChildren ? filterOptions(opt.children, term, false) : [];
+      const filteredChildren = hasChildren
+        ? filterOptions(opt.children, term, false)
+        : [];
 
       if (matches || filteredChildren.length > 0) {
         openMap[opt.id] = true;
@@ -84,12 +92,19 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
     return openMap;
   };
 
-  const filterOptions = (optionsList, term = searchTerm, trimChildren = true) => {
+  const filterOptions = (
+    optionsList,
+    term = searchTerm,
+    trimChildren = true
+  ) => {
     return optionsList
       .map((option) => {
         const matches = option.name.includes(term);
-        const hasChildren = Array.isArray(option.children) && option.children.length > 0;
-        const filteredChildren = hasChildren ? filterOptions(option.children, term, trimChildren) : [];
+        const hasChildren =
+          Array.isArray(option.children) && option.children.length > 0;
+        const filteredChildren = hasChildren
+          ? filterOptions(option.children, term, trimChildren)
+          : [];
 
         return matches || filteredChildren.length > 0
           ? {
@@ -101,9 +116,10 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
       .filter(Boolean);
   };
 
-  const filteredOptions = searchTerm.trim() !== ""
-    ? filterOptions(options, searchTerm, false)
-    : options;
+  const filteredOptions =
+    searchTerm.trim() !== ""
+      ? filterOptions(options, searchTerm, false)
+      : options;
 
   useEffect(() => {
     if (searchTerm.trim() !== "") {
@@ -131,10 +147,11 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
       fontWeight: 500,
       cursor: "pointer",
       userSelect: "none",
+      textAlign: "center",
     },
     dropdown: {
       position: "absolute",
-      top: -0,
+      top: 40,
       left: 0,
       right: 0,
       background: "white",
@@ -193,20 +210,35 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
 
   const renderOptions = (opts, level = 0) => {
     return opts.map((option) => {
-      const hasChildren = Array.isArray(option.children) && option.children.length > 0;
+      const hasChildren =
+        Array.isArray(option.children) && option.children.length > 0;
       return (
         <div key={option.id}>
           {hasChildren ? (
             <div>
-              <div
-                style={styles.toggleHeader(level)}
-                onClick={() => toggleSection(option.id)}
-              >
-                <span>{option.name}</span>
-                <span style={{ marginRight: "auto", color: colors.darkBlue }}>
+              <div style={styles.toggleHeader(level)}>
+                <span
+                  onClick={() => handleSelect(option)}
+                  style={{ flexGrow: 1 }}
+                >
+                  {option.name}
+                </span>
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation(); // מונע גם מהטקסט להידלק
+                    toggleSection(option.id);
+                  }}
+                  style={{
+                    marginRight: "auto",
+                    cursor: "pointer",
+                    padding: "0px 36px 0px 0px", // ← מגדיל שטח לחיצה
+                    display: "inline-block",
+                  }}
+                >
                   {openSections[option.id] ? "▾" : "›"}
                 </span>
               </div>
+
               {openSections[option.id] && (
                 <div>{renderOptions(option.children, level + 1)}</div>
               )}
@@ -227,7 +259,7 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
   return (
     <div style={styles.container} ref={wrapperRef}>
       <div style={styles.control} onClick={() => setIsOpen(!isOpen)}>
-        {value || placeholder}
+        {placeholder}
       </div>
 
       <div style={styles.dropdown}>
@@ -235,13 +267,17 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
           <input
             style={styles.searchInput}
             type="text"
-            placeholder="הקלד את נושא השיעור..."
+            placeholder="חיפוש לפי נושא..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        <div className="dropdown-scroll" style={styles.dropdownContent} ref={dropdownRef}>
+        <div
+          className="dropdown-scroll"
+          style={styles.dropdownContent}
+          ref={dropdownRef}
+        >
           {renderOptions(filteredOptions)}
           {filteredOptions.length === 0 && (
             <div style={{ padding: 10, color: "grey", textAlign: "center" }}>

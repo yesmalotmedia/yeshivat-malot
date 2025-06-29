@@ -15,7 +15,7 @@ import Overview from "./Overview";
 export default function Shvushim() {
   const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
-  const { container, leftSection, title,imageStyle } = useSideMenuSection();
+  const { container, leftSection, title, imageStyle } = useSideMenuSection();
 
   const styles = {
     container: container,
@@ -27,13 +27,16 @@ export default function Shvushim() {
   };
 
   const sections = [
-  
     {
       id: "1",
       title: "נעים להכיר",
       imgSrc: "/introductionIcon.png",
       component: (
-        <Overview titleStyle={styles.title} leftSection={leftSection} imageStyle={imageStyle}/>
+        <Overview
+          titleStyle={styles.title}
+          leftSection={leftSection}
+          imageStyle={imageStyle}
+        />
       ),
     },
     {
@@ -46,19 +49,28 @@ export default function Shvushim() {
       id: "3",
       title: "תורת ארץ ישראל",
       imgSrc: "/teamIcon.png",
-      component: <ToratIsrael titleStyle={styles.title} leftSection={leftSection} />,
+      component: (
+        <ToratIsrael titleStyle={styles.title} leftSection={leftSection} />
+      ),
     },
-     {
+    {
       id: "4",
       title: "לימודים בישיבה",
       imgSrc: "/teamIcon.png",
-      component: <Limudim titleStyle={styles.title} leftSection={leftSection}  imageStyle={imageStyle} />,
-    },  {
-      id: "5",
-      title: "צוות הישיבה",
-      imgSrc: "/teamIcon.png",
-      component: <Team titleStyle={styles.title} leftSection={leftSection} />,
+      component: (
+        <Limudim
+          titleStyle={styles.title}
+          leftSection={leftSection}
+          imageStyle={imageStyle}
+        />
+      ),
     },
+    // {
+    //   id: "5",
+    //   title: "צוות הישיבה",
+    //   imgSrc: "/teamIcon.png",
+    //   component: <Team titleStyle={styles.title} leftSection={leftSection} />,
+    // },
   ];
 
   const activeSectionData = sections.find(

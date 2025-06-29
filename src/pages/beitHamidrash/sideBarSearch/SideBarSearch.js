@@ -46,14 +46,14 @@ const SideBarSearch = ({
       // width: responsive("90%", "100%", "100%"),
       // maxWidth: responsive(1200, "100%", "100%"),
       // maxHeight: responsive(700, "100vh", "100%"),
-      height:30,
-      width:isMobile?'90%':'60%',
+      height: 30,
+      width: isMobile ? "90%" : "60%",
       display: "flex",
       justifyContent: "start",
       alignItems: "center",
       flexDirection: "column",
-      margin:'auto',
-      position:'relavite'
+      margin: "auto",
+      position: "relavite",
     },
     searchContainer: {
       position: "relative",
@@ -235,7 +235,7 @@ const SideBarSearch = ({
       )}
 
       <br /> */}
-<div style={styles.lable}>חפש שיעור</div>
+      <div style={styles.lable}></div>
       <SelectInput
         options={getMainCategories(categories, 211)}
         value={selectedTopic}

@@ -42,12 +42,12 @@ export default function Shvushim() {
       imgSrc: "/faqIcon.png",
       component: <Fqa titleStyle={styles.title} leftSection={leftSection} />,
     },
-    {
-      id: "3",
-      title: "צוות הישיבה",
-      imgSrc: "/teamIcon.png",
-      component: <Team titleStyle={styles.title} leftSection={leftSection} />,
-    },
+    // {
+    //   id: "3",
+    //   title: "צוות הישיבה",
+    //   imgSrc: "/teamIcon.png",
+    //   component: <Team titleStyle={styles.title} leftSection={leftSection} />,
+    // },
   ];
 
   const activeSectionData = sections.find(
