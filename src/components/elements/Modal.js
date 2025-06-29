@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export default function Modal() {
   const { colors, bgColors, isMobile } = useContext(AppContext);
   const [isVisible, setIsVisible] = useState(false); // State to manage visibility
-  const [isShrink, setIsShrink] = useState(false); // State to manage shrink
+  const [isShrink, setIsShrink] = useState(true); // State to manage shrink
   const navigate = useNavigate();
 
 

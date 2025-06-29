@@ -12,7 +12,7 @@ const Subscribe = ({ targetUrl, title, subTitle }) => {
       position: "relative",
       textAlign: "center",
       overflow: "hidden",
-      maxWidth: responsive(450, 300, 300),
+      maxWidth: responsive(450, 300, 240),
       borderRadius: 30,
       margin: "0 auto",
       cursor: "pointer",

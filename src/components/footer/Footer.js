@@ -107,7 +107,7 @@ const Footer = () => {
           </h2>
           <Subscribe
             targetUrl="https://chat.whatsapp.com/JpRgbvP5uBlGvJYaaFohnO"
-            title={"עדכונים - ישיבת מעלות"}
+            title={"תורת ישיבת מעלות"}
           />
         </div>
       </div>

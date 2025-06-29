@@ -20,7 +20,7 @@ export default function ContactDetails({ title, lesson_name }) {
       fontWeight: 500,
       fontSize: 18,
       padding: 10,
-      lineHeight: 1,
+      lineHeight: 0.5,
       width: "100%",
     },
     headerText: {
@@ -53,12 +53,12 @@ export default function ContactDetails({ title, lesson_name }) {
         </div>
       ))}
       <br></br>
-      <br></br>
       <div style={{ width: "85%", height: 100, margin: "auto" }}>
         <Subscribe
-          targetUrl={"https://chat.whatsapp.com/JpRgbvP5uBlGvJYaaFohnO"}
+          targetUrl={"https://chat.whatsapp.com/CoQxcKpjsBPALM93g24Y3k"}
           title={"עדכונים - ישיבת מעלות"}
         />
+        
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ export default function Team({ title, titleStyle, leftSection }) {
       borderRadius: 10,
       margin: "auto",
       maxWidth: 300,
+      
     }),
     teamItemWrapper: (index) => ({
       width: "100%",
@@ -62,9 +63,9 @@ export default function Team({ title, titleStyle, leftSection }) {
       img: "/profileHaravWaitsman.png",
     },
     {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
+      name: "הרב מנשה וינר",
+      description: "ר\"מ",
+      img: "/profileHaravViner.jpg",
     },
     {
       name: "הרב יהושע ויצמן",

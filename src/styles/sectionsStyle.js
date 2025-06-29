@@ -3,7 +3,7 @@ import { AppContext } from "../App";
 import { title } from "framer-motion/m";
 
 const useSideMenuSection = () => {
-  const { responsive, colors } = useContext(AppContext);
+  const { responsive, colors,isMobile } = useContext(AppContext);
 
   return {
     container: {
@@ -35,6 +35,10 @@ const useSideMenuSection = () => {
       fontSize: responsive("3vw", "5vw", "8vw"),
     },
     descriptionStyle: {},
+    imageStyle:{
+      width:isMobile?'100%':'60%',
+      margin:"20px 0 20px 0"
+    }
   };
 };
 

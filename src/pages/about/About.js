@@ -7,11 +7,15 @@ import Welcome from "../shvushim/Welcome";
 import Introduction from "../shvushim/Introduction";
 import Fqa from "../shvushim/Fqa";
 import Team from "../shvushim/Team";
+import Hazon from "./Hazon";
+import Limudim from "./Limudim";
+import ToratIsrael from "./ToratIsrael";
+import Overview from "./Overview";
 
 export default function Shvushim() {
   const { colors, responsive, useSideMenuSection } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState("1");
-  const { container, leftSection, title } = useSideMenuSection();
+  const { container, leftSection, title,imageStyle } = useSideMenuSection();
 
   const styles = {
     container: container,
@@ -23,30 +27,34 @@ export default function Shvushim() {
   };
 
   const sections = [
+  
     {
       id: "1",
-      title: "ברוכים הבאים",
-      imgSrc: "/bogrim-icon2.png",
+      title: "נעים להכיר",
+      imgSrc: "/introductionIcon.png",
       component: (
-        <Welcome titleStyle={styles.title} leftSection={leftSection} />
+        <Overview titleStyle={styles.title} leftSection={leftSection} imageStyle={imageStyle}/>
       ),
     },
     {
       id: "2",
-      title: "נעים להכיר",
-      imgSrc: "/introductionIcon.png",
-      component: (
-        <Introduction titleStyle={styles.title} leftSection={leftSection} />
-      ),
+      title: "חזון הישיבה",
+      imgSrc: "/faqIcon.png",
+      component: <Hazon titleStyle={styles.title} leftSection={leftSection} />,
     },
     {
       id: "3",
-      title: "טיפים ושאלות",
-      imgSrc: "/faqIcon.png",
-      component: <Fqa titleStyle={styles.title} leftSection={leftSection} />,
+      title: "תורת ארץ ישראל",
+      imgSrc: "/teamIcon.png",
+      component: <ToratIsrael titleStyle={styles.title} leftSection={leftSection} />,
     },
-    {
+     {
       id: "4",
+      title: "לימודים בישיבה",
+      imgSrc: "/teamIcon.png",
+      component: <Limudim titleStyle={styles.title} leftSection={leftSection}  imageStyle={imageStyle} />,
+    },  {
+      id: "5",
       title: "צוות הישיבה",
       imgSrc: "/teamIcon.png",
       component: <Team titleStyle={styles.title} leftSection={leftSection} />,

@@ -134,7 +134,7 @@ const SelectInput = ({ options = [], value, onChange, placeholder = "חפש שי
     },
     dropdown: {
       position: "absolute",
-      top: "100%",
+      top: -0,
       left: 0,
       right: 0,
       background: "white",
