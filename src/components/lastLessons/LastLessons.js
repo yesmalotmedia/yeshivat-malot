@@ -27,7 +27,7 @@ const LastLessons = () => {
   const loadingLastLessons =
     loadingLastClalim || loadinglastDafYomi || loadingLastEiun;
 
-  const lastLessonsCategories = [68, 66, 43];
+  const lastLessonsCategories = [68, 66, 1424];
   const categoryNames = {
     [lastLessonsCategories[0]]: useCategoryNameById(lastLessonsCategories[0]),
     [lastLessonsCategories[1]]: useCategoryNameById(lastLessonsCategories[1]),
@@ -77,38 +77,46 @@ const LastLessons = () => {
     navigate(`/BeitHamidrash`);
   };
 
-  const lastVideosElements = parsedLastVideos?.map((video, index) => (
-    <div key={index} style={styles.img}>
-      {loadingLastLessons ? (
-        <LoaderAnimation isLoading={loadingLastLessons} color={colors.orange} />
-      ) : (
-        <VideoCoverImage
-          // url={video?.url}
-          url={video?.url}
-          videoId={video?.id}
-          title={video?.title}
-          rabbiName={video?.rabbiName}
-          //thumbnail={video?.thumbnail}
-          thumbnail={video?.thumbnail}
+  const lastVideosElements = parsedLastVideos
+    ?.slice()
+    .reverse()
+    .map((video, index) => (
+      <div key={index} style={styles.img}>
+        {loadingLastLessons ? (
+          <LoaderAnimation
+            isLoading={loadingLastLessons}
+            color={colors.orange}
+          />
+        ) : (
+          <VideoCoverImage
+            // url={video?.url}
+            url={video?.url}
+            videoId={video?.id}
+            title={video?.title}
+            rabbiName={video?.rabbiName}
+            //thumbnail={video?.thumbnail}
+            thumbnail={video?.thumbnail}
+          />
+        )}
+        <Button
+          color={index === 2 ? colors.darkBlue : colors.white}
+          bgColor={index === 2 ? bgColors.yellow : bgColors.darkBlue} // Example gradients
+          title={`לכל שיעורי ${
+            categoryNames[index === 2 ? 68 : index === 1 ? 1424 : 66]
+          }`}
+          fontSize={responsive("1.2rem", "1.4rem", "1rem")}
+          fontWeight={600}
+          borderRadius={50}
+          width={"100%"}
+          arrow={true}
+          arrowColor={index === 2 ? "blue" : "white"}
+          margin={"10px 0 0 0"}
+          onClick={() =>
+            handleClick(index === 2 ? 68 : index === 1 ? 1424 : 66)
+          }
         />
-      )}
-      <Button
-        color={index === 2 ? colors.darkBlue : colors.white}
-        bgColor={index === 2 ? bgColors.yellow : bgColors.darkBlue} // Example gradients
-        title={`לכל שיעורי ${
-          categoryNames[index === 0 ? 68 : index === 1 ? 43 : 66]
-        }`}
-        fontSize={responsive("1.2rem", "1.4rem", "1rem")}
-        fontWeight={600}
-        borderRadius={50}
-        width={"100%"}
-        arrow={true}
-        arrowColor={index === 2 ? "blue" : "white"}
-        margin={"10px 0 0 0"}
-        onClick={() => handleClick(index === 0 ? 68 : index === 1 ? 43 : 66)}
-      />
-    </div>
-  ));
+      </div>
+    ));
 
   return (
     <div style={styles.container}>

@@ -5,7 +5,7 @@ const SelectInput = ({
   options = [],
   value,
   onChange,
-  placeholder = "חפש שיעור ",
+  placeholder = "חפש שיעור",
 }) => {
   const { colors } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -151,7 +151,7 @@ const SelectInput = ({
     },
     dropdown: {
       position: "absolute",
-      top: 40,
+      top: 0,
       left: 0,
       right: 0,
       background: "white",
@@ -267,7 +267,7 @@ const SelectInput = ({
           <input
             style={styles.searchInput}
             type="text"
-            placeholder="חיפוש לפי נושא..."
+            placeholder="חפש נושא..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

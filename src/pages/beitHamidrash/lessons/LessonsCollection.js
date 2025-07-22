@@ -38,8 +38,15 @@ const LessonsCollection = ({ lessonsType, setlessonsType, setLesson }) => {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: 100,
+      }}
     >
+      <div>התוצאות כוללות בשלב זה שיעורי וידאו בלבד</div>
+
       <div
         style={{
           display: "flex",

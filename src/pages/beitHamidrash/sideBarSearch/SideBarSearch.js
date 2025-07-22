@@ -52,7 +52,7 @@ const SideBarSearch = ({
       justifyContent: "start",
       alignItems: "center",
       flexDirection: "column",
-      margin: "auto",
+      margin: " auto",
       position: "relavite",
     },
     searchContainer: {
@@ -217,24 +217,6 @@ const SideBarSearch = ({
         <img src={"/searchIcon.png"} alt="Search" style={styles.searchIcon} />
       </div> */}
 
-      {/* {isMobile && (
-        <div style={styles.btnContainer}>
-          <Button
-            color={colors.darkBlue}
-            bgColor={bgColors.yellow}
-            hoveredBgColor={bgColors.darkBlueGradient}
-            title={"בצע חיפוש"}
-            fontSize={20}
-            fontWeight={500}
-            borderRadius={50}
-            width={"90%"}
-            arrow={true}
-            onClick={handleButtonClick}
-          />
-        </div>
-      )}
-
-      <br /> */}
       <div style={styles.lable}></div>
       <SelectInput
         options={getMainCategories(categories, 211)}

@@ -53,17 +53,17 @@ export default function LessonPreviewBox({ video }) {
       padding: 10,
     },
     title: {
-      fontSize: `max(${responsive("1.2vw", "1.6rem", "1.3rem")}, 1.2rem)`,
+      fontSize: `max(${responsive("1vw", "1.6rem", "1rem")}, 1.2rem)`,
       paddingTop: 5,
     },
     subTitle: {
-      fontSize: `max(${responsive("1.3vw", "1.5rem", "1.3rem")}, 1.1rem)`,
+      fontSize: `max(${responsive("1vw", "1.5rem", "1.3rem")}, 1.1rem)`,
       paddingBottom: 10,
       fontWeight: 400,
     },
 
     date: {
-      fontSize: responsive("0.8rem", "1.2rem", "1rem"),
+      fontSize: responsive("0.9rem", "1.2rem", "1rem"),
       fontWeight: 400,
     },
     bottomSection: {
