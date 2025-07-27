@@ -27,10 +27,14 @@ const formatDate = (dateStr) => {
   return `${year}-${month}-${day}`;
 };
 const ExtractPostsData = (data) => {
+  console.log(data);
+
   // אם data הוא אובייקט – שנה אותו למערך
   const normalizedData = Array.isArray(data) ? data : [data];
 
   const flatData = flattenData(normalizedData);
+  console.log(flatData);
+
   if (!Array.isArray(flatData) || flatData.length === 0) return [];
 
   return flatData.map((item) => {
@@ -57,6 +61,7 @@ const ExtractPostsData = (data) => {
       dedicatedTo: item?.dedicatedTo || "",
       audioUrl: item?.acf_fields?.audio || "",
       categories: item?.categories || [],
+      isShort: Boolean(!item.thumbnail),
     };
   });
 };

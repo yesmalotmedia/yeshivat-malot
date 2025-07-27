@@ -33,10 +33,12 @@ const LastLessons = () => {
     [lastLessonsCategories[1]]: useCategoryNameById(lastLessonsCategories[1]),
     [lastLessonsCategories[2]]: useCategoryNameById(lastLessonsCategories[2]),
   };
+  const name = useCategoryNameById(lastLessonsCategories[2]);
+  console.log(name);
 
   const styles = {
     container: {
-      width: responsive("80%", "70%", "90%"),
+      width: responsive("80%", "70%", "80%"),
       maxWidth: responsive(1400, 900, 600),
       margin: "auto",
       backgroundColor: colors.white, // Example bg-color
@@ -52,6 +54,7 @@ const LastLessons = () => {
       padding: 20,
       justifyContent: "space-between",
       zIndex: 100,
+      marginBottom: responsive(0, 150, 100),
     },
     title: {
       position: "absolute",

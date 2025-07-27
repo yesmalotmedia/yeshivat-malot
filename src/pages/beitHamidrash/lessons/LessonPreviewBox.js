@@ -8,6 +8,8 @@ export default function LessonPreviewBox({ video }) {
   const { colors, responsive } = useContext(AppContext);
   const [isHovered, setIsHovered] = useState(false);
   const [imgWidth, setImgWidth] = useState(0);
+  console.log(video);
+
   useEffect(() => {
     if (video.thumbnail) {
       const img = new Image();
@@ -112,7 +114,6 @@ export default function LessonPreviewBox({ video }) {
   };
 
   //functions
-
   return (
     // <div style={{ display: "flex", flexDirection: "column" }}>
     //   <h2>{video.title}</h2>
@@ -136,6 +137,7 @@ export default function LessonPreviewBox({ video }) {
             rabbiName={video.rabbiName}
             thumbnail={video.thumbnail}
             imgWidth={imgWidth}
+            isShort={video.isShort}
           />
         }
         <div style={styles.description}>

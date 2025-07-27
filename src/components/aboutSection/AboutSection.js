@@ -9,9 +9,11 @@ const AboutSection = () => {
 
   const bgImg = responsive(
     "aboutSectionImg.png",
-    "mobile-bg-img-homepage-1.png",
-    "mobile-bg-img-homepage-1.png"
+    "aboutSectionImg.png",
+    "aboutSectionImg.png"
   );
+
+  const mobileMarginTop = Math.max(-window.innerWidth * 0.42, -210); // לדוגמה -42vw אבל לא יותר מ־180px למטה
 
   const styles = {
     container: {
@@ -45,29 +47,27 @@ const AboutSection = () => {
       top: responsive("380px", "-160px", "250px"),
     },
     title: {
-      color: colors.white,
-      fontSize: responsive("3rem", "2.5rem", "2rem"),
-      position: "absolute",
-      fontWeight: 500,
+      fontSize: responsive("3rem", "1.7rem", "1.7rem"),
+      fontWeight: 700,
       textAlign: "center",
-      maxWidth: 400,
-      marginTop: -5,
+      margin: "auto",
 
       top: responsive("380px", "-150px", "250px"),
     },
+
     description: {
       backgroundColor: bgColors.white,
       boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
       borderRadius: responsive(50, 30, 20),
       padding: responsive("5vw", "6wv", "8vw"),
       color: colors.darkBlue,
-      fontWeight: 600,
-      fontSize: responsive("1.4vw", "1.3rem", "0.9rem"),
+      fontWeight: 500,
+      fontSize: responsive("1.5vw", "1.3rem", "0.9rem"),
       lineHeight: 1.5,
       maxWidth: 750,
       zIndex: 3,
       textAlign: "justify",
-      marginTop: responsive(0, -250, -250),
+      marginTop: responsive(0, -250, `${mobileMarginTop}px`),
       marginLeft: responsive("15vw", 0, 0),
       marginRight: window.innerWidth > 1500 ? 300 : 0,
       marginBottom: responsive(0, 0, 50),
@@ -82,7 +82,7 @@ const AboutSection = () => {
     },
     bgImg: {
       position: "absolute",
-      top: responsive(0, 130, 0),
+      top: responsive(0, "20vw", "12vw"),
       zIndex: 0,
       transform: responsive(
         "translateY(-20vw)",
@@ -90,25 +90,16 @@ const AboutSection = () => {
         "translateY(-90vw)"
       ),
       width: "100%",
-      height: responsive("auto", "1000px", "100vh"),
+      height: responsive("auto", "70vw", "75vw"),
     },
   };
 
-  // const title = <div style={styles.title}>אודות הישיבה</div>;
-
-  const bookImg = (
-    <img src={"book-img.png"} style={styles.bookIcon} alt="book-img" />
-  );
-
   return (
     <div style={styles.container}>
-      {/* <div style={styles.titleSection}>
-        {bookImg}
-        <br />
-        {title}
-      </div> */}
-
-      <div style={styles.description}>{aboutUsSectionData}</div>
+      <div style={styles.description}>
+        <div style={styles.title}>חזון הישיבה</div>
+        {aboutUsSectionData}
+      </div>
 
       <img style={styles.bgImg} src={bgImg} alt="bg-img" />
     </div>

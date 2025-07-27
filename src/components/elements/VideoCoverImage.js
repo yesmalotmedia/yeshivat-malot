@@ -11,28 +11,26 @@ function VideoCoverImage({
   rabbiName,
   thumbnail,
   imgWidth,
+  isShort,
 }) {
   // State
   const [isHovered, setIsHovered] = useState(false);
   // Context
   const { colors, responsive, isMobile } = useContext(AppContext);
 
-  // // Function to extract YouTube video ID from the URL
-  // const getYouTubeVideoId = (url) => {
-  //   try {
-  //     const urlParts = url?.split("/");
-  //     const lastPart = urlParts[urlParts?.length - 1];
-  //     const idWithParams = lastPart.split("?")[0];
-  //     return idWithParams;
-  //   } catch (error) {
-  //     console.error("Error extracting YouTube video ID:", error);
-  //     return null;
-  //   }
-  // };
+  const shortThumbnailByRabbi = {
+    "הרב מנשה וינר": "/shortHaravViner.png",
+    "הרב מאיר בזק": "/shortHaravBazak.png",
+    "הרב מיכאל אזרד": "/shortHaravAzrad.png",
+  };
 
-  // const youTubeVideoId = getYouTubeVideoId(url);
+  const matchedThumbnail =
+    isShort && rabbiName && shortThumbnailByRabbi[rabbiName]
+      ? shortThumbnailByRabbi[rabbiName]
+      : null;
 
-  let thumbnailUrl = imgWidth == 120 ? "/default-cover.png" : thumbnail;
+  const thumbnailUrl =
+    matchedThumbnail || (imgWidth === 120 ? "/default-cover.png" : thumbnail);
 
   const styles = {
     container: {
