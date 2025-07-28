@@ -118,7 +118,7 @@ const SelectInput = ({
 
   const filteredOptions =
     searchTerm.trim() !== ""
-      ? filterOptions(options, searchTerm, false)
+      ? filterOptions(options, searchTerm, true)
       : options;
 
   useEffect(() => {
