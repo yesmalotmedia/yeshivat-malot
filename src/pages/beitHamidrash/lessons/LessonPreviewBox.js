@@ -33,7 +33,8 @@ export default function LessonPreviewBox({ video }) {
       flexDirection: "column",
       justifyContent: "space-around",
       backgroundColor: colors.white,
-      width: responsive(260, 400, "70vw"),
+      width: responsive(260, "30vw", "45vw"),
+      minWidth: 280,
       transform: isHovered ? "translateY(-10px)" : "translateY(0)", // Move up on hover
       transition: "transform 0.3s ease-out", // Smooth transition
       cursor: "pointer",
@@ -55,19 +56,21 @@ export default function LessonPreviewBox({ video }) {
       padding: 10,
     },
     title: {
-      fontSize: `max(${responsive("1vw", "1.6rem", "1rem")}, 1.2rem)`,
-      paddingTop: 5,
+      fontSize: "1rem",
+      lineHeight: 1.3,
+      fontWeight: "bold",
+      overflowWrap: "break-word",
     },
     subTitle: {
-      fontSize: `max(${responsive("1vw", "1.5rem", "1.3rem")}, 1.1rem)`,
-      paddingBottom: 10,
+      fontSize: responsive("1.1rem", "1.1rem", "1rem"),
+      fontWeight: 400,
+      lineHeight: 1.4,
+    },
+    date: {
+      fontSize: responsive("0.9rem", "1rem", "0.9rem"),
       fontWeight: 400,
     },
 
-    date: {
-      fontSize: responsive("0.9rem", "1.2rem", "1rem"),
-      fontWeight: 400,
-    },
     bottomSection: {
       textAlign: "right",
       color: colors.darkBlue,
@@ -103,8 +106,12 @@ export default function LessonPreviewBox({ video }) {
     dateContainer: {
       display: "flex",
       paddingTop: 5,
+      position: "absolute",
+      bottom: 14,
+      left: 12,
       color: colors.grey,
       alignItems: "center",
+      width: "90%",
       justifyContent: "space-between",
     },
     btn: {
@@ -146,10 +153,10 @@ export default function LessonPreviewBox({ video }) {
             <h2 style={styles.subTitle}> {video.rabbiName}</h2>
           </div>
 
-          <div>
+          <div style={styles.dateContainer}>
             {" "}
-            <h3 style={styles.date}>{video.date}</h3>
-            <h3 style={styles.date}>{video.heDate}</h3>
+            <div style={styles.date}>{video.date}</div>
+            <div style={styles.date}>{video.heDate}</div>
           </div>
         </div>
         {/* <div style={styles.bottomSection}>
