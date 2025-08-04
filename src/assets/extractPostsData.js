@@ -56,7 +56,7 @@ const ExtractPostsData = (data) => {
         : item?.acf_fields?.audio
           ? "audio"
           : "text",
-      url: youtubeUrl,
+      url: youtubeUrl + "&rel=0",
       article: item?.content || "",
       dedicatedTo: item?.dedicatedTo || "",
       audioUrl: item?.acf_fields?.audio || "",

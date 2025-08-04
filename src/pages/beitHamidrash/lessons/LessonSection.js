@@ -14,8 +14,11 @@ export default function LessonSection({ lesson, setLesson }) {
     useContext(AppContext);
   console.log(lesson);
 
-  const mainCategory = useCategoryNameById(lesson?.categories[3]);
-  const subCategory = useCategoryNameById(lesson?.categories[2]);
+  const mainCategory = useCategoryNameById(lesson?.categories[0]);
+  const subCategory = useCategoryNameById(lesson?.categories[1]);
+  const subSubCategory = useCategoryNameById(lesson?.categories[2]);
+  const subSubSubCategory = useCategoryNameById(lesson?.categories[3]);
+
   if (!displayedVideos) {
     console.error("Videos not available in context");
     return (
@@ -132,7 +135,8 @@ export default function LessonSection({ lesson, setLesson }) {
       {/* {isMobile && <MobileFilter setLesson={setLesson} />} */}
       <div style={styles.headerSection}>
         <p style={styles.breadcrumb}>
-          <span>{subCategory}</span> / <span>{mainCategory}</span>
+          <span>{mainCategory}</span> / <span>{subCategory}</span> /
+          <span>{subSubCategory}</span>/ <span>{subSubSubCategory}</span>
         </p>
         <h2 style={styles.nameOfRav}>{lesson.rabbiName}</h2>
         <h1 style={styles.nameOfShiur}>{lesson.title}</h1>
