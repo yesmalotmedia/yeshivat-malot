@@ -24,7 +24,6 @@ const BooksCollection = ({ isRoshYeshiva, leftSection, dataType }) => {
   const loadMorePosts = (increment) => {
     setVisiblePostCount((prevCount) => prevCount + increment);
   };
-  console.log(parsedMaalonData);
 
   const styles = {
     gridContainer: {
@@ -42,6 +41,7 @@ const BooksCollection = ({ isRoshYeshiva, leftSection, dataType }) => {
       marginTop: "20px",
     },
   };
+
   const currentData =
     dataType === "books" ? parsedPublishData : parsedMaalonData;
   console.log(currentData);
@@ -51,6 +51,7 @@ const BooksCollection = ({ isRoshYeshiva, leftSection, dataType }) => {
       ? book.author === "הרב יהושע ויצמן"
       : book.author !== "הרב יהושע ויצמן"
   );
+
   return (
     <div style={styles.container}>
       <div style={styles.gridContainer}>

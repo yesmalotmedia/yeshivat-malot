@@ -123,14 +123,16 @@ const Footer = () => {
       <div style={styles.copyRight}>
         © כל הזכויות שמורות לישיבת מעלות | האתר נבנה ב-❤ ע"י{" "}
         <a
-          href="mailto:media@yesmalot.co.il"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=media@yesmalot.co.il"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             color: "inherit",
             textDecoration: "none",
             fontWeight: "bold",
           }}
         >
-          bms סטודיו לפיתוח תוכנה ובניית אתרים{" "}
+          bms סטודיו לפיתוח תוכנה ובניית אתרים
         </a>
         | עיצוב - closeApp
       </div>

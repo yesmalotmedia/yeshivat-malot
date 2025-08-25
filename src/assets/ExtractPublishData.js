@@ -20,6 +20,8 @@ function convertDateFormat(dateStr) {
 }
 
 const ExtractPublishData = (data) => {
+  console.log(data);
+
   return data.map((post) => ({
     image: post?.yoast_head_json?.og_image[0]?.url,
     id: post?.id,
