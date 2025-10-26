@@ -1,7 +1,7 @@
 const SocialIconData = [
   {
     image: "/footerImages/whatsapp.png",
-    url: "https://wa.me/972526146659",
+    url: "https://wa.me/972559378556",
   },
 
   {

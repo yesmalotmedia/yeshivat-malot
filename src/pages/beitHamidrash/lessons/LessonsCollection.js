@@ -15,6 +15,7 @@ const LessonsCollection = ({ lessonsType, setlessonsType, setLesson }) => {
     postsFetchNextPage,
     postsStatus,
   } = useContext(AppContext);
+  console.log(lessonsFilter);
 
   const [visiblePostCount, setVisiblePostCount] = useState(10);
   const [isFetching, setIsFetching] = useState(false);
