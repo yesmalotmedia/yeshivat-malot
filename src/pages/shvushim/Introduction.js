@@ -48,8 +48,14 @@ export default function Introduction({
                   const phoneForLink = "972" + phone.replace(/^0/, "");
                   const firstName = name.split(" ")[0];
                   const message = encodeURIComponent(
-                    `שלום ${firstName}, אני מעוניין להגיע לשבו"ש לישיבה. דברו איתי בבקשה.`
+                    `שלום ${firstName},
+קוראים לי:
+אני גר ב:
+לומד ב:
+אשמח להגיע לשבו"ש בישיבה בתאריכים:
+אני מגיע לבד / אנחנו מגיעים __ חברים`
                   );
+
                   const link = `https://wa.me/${phoneForLink}?text=${message}`;
 
                   return (

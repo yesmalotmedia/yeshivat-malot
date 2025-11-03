@@ -3,12 +3,13 @@ import { AppContext } from "../../../App";
 import YouTubeVideo2 from "../../../components/elements/youTubeVideo2";
 import { Link } from "react-router-dom";
 import VideoCoverImage from "../../../components/elements/VideoCoverImage";
+import { useCategoryNameById } from "../../../assets/useCategories";
 
 export default function LessonPreviewBox({ video }) {
   const { colors, responsive } = useContext(AppContext);
   const [isHovered, setIsHovered] = useState(false);
   const [imgWidth, setImgWidth] = useState(0);
-  console.log(video);
+  console.log(video.categories);
 
   useEffect(() => {
     if (video.thumbnail) {
@@ -63,6 +64,11 @@ export default function LessonPreviewBox({ video }) {
     },
     subTitle: {
       fontSize: responsive("1.1rem", "1.1rem", "1rem"),
+      fontWeight: 400,
+      lineHeight: 1.4,
+    },
+    categories: {
+      fontSize: responsive("0.9rem", "1rem", "0.8rem"),
       fontWeight: 400,
       lineHeight: 1.4,
     },
@@ -151,6 +157,13 @@ export default function LessonPreviewBox({ video }) {
           <div style={{ width: "90%" }}>
             <h2 style={styles.title}> {video.title}</h2>
             <h2 style={styles.subTitle}> {video.rabbiName}</h2>
+            <h2 style={styles.categories}>
+              {video?.categories
+                ?.slice(1, 4) // קטגוריות 1 עד 3
+                .filter(Boolean) // מסנן null/undefined
+                .map((cat) => cat.name)
+                .join(" / ")}
+            </h2>
           </div>
 
           <div style={styles.dateContainer}>

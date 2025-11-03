@@ -135,8 +135,13 @@ export default function LessonSection({ lesson, setLesson }) {
       {/* {isMobile && <MobileFilter setLesson={setLesson} />} */}
       <div style={styles.headerSection}>
         <p style={styles.breadcrumb}>
-          <span>{mainCategory}</span> / <span>{subCategory}</span> /
-          <span>{subSubCategory}</span>/ <span>{subSubSubCategory}</span>
+          <h2 style={styles.categories}>
+            {lesson?.categories
+              ?.slice(1, 4) // קטגוריות 1 עד 3
+              .filter(Boolean) // מסנן null/undefined
+              .map((cat) => cat.name)
+              .join(" / ")}
+          </h2>
         </p>
         <h2 style={styles.nameOfRav}>{lesson.rabbiName}</h2>
         <h1 style={styles.nameOfShiur}>{lesson.title}</h1>
