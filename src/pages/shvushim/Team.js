@@ -27,7 +27,6 @@ export default function Team({ title, titleStyle, leftSection }) {
       borderRadius: 10,
       margin: "auto",
       maxWidth: 300,
-      
     }),
     teamItemWrapper: (index) => ({
       width: "100%",
@@ -60,64 +59,78 @@ export default function Team({ title, titleStyle, leftSection }) {
     {
       name: "הרב יהושע ויצמן",
       description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
+      img: "/profileHaravYehoshuaWaitsman.jpg",
+    },
+    {
+      name: "הרב שי הוד",
+      description: "ר״מ שיעור א׳",
+      img: "/profileHaravShaiHod.jpg",
+    },
+    {
+      name: "הרב מנחם ויצמן",
+      description: "ר״מ שיעור א׳",
+      img: "/profileHaravMenachemWaitsman.jpg",
+    },
+    {
+      name: "הרב סהר מזרחי",
+      description: "רב מלווה שיעור א׳",
+      img: "/profileHaravSaharMizrahi.jpg",
+    },
+    {
+      name: "הרב בעז אהרנסון",
+      description: "רב מלווה שיעור א׳",
+      img: "/profileHaravBoazAharonson.jpg",
+    },
+    {
+      name: "הרב מרדכי פרומר",
+      description: "ר״מ שיעור ב׳",
+      img: "/profileHaravMordechaiFromer.jpg",
+    },
+    {
+      name: "הרב טל חיימוביץ",
+      description: "ר״מ שיעור ב׳",
+      img: "/profileHaravTalHaimovitz.jpg",
+    },
+    {
+      name: "הרב מאור כהן",
+      description: "רב מלווה שיעור ב׳",
+      img: "/profileHaravMeorCohen.jpg",
+    },
+    {
+      name: "הרב שימי אופיר",
+      description: "ר״מ שיעור ד׳",
+      img: "/profileHaravShimiOfir.jpg",
+    },
+    {
+      name: "הרב אבישי וינר",
+      description: "ר״מ שיעור ד׳",
+      img: "/profileHaravAvishaiViner.jpg",
     },
     {
       name: "הרב מנשה וינר",
-      description: "ר\"מ",
-      img: "/profileHaravViner.jpg",
+      description: "ר״מ שיעור ה׳",
+      img: "/profileHaravMenasheViner.jpg",
     },
     {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
+      name: "הרב תמיר כהן",
+      description: "רב מלווה שיעור ה׳",
+      img: "/profileHaravTamirCohen.jpg",
     },
     {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
+      name: "הרב אלעזר אהרנסון",
+      description: "ר״מ שיעור ו׳ ומעלה",
+      img: "/profileHaravElazarAharonson.jpg",
     },
     {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
+      name: "הרב מיכאל אזרד",
+      description: "תכנית הלכה",
+      img: "/profileHaravMichaelAzrad.jpg",
     },
     {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
+      name: "הרב מאיר בזק",
+      description: "רב מלווה",
+      img: "/profileHaravMeirBazak.jpg",
     },
-    {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
-    },
-    {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
-    },
-    {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
-    },
-    {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
-    },
-    {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
-    },
-    {
-      name: "הרב יהושע ויצמן",
-      description: "ראש הישיבה",
-      img: "/profileHaravWaitsman.png",
-    },
-    // ... שאר המערך
   ];
 
   return (

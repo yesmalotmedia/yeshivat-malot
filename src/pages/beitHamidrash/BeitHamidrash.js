@@ -80,7 +80,7 @@ const BeitHamidrash = () => {
       display: "flex",
       margin: isMobile ? 0 : 100,
       justifyContent: "center",
-      flexDirection:'column'
+      flexDirection: "column",
     },
     titleSection: {
       display: "flex",
@@ -122,17 +122,15 @@ const BeitHamidrash = () => {
       </div>
 
       <section style={styles.mainSection}>
-       
-          <SideBarSearch
-            setLesson={setLesson}
-            lessonsType={lessonsType}
-            setlessonsType={setlessonsType}
-            selectedTopic={selectedTopic}
-            setSelectedTopic={setSelectedTopic}
-            selectedRabbi={selectedRabbi}
-            setSelectedRabbi={setSelectedRabbi}
-          />
-        
+        <SideBarSearch
+          setLesson={setLesson}
+          lessonsType={lessonsType}
+          setlessonsType={setlessonsType}
+          selectedTopic={selectedTopic}
+          setSelectedTopic={setSelectedTopic}
+          selectedRabbi={selectedRabbi}
+          setSelectedRabbi={setSelectedRabbi}
+        />
 
         {loading || postsStatus === "pending" ? ( // ודא שגם loading משפיע
           <LoaderAnimation

@@ -65,12 +65,12 @@ export default function Shvushim() {
         />
       ),
     },
-    // {
-    //   id: "5",
-    //   title: "צוות הישיבה",
-    //   imgSrc: "/teamIcon.png",
-    //   component: <Team titleStyle={styles.title} leftSection={leftSection} />,
-    // },
+    {
+      id: "5",
+      title: "צוות הישיבה",
+      imgSrc: "/teamIcon.png",
+      component: <Team titleStyle={styles.title} leftSection={leftSection} />,
+    },
   ];
 
   const activeSectionData = sections.find(
