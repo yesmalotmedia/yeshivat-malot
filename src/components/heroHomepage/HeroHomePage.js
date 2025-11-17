@@ -2,39 +2,30 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 
 const HeroHomePage = () => {
-  // context
   const { colors, isMobile, responsive } = useContext(AppContext);
-
-  // state to trigger animation
   const [isVisible, setIsVisible] = useState(false);
 
-  // Trigger the animation when the component mounts
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  // styles
   const styles = {
     container: {
       position: "relative",
-      width: "100%", // Ensure container fills the viewport width
-      height: responsive(
-        "calc( 100vh + 130px)",
-        "calc( 100vh + 120px)",
-        "700px"
-      ),
-      overflow: "hidden", // Hide any overflow from the image (important for radius)
+      width: "100%",
+      height: responsive("calc(100vh + 130px)", "calc(100vh + 120px)", "700px"),
+      overflow: "hidden",
     },
     img: {
-      width: "100%", // Ensure the image fills the container width
-      height: "80%", // Ensure the image fills the container height
-      objectFit: "cover", // Maintain aspect ratio and cover the entire container
-      objectPosition: "58%", // Center the image within the container
+      width: "100%",
+      height: "80%",
+      objectFit: "cover",
+      objectPosition: "58%",
       zIndex: -100,
-      borderBottomLeftRadius: "30px", // Radius for the bottom-left corner
-      borderBottomRightRadius: "30px", // Radius for the bottom-right corner
-      transition: "transform 2.5s ease-out", // Smooth transition for zoom-in effect
-      transform: isVisible ? "scale(1.05)" : "scale(1)", // Zoom-in effect
+      borderBottomLeftRadius: "30px",
+      borderBottomRightRadius: "30px",
+      transition: "transform 2.5s ease-out",
+      transform: isVisible ? "scale(1.05)" : "scale(1)",
     },
     text: {
       position: "absolute",
@@ -44,9 +35,9 @@ const HeroHomePage = () => {
       color: colors.white,
       fontSize: responsive(120, 100, 90),
       fontWeight: 700,
-      opacity: isVisible ? 1 : 0, // Animation for fade in
-      transform: isVisible ? "translateY(0)" : "translateY(20px)", // Slide-up effect
-      transition: "opacity 1.5s ease-out, transform 1.5s ease-out", // Smooth transition for text
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? "translateY(0)" : "translateY(20px)",
+      transition: "opacity 1.5s ease-out, transform 1.5s ease-out",
       lineHeight: 0.5,
     },
     smallText: {
@@ -55,18 +46,14 @@ const HeroHomePage = () => {
     },
   };
 
-  // functions
   const deskTopTitle = (
-    <div style={styles.text}>
-      <span style={styles.smallText}>ישיבת</span> <br />
-      <br /> מעלות
-    </div>
-  );
-
-  const mobileTitle = (
-    <div style={styles.text}>
-      <span style={styles.orangeText}>צדקו יחדיו</span> <br /> בית מדרש <br />{" "}
-      לאיחוד התלמודים
+    <div className="hero-main-title" style={styles.text}>
+      <span className="hero-main-title-small" style={styles.smallText}>
+        ישיבת
+      </span>
+      <br />
+      <br />
+      מעלות
     </div>
   );
 
