@@ -18,7 +18,7 @@ import TextEditor from "./pages/admin/TextEditor";
 import LessonSection from "./pages/beitHamidrash/lessons/LessonSection";
 import Bogrim from "./pages/bogrim/Bogrim";
 import Shvushim from "./pages/shvushim/Shvushim";
-import ShvushimForm from "./pages/shvushim/ShvushForm";
+import ShvushimForm from "./pages/shvushim/ShvushimForm";
 const routers = createBrowserRouter([
   {
     path: "/",
@@ -79,7 +79,7 @@ const routers = createBrowserRouter([
         element: <Shvushim />,
       },
       {
-        path: "Shvushim/contact",
+        path: "ShvushimForm",
         element: <ShvushimForm />,
       },
       {

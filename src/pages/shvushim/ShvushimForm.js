@@ -5,7 +5,7 @@ import HeroSection from "../../components/elements/HeroSection";
 
 const GOOGLE_WEBHOOK =
   "https://script.google.com/macros/s/AKfycbz4RvYccSlL05hj7tDNnUYpJ4UKUTL03FCeAhqxlF9m1OrJaaA_S1vrCnJhtxTlb8cWLQ/exec";
-export default function Form({ title }) {
+export default function ShvushimForm({ title }) {
   const { colors, responsive } = useContext(AppContext);
 
   const [formState, setFormState] = useState({
