@@ -142,8 +142,8 @@ export default function ShvushimForm({ title }) {
     <>
       <HeroSection
         backgroundImage={"contactHero.png"}
-        title={"נשמח לדבר איתכם"}
-        subTitle={" השאירו פרטים ונחזור אליכם בהקדם "}
+        title={'שבו"ש בישיבת מעלות'}
+        subTitle={"טופס מילוי פרטים"}
         titleColor={colors.white}
         height={responsive("50vmin", "50vmin", "70vmin")}
         marginTop={responsive("50px", "90px", "90px")}
@@ -154,7 +154,7 @@ export default function ShvushimForm({ title }) {
 
         {isSuccess ? (
           <TanksMessage
-            msg="תודה על הרישום! הפרטים נקלטו בהצלחה"
+            msg={"הפרטים נקלטו במערכת , תודה רבה"}
             color={colors.darkBlue}
           />
         ) : (

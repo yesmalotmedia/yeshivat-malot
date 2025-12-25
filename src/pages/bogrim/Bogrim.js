@@ -66,7 +66,7 @@ export default function Bogrim() {
   return (
     <>
       <HeroSection
-        title={"בוגרים"}
+        title={"בוגרי הישיבה"}
         subTitle={" בוגרי ישיבת מעלות לדורותיה"}
         isSubscribe={false}
         titleColor={colors.white}

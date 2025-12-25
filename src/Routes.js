@@ -70,6 +70,7 @@ const routers = createBrowserRouter([
         path: "About",
         element: <About />,
       },
+
       {
         path: "Terumot",
         element: <Terumot />,
@@ -81,6 +82,10 @@ const routers = createBrowserRouter([
       {
         path: "ShvushimForm",
         element: <ShvushimForm />,
+      },
+      {
+        path: "NeWStudentForm",
+        element: <NeWStudentForm />,
       },
       {
         path: "Bogrim",
