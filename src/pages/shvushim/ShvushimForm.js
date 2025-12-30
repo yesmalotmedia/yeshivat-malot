@@ -165,7 +165,7 @@ export default function ShvushimForm({ title }) {
               {
                 label: "ת״ז",
                 name: "id_number",
-                type: "number",
+                type: "text",
                 inputMode: "numeric",
               },
               { label: "טלפון", name: "phone", type: "tel", inputMode: "tel" },

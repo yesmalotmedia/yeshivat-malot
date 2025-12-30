@@ -19,6 +19,7 @@ import LessonSection from "./pages/beitHamidrash/lessons/LessonSection";
 import Bogrim from "./pages/bogrim/Bogrim";
 import Shvushim from "./pages/shvushim/Shvushim";
 import ShvushimForm from "./pages/shvushim/ShvushimForm";
+import NeWStudentForm from "./pages/shvushim/NewStudentForm";
 const routers = createBrowserRouter([
   {
     path: "/",
