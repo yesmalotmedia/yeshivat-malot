@@ -4,7 +4,7 @@ import TanksMessage from "../../components/elements/TanksMessage";
 import HeroSection from "../../components/elements/HeroSection";
 
 const GOOGLE_WEBHOOK =
-  "https://script.google.com/macros/s/AKfycbz4RvYccSlL05hj7tDNnUYpJ4UKUTL03FCeAhqxlF9m1OrJaaA_S1vrCnJhtxTlb8cWLQ/exec";
+  "https://script.google.com/macros/s/AKfycbzVChrn08NfIHXTUVG4sHrrJAMfkZUSOwyfNCf9CBylHghtT9dh9a5HMJo-wHbJEDVk/exec";
 export default function ShvushimForm({ title }) {
   const { colors, responsive } = useContext(AppContext);
 
@@ -168,8 +168,8 @@ export default function ShvushimForm({ title }) {
                 type: "text",
                 inputMode: "numeric",
               },
-              { label: "טלפון", name: "phone", type: "tel", inputMode: "tel" },
-              { label: "ישיבה", name: "yeshiva", type: "text" },
+              { label: "טלפון", name: "phone", type: "text", inputMode: "tel" },
+              { label: "ישיבה תיכונית/תיכון", name: "yeshiva", type: "text" },
             ].map((field) => (
               <div key={field.name} style={styles.inputWrapper}>
                 <label style={styles.label}>{field.label}</label>
