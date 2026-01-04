@@ -4,7 +4,17 @@ import TanksMessage from "../../components/elements/TanksMessage";
 import HeroSection from "../../components/elements/HeroSection";
 
 const GOOGLE_WEBHOOK =
-  "https://script.google.com/macros/s/AKfycbzVChrn08NfIHXTUVG4sHrrJAMfkZUSOwyfNCf9CBylHghtT9dh9a5HMJo-wHbJEDVk/exec";
+  "https://script.google.com/macros/s/AKfycbyuCj9fJK-UcMXgKGC4V_cPc3PNLKtuxZMiBFGVvYHFRTCbPX-T-Ii9LIsogHmQJckQxA/exec";
+
+// שדות חובה (חוץ מהערות)
+const REQUIRED_FIELDS = [
+  "first_name",
+  "last_name",
+  "id_number",
+  "phone",
+  "yeshiva",
+];
+
 export default function ShvushimForm({ title }) {
   const { colors, responsive } = useContext(AppContext);
 
@@ -27,11 +37,23 @@ export default function ShvushimForm({ title }) {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
+  // ולידציה לוגית
+  const isFormValid = () =>
+    REQUIRED_FIELDS.every(
+      (field) => formState[field] && formState[field].trim() !== ""
+    );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isFormValid()) {
+      alert("נא למלא את כל שדות החובה");
+      return;
+    }
+
     setIsLoading(true);
     const body = new URLSearchParams(formState).toString();
-    console.log(body);
+
     try {
       await fetch(GOOGLE_WEBHOOK, {
         method: "POST",
@@ -58,14 +80,14 @@ export default function ShvushimForm({ title }) {
 
   const styles = {
     form: {
-      width: responsive("90%", "85%", "90%"), // תופס רוב המסך במובייל
-      maxWidth: 600, // מונע מתיחה מוגזמת במחשב
+      width: responsive("90%", "85%", "90%"),
+      maxWidth: 600,
       boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
       background: colors.white,
       borderRadius: 20,
       margin: "40px auto",
       padding: responsive("20px", "25px", "15px"),
-      direction: "rtl", // מבטיח יישור לימין
+      direction: "rtl",
     },
     title: {
       color: colors.darkBlue,
@@ -76,7 +98,7 @@ export default function ShvushimForm({ title }) {
     },
     inputWrapper: {
       display: "flex",
-      flexDirection: responsive("row", "row", "column"), // במובייל - אחד מעל השני
+      flexDirection: responsive("row", "row", "column"),
       alignItems: responsive("center", "center", "flex-start"),
       paddingTop: 20,
       justifyContent: "center",
@@ -88,18 +110,22 @@ export default function ShvushimForm({ title }) {
       fontWeight: 600,
       fontSize: responsive("1.1rem", "1.1rem", "1rem"),
       color: colors.darkBlue,
-      width: responsive("100px", "90px", "100%"), // במובייל לוקח את כל השורה
+      width: responsive("100px", "90px", "100%"),
       textAlign: "right",
+    },
+    star: {
+      color: "#d32f2f",
+      marginRight: 4,
     },
     input: {
       outline: "none",
       border: `2px solid ${colors.darkBlue}`,
-      width: "100%", // תמיד ממלא את המכולה שלו
+      width: "100%",
       height: responsive(45, 45, 40),
       borderRadius: 30,
       fontSize: "1rem",
       paddingRight: 15,
-      boxSizing: "border-box", // חשוב כדי שהפדינג לא יוסיף לרוחב
+      boxSizing: "border-box",
     },
     message: {
       outline: "none",
@@ -154,7 +180,7 @@ export default function ShvushimForm({ title }) {
 
         {isSuccess ? (
           <TanksMessage
-            msg={"הפרטים נקלטו במערכת , תודה רבה"}
+            msg={"הפרטים נקלטו במערכת, תודה רבה"}
             color={colors.darkBlue}
           />
         ) : (
@@ -168,11 +194,23 @@ export default function ShvushimForm({ title }) {
                 type: "text",
                 inputMode: "numeric",
               },
-              { label: "טלפון", name: "phone", type: "text", inputMode: "tel" },
-              { label: "ישיבה תיכונית/תיכון", name: "yeshiva", type: "text" },
+              {
+                label: "טלפון",
+                name: "phone",
+                type: "text",
+                inputMode: "tel",
+              },
+              {
+                label: "ישיבה תיכונית/תיכון",
+                name: "yeshiva",
+                type: "text",
+              },
             ].map((field) => (
               <div key={field.name} style={styles.inputWrapper}>
-                <label style={styles.label}>{field.label}</label>
+                <label style={styles.label}>
+                  {field.label}
+                  <span style={styles.star}>*</span>
+                </label>
                 <input
                   style={styles.input}
                   name={field.name}
