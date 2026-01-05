@@ -136,7 +136,8 @@ export default function NewStudentForm() {
 
   const styles = {
     wrapper: {
-      maxWidth: 860,
+      maxWidth: responsive("860px", "85%", "90%"),
+
       margin: "40px auto",
       padding: responsive(24, 24, 16),
       background: colors.white,
@@ -155,6 +156,7 @@ export default function NewStudentForm() {
       display: "grid",
       gridTemplateColumns: responsive("1fr 1fr", "1fr 1fr", "1fr"),
       gap: 14,
+      padding: responsive(0, 0, 12),
     },
     field: { display: "flex", flexDirection: "column", gap: 6 },
     label: { fontWeight: 600, color: colors.darkBlue },

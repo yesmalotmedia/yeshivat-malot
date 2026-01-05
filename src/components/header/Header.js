@@ -18,7 +18,8 @@ function Header() {
 
   const location = useLocation();
   const isTerumotPage = location.pathname === "/terumot";
-
+  const isShvushimFormPage = location.pathname === "/ShvushimForm";
+  const isNewStudentFormPage = location.pathname === "/NewStudentForm";
   // סטייט חדש לנראות ההודעה
   const [showFirstRunAlert, setShowFirstRunAlert] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -102,7 +103,7 @@ function Header() {
     <>
       <div style={styles.container}>
         <div style={styles.humburgerAndLink}>
-          {!isTerumotPage && (
+          {!isTerumotPage && !isShvushimFormPage && !isNewStudentFormPage && (
             <Link to={"/terumot"} style={styles.terumot}>
               <Button
                 color={colors.darkBlue}
