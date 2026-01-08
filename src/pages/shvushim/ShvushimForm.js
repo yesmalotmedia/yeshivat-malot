@@ -34,6 +34,28 @@ export default function ShvushimForm({ title }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // לוגיקה לעיצוב טלפון (xxx-xxxxxxx)
+    if (name === "phone") {
+      let cleaned = value.replace(/\D/g, ""); // הסרת כל מה שאינו מספר
+      cleaned = cleaned.substring(0, 10); // מקסימום 10 ספרות
+
+      let formatted = cleaned;
+      if (cleaned.length > 3) {
+        formatted = `${cleaned.substring(0, 3)}-${cleaned.substring(3)}`;
+      }
+      setFormState((prev) => ({ ...prev, [name]: formatted }));
+      return;
+    }
+
+    // לוגיקה לתעודת זהות (רק מספרים, עד 9 ספרות)
+    if (name === "id_number") {
+      const cleaned = value.replace(/\D/g, "").substring(0, 9);
+      setFormState((prev) => ({ ...prev, [name]: cleaned }));
+      return;
+    }
+
+    // התנהגות רגילה לשאר השדות
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -193,12 +215,15 @@ export default function ShvushimForm({ title }) {
                 name: "id_number",
                 type: "text",
                 inputMode: "numeric",
+                maxLength: 9,
               },
               {
                 label: "טלפון",
                 name: "phone",
-                type: "text",
+                type: "tel",
                 inputMode: "tel",
+                maxLength: 11,
+                placeholder: "05x-xxxxxxx",
               },
               {
                 label: "ישיבה תיכונית/תיכון",
@@ -218,6 +243,8 @@ export default function ShvushimForm({ title }) {
                   onChange={handleChange}
                   type={field.type}
                   inputMode={field.inputMode}
+                  maxLength={field.maxLength}
+                  placeholder={field.placeholder}
                   required
                 />
               </div>

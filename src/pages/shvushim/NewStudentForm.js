@@ -4,7 +4,7 @@ import TanksMessage from "../../components/elements/TanksMessage";
 import HeroSection from "../../components/elements/HeroSection";
 
 const GOOGLE_WEBHOOK =
-  "https://script.google.com/macros/s/AKfycbwinNJOlCUjZ4URm2I5Oh26BX_ZhqnDOPObDSP1cOhskYBF3nH4r9FxZst6yuktw11W/exec";
+  "https://script.google.com/macros/s/AKfycbxWCQYN_4zdDMG0ek6MfE5FCvAa_TAzNiS6GUgBbZQjq42vNMqbIbCgCy31y2OVG0K1/exec";
 
 const STEPS = ["פרטי תלמיד", "כתובת ופרטי קשר", "פרטי הורים", "הערות ושליחה"];
 
@@ -35,6 +35,8 @@ const InputField = memo(function InputField({
   value,
   onChange,
   styles,
+  placeholder,
+  maxLength,
 }) {
   const isRequired = REQUIRED_FIELDS.has(name);
 
@@ -50,6 +52,8 @@ const InputField = memo(function InputField({
         value={value}
         onChange={onChange}
         style={styles.input}
+        placeholder={placeholder}
+        maxLength={maxLength}
       />
     </div>
   );
@@ -95,6 +99,28 @@ export default function NewStudentForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // לוגיקה לעיצוב מספרי טלפון (נייד/בית/הורים)
+    if (name.includes("phone")) {
+      let cleaned = value.replace(/\D/g, ""); // הסרת תווים שאינם ספרות
+      cleaned = cleaned.substring(0, 10); // מקסימום 10 ספרות
+
+      let formatted = cleaned;
+      if (cleaned.length > 3) {
+        formatted = `${cleaned.substring(0, 3)}-${cleaned.substring(3)}`;
+      }
+      setFormState((p) => ({ ...p, [name]: formatted }));
+      return;
+    }
+
+    // לוגיקה לתעודת זהות (רק ספרות, עד 9 תווים)
+    if (name === "id_number") {
+      const cleaned = value.replace(/\D/g, "").substring(0, 9);
+      setFormState((p) => ({ ...p, [name]: cleaned }));
+      return;
+    }
+
+    // שאר השדות
     setFormState((p) => ({ ...p, [name]: value }));
   };
 
@@ -137,7 +163,6 @@ export default function NewStudentForm() {
   const styles = {
     wrapper: {
       maxWidth: responsive("860px", "85%", "90%"),
-
       margin: "40px auto",
       padding: responsive(24, 24, 16),
       background: colors.white,
@@ -250,6 +275,7 @@ export default function NewStudentForm() {
                     value={formState.id_number}
                     onChange={handleChange}
                     styles={styles}
+                    maxLength={9}
                   />
                   <InputField
                     name="birth_hebrew"
@@ -324,16 +350,21 @@ export default function NewStudentForm() {
                   <InputField
                     name="mobile_phone"
                     label="טלפון נייד"
+                    type="tel"
                     value={formState.mobile_phone}
                     onChange={handleChange}
                     styles={styles}
+                    maxLength={11}
+                    placeholder="05x-xxxxxxx"
                   />
                   <InputField
                     name="home_phone"
                     label="טלפון בבית"
+                    type="tel"
                     value={formState.home_phone}
                     onChange={handleChange}
                     styles={styles}
+                    maxLength={11}
                   />
                 </div>
               )}
@@ -358,9 +389,11 @@ export default function NewStudentForm() {
                   <InputField
                     name="father_phone"
                     label="טלפון נייד - האב"
+                    type="tel"
                     value={formState.father_phone}
                     onChange={handleChange}
                     styles={styles}
+                    maxLength={11}
                   />
                   <InputField
                     name="father_email"
@@ -389,9 +422,11 @@ export default function NewStudentForm() {
                   <InputField
                     name="mother_phone"
                     label="טלפון נייד - האם"
+                    type="tel"
                     value={formState.mother_phone}
                     onChange={handleChange}
                     styles={styles}
+                    maxLength={11}
                   />
                   <InputField
                     name="mother_email"
