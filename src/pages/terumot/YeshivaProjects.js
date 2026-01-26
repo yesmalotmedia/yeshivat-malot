@@ -87,6 +87,7 @@ export default function YeshivaProjects({ title, titleStyle, leftSection }) {
       description:
         "כל מטר מרובע נוסף בבית המדרש שלנו הוא עוד מקום בו מתגלה ונשמעת תורת ארץ ישראל. רוצים להיות שותפים? זו הדרך שלכם לקחת חלק !",
       image: "/terumot-betmidrash.jpg",
+      link: "https://www.matara.pro/nedarimplus/online/?mosad=7005986",
     },
 
     {
@@ -95,6 +96,7 @@ export default function YeshivaProjects({ title, titleStyle, leftSection }) {
       description:
         "מבקשי פניך הוא פרויקט של ישיבת מעלות – בית מדרש פתוח לצעירים בגילאי 18–30 המבקשים לחקור ולהעמיק בזהות היהודית שלהם. הלימוד התורני משתלב עם ליווי אישי ואווירה משפחתית, חמה ונטולת שיפוטיות. בין נופי הגליל המערבי נוצר מרחב של חיבור לשורשים, בניית זהות מתוך חופש ובחירה, ומסע אישי משמעותי של צמיחה רוחנית ונפשית.",
       image: "/terumot-mevakshey.png",
+      link: "https://mevakshei.co.il/%d7%aa%d7%a8%d7%95%d7%9e%d7%94-%d7%9c%d7%99%d7%a9%d7%99%d7%91%d7%aa-%d7%9e%d7%91%d7%a7%d7%a9%d7%99-%d7%a4%d7%a0%d7%99%d7%9a/",
     },
 
     {
@@ -103,6 +105,7 @@ export default function YeshivaProjects({ title, titleStyle, leftSection }) {
       description:
         "פרויקט קהילתי של ישיבת מעלות הפועל למעלה מ־20 שנה. תלמידי הישיבה יוצאים מדי שבוע למפגש אישי עם תושבי מעלות והסביבה – ללימוד, הקשבה ושיח ערכי מתוך מקורות יהודיים. הפעילות מחברת בין חלקי העם באהבה וענווה, ומעודדת את כולנו לחשוף את האור הפנימי ולקרב את הלבבות.",
       image: "/terumot-panimplanim.png",
+      link: "https://www.matara.pro/nedarimplus/online/?mosad=7005986",
     },
     {
       title: "פרויקט בני המנשה",
@@ -110,6 +113,7 @@ export default function YeshivaProjects({ title, titleStyle, leftSection }) {
       description:
         "מאות עולים מהודו – בני שבט מנשה – נקלטים בארץ בחסדי שמיים. אנו מסייעים להם למצוא קהילה, חינוך, תעסוקה ושייכות. בזכותכם התרומה שלכם – הם מרגישים יותר בבית.",
       image: "/trumot-bneimenashe.png",
+      link: "https://www.matara.pro/nedarimplus/online/?mosad=7005986",
     },
     {
       title: "תרומה כללית",
@@ -161,10 +165,7 @@ export default function YeshivaProjects({ title, titleStyle, leftSection }) {
                   style={{ ...styles.button, marginTop: "8px" }}
                   onClick={(event) => {
                     event.stopPropagation();
-                    window.open(
-                      "https://www.matara.pro/nedarimplus/online/?mosad=7005986",
-                      "_blank"
-                    );
+                    window.open(e.link, "_blank");
                   }}
                 >
                   אני רוצה להיות שותף בפרויקט
