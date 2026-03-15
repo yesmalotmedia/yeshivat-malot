@@ -1,11 +1,15 @@
 import { useEffect } from "react";
-
-const TARGET_URL = "https://siyomhashasmalot-757670235882.us-west1.run.app/";
+import LoaderAnimation from "../../components/elements/LoaderAnimation";
 
 export default function RedirectToSiyum() {
   useEffect(() => {
-    window.location.replace(TARGET_URL);
+    const timer = setTimeout(() => {
+      window.location.replace(
+        "https://siyomhashasmalot-757670235882.us-west1.run.app/",
+      );
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
-  return null;
+  return <LoaderAnimation isLoading={true} />;
 }
