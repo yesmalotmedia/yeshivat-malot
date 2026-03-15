@@ -20,6 +20,7 @@ import Bogrim from "./pages/bogrim/Bogrim";
 import Shvushim from "./pages/shvushim/Shvushim";
 import ShvushimForm from "./pages/shvushim/ShvushimForm";
 import NeWStudentForm from "./pages/shvushim/NewStudentForm";
+import RedirectToSiyum from "./pages/siyumHashas/SiyumHashas";
 const routers = createBrowserRouter([
   {
     path: "/",
@@ -99,6 +100,10 @@ const routers = createBrowserRouter([
       {
         path: "Admin",
         element: <TextEditor />,
+      },
+      {
+        path: "siyomhashasmalot",
+        element: <RedirectToSiyum />,
       },
     ],
   },
