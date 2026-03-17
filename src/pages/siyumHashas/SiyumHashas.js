@@ -7,7 +7,7 @@ export default function RedirectToSiyum() {
       window.location.replace(
         "https://siyomhashasmalot-757670235882.us-west1.run.app/",
       );
-    }, 1000);
+    }, 3);
     return () => clearTimeout(timer);
   }, []);
 
