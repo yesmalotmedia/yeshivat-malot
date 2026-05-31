@@ -6,6 +6,7 @@ import Spacer from "../../components/elements/Spacer";
 import HeroHomePage from "../../components/heroHomepage/HeroHomePage";
 import GallerySection from "../../components/gallerySection/GallerySection";
 import DedicationSection from "../../components/dedicationSection/DedicationSection";
+import BannerModal from "../../components/elements/BannerModal";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <GallerySection />
       <DailyText />
       {/* <DedicationSection /> */}
+      <BannerModal onClose={() => {}} />
     </div>
   );
 };
