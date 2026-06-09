@@ -40,7 +40,8 @@ function VideoCoverImage({
     },
     img: {
       width: "100%",
-      height: "100%",
+      height: "160px", // גובה קבוע
+      objectFit: "cover",
       borderRadius: "20px 20px 0 0",
       boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
     },
@@ -48,14 +49,19 @@ function VideoCoverImage({
 
   return (
     <div style={styles.container}>
-      <Link style={styles.btn} to={`/BeitHamidrash/${videoId}`}>
+      <Link style={{ width: "100%" }} to={`/BeitHamidrash/${videoId}`}>
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={() => setIsHovered(true)}
           onTouchEnd={() => setIsHovered(false)}
+          style={{
+            width: "100%",
+            overflow: "hidden",
+            borderRadius: "20px 20px 0 0",
+          }}
         >
-          <picture>
+          <picture style={{ width: "100%", display: "block" }}>
             <img
               src={thumbnailUrl}
               alt="YouTube Video Thumbnail"
