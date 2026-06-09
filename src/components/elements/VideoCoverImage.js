@@ -1,21 +1,16 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../App";
-import bgColors from "../../styles/bg-colors";
 import { Link } from "react-router-dom";
-import shadow from "../../styles/shadows";
-import { transform } from "framer-motion";
+
 function VideoCoverImage({
   url,
   videoId,
   title,
   rabbiName,
   thumbnail,
-  imgWidth,
   isShort,
 }) {
-  // State
   const [isHovered, setIsHovered] = useState(false);
-  // Context
   const { colors, responsive, isMobile } = useContext(AppContext);
 
   const shortThumbnailByRabbi = {
@@ -29,8 +24,7 @@ function VideoCoverImage({
       ? shortThumbnailByRabbi[rabbiName]
       : null;
 
-  const thumbnailUrl =
-    matchedThumbnail || (imgWidth === 120 ? "/default-cover.png" : thumbnail);
+  const thumbnailUrl = matchedThumbnail || thumbnail;
 
   const styles = {
     container: {
@@ -47,7 +41,7 @@ function VideoCoverImage({
     img: {
       width: "100%",
       height: "100%",
-      borderRadius: "20px 20px 0 0 ",
+      borderRadius: "20px 20px 0 0",
       boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
     },
   };
@@ -62,16 +56,23 @@ function VideoCoverImage({
           onTouchEnd={() => setIsHovered(false)}
         >
           <picture>
-            {" "}
             <img
               src={thumbnailUrl}
               alt="YouTube Video Thumbnail"
               style={styles.img}
               loading="lazy"
+              onError={(e) => {
+                const youtubeId = thumbnail?.match(/vi\/([^/]+)\//)?.[1];
+                if (
+                  youtubeId &&
+                  e.target.src !==
+                    `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+                ) {
+                  e.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+                }
+              }}
             />
           </picture>
-
-          {/* <div style={styles.title}>{title}</div> */}
         </div>
       </Link>
     </div>
