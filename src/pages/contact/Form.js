@@ -32,10 +32,10 @@ export default function Form({ title, lesson_name }) {
     setIsLoading(true);
     emailjs
       .sendForm(
-        "service_oktpopo", // Your EmailJS service ID
-        "template_xaadncq", // Your EmailJS template ID
+        "service_dwsvssh", // Your EmailJS service ID
+        "template_6tsbbvb", // Your EmailJS template ID
         formRef.current,
-        "6nT-r6G4qY9-xawTb" // Your public key
+        "6nT-r6G4qY9-xawTb", // Your public key
       )
       .then(
         (result) => {
@@ -45,7 +45,7 @@ export default function Form({ title, lesson_name }) {
         },
         (error) => {
           console.log("FAILED...", error.text);
-        }
+        },
       );
   };
 
